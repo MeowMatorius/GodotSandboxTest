@@ -1,0 +1,149 @@
+[gd_scene load_steps=5 format=3 uid="uid://l21017dfwaun"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4ai1x"]
+bg_color = Color(1, 0, 0, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ohrjl"]
+bg_color = Color(0, 0.7252315, 0.20791152, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="Gradient" id="Gradient_4ai1x"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_ohrjl"]
+gradient = SubResource("Gradient_4ai1x")
+
+[node name="PlayerUI" type="CanvasLayer"]
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 16.0
+offset_top = 48.0
+offset_right = -16.0
+offset_bottom = -48.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VFlowContainer" type="VFlowContainer" parent="Control"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -200.0
+offset_top = 24.0
+offset_right = -27.0
+offset_bottom = 112.0
+grow_horizontal = 0
+
+[node name="Coins" type="Label" parent="Control/VFlowContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Coins: 0"
+
+[node name="Expirience" type="Label" parent="Control/VFlowContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Expirience: 0"
+
+[node name="StatusContainer" type="MarginContainer" parent="Control"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 27.0
+offset_top = -56.0
+offset_right = -27.0
+offset_bottom = -29.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="HealthContainer" type="VFlowContainer" parent="Control/StatusContainer"]
+custom_minimum_size = Vector2(0, 80)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+
+[node name="Label" type="Label" parent="Control/StatusContainer/HealthContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Health"
+
+[node name="HealthBar" type="ProgressBar" parent="Control/StatusContainer/HealthContainer"]
+custom_minimum_size = Vector2(200, 30)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+theme_override_styles/fill = SubResource("StyleBoxFlat_4ai1x")
+value = 100.0
+rounded = true
+
+[node name="StaminaContainer" type="VFlowContainer" parent="Control/StatusContainer"]
+custom_minimum_size = Vector2(0, 80)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+
+[node name="Label" type="Label" parent="Control/StatusContainer/StaminaContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Stamina"
+
+[node name="StaminaBar" type="ProgressBar" parent="Control/StatusContainer/StaminaContainer"]
+custom_minimum_size = Vector2(200, 30)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+theme_override_styles/fill = SubResource("StyleBoxFlat_ohrjl")
+value = 100.0
+rounded = true
+
+[node name="Letterbox" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1152.0
+offset_bottom = 646.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="Letterbox"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+grow_horizontal = 2
+
+[node name="Sprite2D" type="Polygon2D" parent="Letterbox/MarginContainer"]
+position = Vector2(600, 25)
+scale = Vector2(-25, 1)
+texture = SubResource("GradientTexture2D_ohrjl")
+polygon = PackedVector2Array(-32, -32, -32, 32, 32, 32, 32, -32)
+uv = PackedVector2Array(0, 0, 0, 64, 64, 64, 64, 0)
+polygons = [PackedInt32Array(0, 1, 2, 3)]
+
+[node name="MarginContainer2" type="MarginContainer" parent="Letterbox"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="Sprite2D2" type="Polygon2D" parent="Letterbox/MarginContainer2"]
+position = Vector2(600, -25)
+scale = Vector2(25, 1)
+texture = SubResource("GradientTexture2D_ohrjl")
+polygon = PackedVector2Array(-32, -32, -32, 32, 32, 32, 32, -32)
+uv = PackedVector2Array(0, 0, 0, 64, 64, 64, 64, 0)
+polygons = [PackedInt32Array(0, 1, 2, 3)]

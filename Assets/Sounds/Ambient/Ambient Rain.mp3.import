@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://bhu8bng8lv6lr"
+path="res://.godot/imported/Ambient Rain.mp3-66f203e02a7cd4d4d70e209dc59f2481.mp3str"
+
+[deps]
+
+source_file="res://Assets/Sounds/Ambient/Ambient Rain.mp3"
+dest_files=["res://.godot/imported/Ambient Rain.mp3-66f203e02a7cd4d4d70e209dc59f2481.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
