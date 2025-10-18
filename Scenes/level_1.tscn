@@ -1,10 +1,11 @@
-[gd_scene load_steps=9 format=4 uid="uid://f10xv8s5tkq1"]
+[gd_scene load_steps=10 format=4 uid="uid://f10xv8s5tkq1"]
 
 [ext_resource type="Texture2D" uid="uid://bwy31n6ldcsyk" path="res://Assets/Sprites/Brackeys Assets/world_tileset.png" id="2_8ffim"]
 [ext_resource type="PackedScene" uid="uid://drkpxgvgqe5c2" path="res://Scenes/player.tscn" id="2_xfk5q"]
 [ext_resource type="PackedScene" uid="uid://b2m1ta1u1rsr3" path="res://Scenes/killzone.tscn" id="3_6444e"]
 [ext_resource type="AudioStream" uid="uid://ddwmtelngh4g2" path="res://Assets/Music/Bilewater.mp3" id="3_xfk5q"]
 [ext_resource type="PackedScene" uid="uid://l21017dfwaun" path="res://Scenes/player_ui.tscn" id="4_7p6j4"]
+[ext_resource type="PackedScene" uid="uid://bb2goadjdsl1s" path="res://Scenes/slime.tscn" id="4_evi0p"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_xfk5q"]
 texture = ExtResource("2_8ffim")
@@ -201,6 +202,7 @@ panning_strength = 0.0
 bus = &"BG Music"
 
 [node name="Sun" type="DirectionalLight2D" parent="Enviroment"]
+visible = false
 energy = 0.8
 blend_mode = 1
 shadow_enabled = true
@@ -213,6 +215,9 @@ position = Vector2(0, 128)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Enviroment/Killzone"]
 shape = SubResource("WorldBoundaryShape2D_evi0p")
 debug_color = Color(0.99206454, 0, 0.2634141, 0.41960785)
+
+[node name="slime" parent="Enviroment" instance=ExtResource("4_evi0p")]
+position = Vector2(-232, -11)
 
 [node name="Player" parent="." instance=ExtResource("2_xfk5q")]
 position = Vector2(0, -8)
