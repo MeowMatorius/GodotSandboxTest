@@ -1,15 +1,12 @@
-[gd_scene load_steps=15 format=4 uid="uid://f10xv8s5tkq1"]
+[gd_scene load_steps=12 format=4 uid="uid://f10xv8s5tkq1"]
 
 [ext_resource type="Texture2D" uid="uid://bwy31n6ldcsyk" path="res://Assets/Sprites/Brackeys Assets/world_tileset.png" id="2_8ffim"]
 [ext_resource type="PackedScene" uid="uid://drkpxgvgqe5c2" path="res://Scenes/player.tscn" id="2_xfk5q"]
 [ext_resource type="PackedScene" uid="uid://b2m1ta1u1rsr3" path="res://Scenes/killzone.tscn" id="3_6444e"]
 [ext_resource type="AudioStream" uid="uid://ddwmtelngh4g2" path="res://Assets/Music/Bilewater.mp3" id="3_xfk5q"]
-[ext_resource type="PackedScene" uid="uid://l21017dfwaun" path="res://Scenes/player_ui.tscn" id="4_7p6j4"]
 [ext_resource type="PackedScene" uid="uid://bb2goadjdsl1s" path="res://Scenes/slime.tscn" id="4_evi0p"]
 [ext_resource type="PackedScene" uid="uid://d3psd025liwe7" path="res://Scenes/sign.tscn" id="5_chwpn"]
-[ext_resource type="Script" uid="uid://blbw781bo7in" path="res://Scripts/game_manager.gd" id="7_lsmp6"]
 [ext_resource type="PackedScene" uid="uid://cb1hf4bp8blke" path="res://Scenes/coin.tscn" id="7_xrdnt"]
-[ext_resource type="PackedScene" uid="uid://csckpnko3l8e5" path="res://Scenes/pause_menu.tscn" id="9_wrinw"]
 [ext_resource type="PackedScene" uid="uid://bj3gfaxg6jdwl" path="res://Scenes/chest.tscn" id="11_af3po"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_xfk5q"]
@@ -188,10 +185,6 @@ sources/0 = SubResource("TileSetAtlasSource_xfk5q")
 
 [node name="Level 1" type="Node2D"]
 
-[node name="GameManager" type="Node" parent="."]
-unique_name_in_owner = true
-script = ExtResource("7_lsmp6")
-
 [node name="Enviroment" type="Node" parent="."]
 
 [node name="BackLayer" type="TileMapLayer" parent="Enviroment"]
@@ -324,15 +317,6 @@ position = Vector2(320, -32)
 
 [node name="Coin30" parent="Coins" instance=ExtResource("7_xrdnt")]
 position = Vector2(344, -56)
-
-[node name="UI" type="Node" parent="."]
-
-[node name="PlayerUI" parent="UI" instance=ExtResource("4_7p6j4")]
-unique_name_in_owner = true
-
-[node name="PauseMenu" parent="UI" instance=ExtResource("9_wrinw")]
-unique_name_in_owner = true
-visible = false
 
 [node name="Chest" parent="." instance=ExtResource("11_af3po")]
 position = Vector2(504, -6.000004)
