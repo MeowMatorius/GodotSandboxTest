@@ -302,6 +302,10 @@ position_smoothing_speed = 10.0
 
 [node name="Lantern" type="PointLight2D" parent="."]
 visible = false
+shadow_enabled = true
+shadow_filter = 1
+shadow_filter_smooth = 4.0
+shadow_item_cull_mask = 3
 texture = SubResource("GradientTexture2D_6t5aa")
 
 [node name="Timer" type="Timer" parent="."]

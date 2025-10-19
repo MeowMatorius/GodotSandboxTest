@@ -1,18 +1,17 @@
 extends CharacterBody2D
 
-
-@export var SPEED = 120.0
-@export var boost = 2
-@export var  JUMP_VELOCITY = -300.0
-@export var  DOUBLE_JUMP_VELOCITY = -100.0
-@export var  count_jump = 1
-var dash = false
-var jump = false
-var dash_is_processing = false
+@export var SPEED: float = 120.0
+@export var boost: float = 2.0
+@export var JUMP_VELOCITY: float = -300.0
+@export var DOUBLE_JUMP_VELOCITY: float = -100.0
+@export var count_jump: int = 1
+var dash: bool = false
+var jump: bool = false
+var dash_is_processing: bool = false
 
 var direction
 
-@onready var animated_sprite = $AnimatedSprite2D
+@onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var timer: Timer = $Timer
 
 func _physics_process(delta: float) -> void:

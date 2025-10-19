@@ -1,9 +1,15 @@
-[gd_scene load_steps=10 format=4 uid="uid://csckpnko3l8e5"]
+[gd_scene load_steps=22 format=4 uid="uid://csckpnko3l8e5"]
 
 [ext_resource type="FontFile" uid="uid://n0t3jrv5gwf8" path="res://Assets/Fonts/PixelOperator8/PixelOperator8.ttf" id="1_1och7"]
 [ext_resource type="Texture2D" uid="uid://ddccyv8ggdm1q" path="res://Assets/Sprites/Brackeys Assets/fruit.png" id="1_emv3i"]
 [ext_resource type="FontFile" uid="uid://btvnwnk7ueujc" path="res://Assets/Fonts/PixelOperator8/PixelOperator8-Bold.ttf" id="1_k0w1u"]
+[ext_resource type="Script" uid="uid://dfulmy2nawsn3" path="res://Scenes/MenuComponents/pause_menu.gd" id="1_vmyb1"]
 [ext_resource type="Texture2D" uid="uid://b85pv858nlkmx" path="res://Assets/Sprites/Kenney Assets/Input Promts/Tilemap/tilemap_packed.png" id="4_bpi0q"]
+[ext_resource type="Texture2D" uid="uid://d02kdmv1l4h46" path="res://Assets/Sprites/Kenney Assets/Input Promts/Tilemap/tilemap.png" id="6_myy0f"]
+[ext_resource type="Texture2D" uid="uid://dkwvwiml7ya5n" path="res://Assets/Sprites/Brackeys Assets/knight.png" id="6_u8tnp"]
+[ext_resource type="Texture2D" uid="uid://bwy31n6ldcsyk" path="res://Assets/Sprites/Brackeys Assets/world_tileset.png" id="8_ix48p"]
+[ext_resource type="Texture2D" uid="uid://dnvpyo1tum6la" path="res://Assets/Sprites/Brackeys Assets/slime_purple.png" id="8_u8tnp"]
+[ext_resource type="Texture2D" uid="uid://on1n5w2n54op" path="res://Assets/Sprites/Brackeys Assets/coin.png" id="9_524vl"]
 
 [sub_resource type="Gradient" id="Gradient_y2c35"]
 offsets = PackedFloat32Array(0)
@@ -834,11 +840,41 @@ texture = ExtResource("4_bpi0q")
 [sub_resource type="TileSet" id="TileSet_myy0f"]
 sources/0 = SubResource("TileSetAtlasSource_vmyb1")
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_k0w1u"]
+[sub_resource type="GDScript" id="GDScript_myy0f"]
+script/source = "extends Button
+var gameMagager = GameManager
+
+
+func _on_button_up() -> void:
+	GameManager.resume()
+"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vmyb1"]
 atlas = ExtResource("1_emv3i")
+region = Rect2(32, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ix48p"]
+atlas = ExtResource("6_u8tnp")
+region = Rect2(8, 106, 15, 17)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u8tnp"]
+atlas = ExtResource("6_myy0f")
+region = Rect2(425, 68, 15, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0fi7f"]
+atlas = ExtResource("8_ix48p")
+region = Rect2(80, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k0w1u"]
+atlas = ExtResource("9_524vl")
 region = Rect2(0, 0, 16, 16)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_524vl"]
+atlas = ExtResource("8_u8tnp")
+region = Rect2(52, 32, 16, 16)
+
 [node name="PauseMenu" type="CanvasLayer"]
+script = ExtResource("1_vmyb1")
 
 [node name="MenuContainer" type="MarginContainer" parent="."]
 anchors_preset = 15
@@ -976,6 +1012,7 @@ layout_mode = 2
 theme_override_fonts/font = ExtResource("1_1och7")
 text = "Resume"
 alignment = 0
+script = SubResource("GDScript_myy0f")
 
 [node name="Options" type="Button" parent="MenuContainer/MenuItems/MainMenu"]
 custom_minimum_size = Vector2(0, 50)
@@ -1005,25 +1042,25 @@ theme_override_font_sizes/font_size = 18
 text = "Test"
 vertical_alignment = 1
 
-[node name="Button" type="Button" parent="MenuContainer/MenuItems/TestMenu"]
+[node name="GiveCoins" type="Button" parent="MenuContainer/MenuItems/TestMenu"]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 theme_override_fonts/font = ExtResource("1_1och7")
-text = "Button"
+text = "Give Coins"
 alignment = 0
 
-[node name="Button2" type="Button" parent="MenuContainer/MenuItems/TestMenu"]
+[node name="GiveEXP" type="Button" parent="MenuContainer/MenuItems/TestMenu"]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 theme_override_fonts/font = ExtResource("1_1och7")
-text = "Button"
+text = "Give EXP"
 alignment = 0
 
-[node name="Button3" type="Button" parent="MenuContainer/MenuItems/TestMenu"]
+[node name="DamagePlayer" type="Button" parent="MenuContainer/MenuItems/TestMenu"]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 theme_override_fonts/font = ExtResource("1_1och7")
-text = "Button"
+text = "Damage Player"
 alignment = 0
 
 [node name="TabBar" type="TabBar" parent="MenuContainer"]
@@ -1034,15 +1071,28 @@ theme_override_fonts/font = ExtResource("1_k0w1u")
 current_tab = 0
 tab_alignment = 1
 scrolling_enabled = false
-drag_to_rearrange_enabled = true
-tab_count = 5
-tab_0/title = "Character"
-tab_0/icon = SubResource("AtlasTexture_k0w1u")
-tab_1/title = "Map"
-tab_1/icon = SubResource("AtlasTexture_k0w1u")
-tab_2/title = "Quests"
-tab_2/icon = SubResource("AtlasTexture_k0w1u")
-tab_3/title = "Library"
-tab_3/icon = SubResource("AtlasTexture_k0w1u")
+tab_count = 6
+tab_0/title = "Main Menu"
+tab_0/tooltip = "Главное меню"
+tab_0/icon = SubResource("AtlasTexture_vmyb1")
+tab_1/title = "Character"
+tab_1/tooltip = "Меню персонажа"
+tab_1/icon = SubResource("AtlasTexture_ix48p")
+tab_2/title = "World Map"
+tab_2/tooltip = "Карта мира"
+tab_2/icon = SubResource("AtlasTexture_u8tnp")
+tab_3/title = "Quests"
+tab_3/tooltip = "Задания"
+tab_3/icon = SubResource("AtlasTexture_0fi7f")
 tab_4/title = "Inventory"
+tab_4/tooltip = "Инвентарь"
 tab_4/icon = SubResource("AtlasTexture_k0w1u")
+tab_5/title = "Library"
+tab_5/tooltip = "Глоссарий"
+tab_5/icon = SubResource("AtlasTexture_524vl")
+
+[connection signal="button_up" from="MenuContainer/MenuItems/MainMenu/Resume" to="." method="_on_resume_button_up"]
+[connection signal="button_up" from="MenuContainer/MenuItems/MainMenu/Exit" to="." method="_on_exit_button_up"]
+[connection signal="button_up" from="MenuContainer/MenuItems/TestMenu/GiveCoins" to="." method="_on_give_coins_button_up"]
+[connection signal="button_up" from="MenuContainer/MenuItems/TestMenu/GiveEXP" to="." method="_on_give_exp_button_up"]
+[connection signal="button_up" from="MenuContainer/MenuItems/TestMenu/DamagePlayer" to="." method="_on_damage_player_button_up"]
