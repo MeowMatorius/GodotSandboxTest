@@ -1,15 +1,16 @@
 extends CharacterBody2D
 
 
-const SPEED = 120.0
-const boost = 2
-const JUMP_VELOCITY = -300.0
-const DOUBLE_JUMP_VELOCITY = -100.0
-var count_jump = 1
+@export var SPEED = 120.0
+@export var boost = 2
+@export var  JUMP_VELOCITY = -300.0
+@export var  DOUBLE_JUMP_VELOCITY = -100.0
+@export var  count_jump = 1
 var dash = false
 var jump = false
-var direction
 var dash_is_processing = false
+
+var direction
 
 @onready var animated_sprite = $AnimatedSprite2D
 @onready var timer: Timer = $Timer
