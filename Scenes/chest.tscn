@@ -9,7 +9,7 @@ size = Vector2(64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_bagqn"]
 atlas = ExtResource("1_lyb87")
-region = Rect2(704, 192, 64, 64)
+region = Rect2(704, 192, 64, 128)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dq33m"]
 size = Vector2(112, 96)
@@ -23,6 +23,7 @@ shape = SubResource("RectangleShape2D_cjfl1")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = SubResource("AtlasTexture_bagqn")
+vframes = 2
 
 [node name="interactable" parent="." instance=ExtResource("3_pmguq")]
 interact_name = "Open"
