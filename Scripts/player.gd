@@ -32,6 +32,9 @@ func _physics_process(delta: float) -> void:
 		jump = true
 		
 
+	#if Input.is_action_just_pressed("attack") and is_on_floor() and dash == false:
+		#
+		
 	# Получение кнопок движения и управление ускорением/замедлением
 	direction = Input.get_axis("move_left", "move_right")
 	#if Input.is_action_just_pressed("dash") and is_on_floor():
