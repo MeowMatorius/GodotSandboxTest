@@ -19,17 +19,32 @@ func _physics_process(delta: float) -> void:
 		velocity += get_gravity() * delta
 
 	# Управление Прыжком
-	if Input.is_action_just_pressed("jump") and is_on_floor():
+	if Input.is_action_just_pressed("jump") and is_on_floor() and dash == false:
 		velocity.y = JUMP_VELOCITY
 		count_jump = 1
 		
-	if Input.is_action_just_pressed("jump") and not is_on_floor() and count_jump == 1:
+	if Input.is_action_just_pressed("jump") and not is_on_floor() and count_jump == 1 and dash == false:
 		count_jump = 0
 		velocity.y = JUMP_VELOCITY - DOUBLE_JUMP_VELOCITY
 		
 
 	# Получение кнопок движения и управление ускорением/замедлением
 	direction = Input.get_axis("move_left", "move_right")
+	#if Input.is_action_just_pressed("dash") and is_on_floor():
+		#dash = true
+			#
+		##timer.start()
+	#elif direction and dash == false:
+		#velocity.x = direction * SPEED
+	#else:
+		#velocity.x = move_toward(velocity.x, 0, SPEED)
+		
+	# Рывок
+	#if Input.is_action_just_pressed("dash") and is_on_floor():
+		#velocity.x = direction * SPEED * boost
+		#dash = true
+		#timer.start()
+		
 
 	move_and_slide()
 
@@ -47,7 +62,7 @@ func _physics_process(delta: float) -> void:
 			animated_sprite.play("idle")
 			velocity.x = move_toward(velocity.x, 0, SPEED)
 		elif Input.is_action_just_pressed("dash") and direction != 0:
-			animated_sprite.play("dash_new")
+			animated_sprite.play("dash")
 			velocity.x = direction * SPEED * boost
 			dash = true
 		elif dash == false and direction:
@@ -62,5 +77,5 @@ func _physics_process(delta: float) -> void:
 
 
 func _on_animated_sprite_2d_animation_finished() -> void:
-	if (animated_sprite.animation == "dash_new"):
+	if (animated_sprite.animation == "dash"):
 		dash = false
