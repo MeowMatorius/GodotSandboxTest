@@ -63,17 +63,17 @@ func _physics_process(delta: float) -> void:
 	# Анимации игрока
 	if is_on_floor():
 		if direction == 0 and dash == false:
-			animated_sprite.play("idle")
+			animated_sprite.play("idle2")
 			velocity.x = move_toward(velocity.x, 0, SPEED)
 		elif Input.is_action_just_pressed("dash") and direction != 0:
-			animated_sprite.play("dash")
+			animated_sprite.play("dash3")
 			velocity.x = direction * SPEED * boost
 			dash = true
 		elif dash == false and direction:
-			animated_sprite.play("run")
+			animated_sprite.play("run2")
 			velocity.x = direction * SPEED
 	elif dash == false and jump == true and direction:
-		animated_sprite.play("jump")
+		animated_sprite.play("jump2")
 		velocity.x = direction * SPEED
 
 
@@ -82,8 +82,8 @@ func _physics_process(delta: float) -> void:
 
 
 func _on_animated_sprite_2d_animation_finished() -> void:
-	if (animated_sprite.animation == "dash"):
+	if (animated_sprite.animation == "dash3"):
 		dash = false
 		
-	if (animated_sprite.animation == "jump"):
+	if (animated_sprite.animation == "jump2"):
 		jump = false
