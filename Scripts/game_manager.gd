@@ -13,7 +13,7 @@ func add_point():
 	coins.text = "Coins: " + str(score)
 
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	
 	# Кнопка Паузы
 	if Input.is_action_just_pressed("menu"):
