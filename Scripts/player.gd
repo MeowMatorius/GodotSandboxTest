@@ -54,10 +54,11 @@ func _physics_process(delta: float) -> void:
 
 		
 # Поворот спрайта
-	if direction > 0:
-		animated_sprite.flip_h = false
-	elif direction < 0:
-		animated_sprite.flip_h = true
+	if dash == false:
+		if direction > 0:
+			animated_sprite.flip_h = false
+		elif direction < 0:
+			animated_sprite.flip_h = true
 	
 	# Анимации игрока
 	if is_on_floor():
