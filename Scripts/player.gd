@@ -13,6 +13,8 @@ var direction
 
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var timer: Timer = $Timer
+@onready var health_bar: ProgressBar = $/root/PlayerUi/PlayerStatus/StatusContainer/HealthContainer/HealthBar
+
 
 func _physics_process(delta: float) -> void:
 	# Добавляем гравитацию
@@ -75,6 +77,7 @@ func _physics_process(delta: float) -> void:
 		elif dash == false and direction:
 			animated_sprite.play("run")
 			velocity.x = direction * SPEED
+		
 	elif dash == false and jump == true and direction:
 		animated_sprite.play("jump")
 		velocity.x = direction * SPEED
@@ -90,3 +93,4 @@ func _on_animated_sprite_2d_animation_finished() -> void:
 		
 	if (animated_sprite.animation == "jump"):
 		jump = false
+		

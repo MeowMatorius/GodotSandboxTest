@@ -1,6 +1,5 @@
 extends Area2D
 @onready var timer: Timer = $Timer
-@onready var health_bar: ProgressBar = $PlayerStatus/StatusContainer/HealthContainer/HealthBar
 
 func _on_body_entered(body: Node2D) -> void:
 	Engine.time_scale = 0.5
