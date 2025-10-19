@@ -7,6 +7,7 @@ const JUMP_VELOCITY = -300.0
 const DOUBLE_JUMP_VELOCITY = -100.0
 var count_jump = 1
 var dash = false
+var jump = false
 var direction
 var dash_is_processing = false
 
@@ -22,10 +23,12 @@ func _physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed("jump") and is_on_floor() and dash == false:
 		velocity.y = JUMP_VELOCITY
 		count_jump = 1
+		jump = true
 		
 	if Input.is_action_just_pressed("jump") and not is_on_floor() and count_jump == 1 and dash == false:
 		count_jump = 0
 		velocity.y = JUMP_VELOCITY - DOUBLE_JUMP_VELOCITY
+		jump = true
 		
 
 	# Получение кнопок движения и управление ускорением/замедлением
@@ -68,8 +71,9 @@ func _physics_process(delta: float) -> void:
 		elif dash == false and direction:
 			animated_sprite.play("run")
 			velocity.x = direction * SPEED
-	elif dash == false:
+	elif dash == false and jump == true and direction:
 		animated_sprite.play("jump")
+		velocity.x = direction * SPEED
 
 
 #func _on_timer_timeout() -> void:
@@ -79,3 +83,6 @@ func _physics_process(delta: float) -> void:
 func _on_animated_sprite_2d_animation_finished() -> void:
 	if (animated_sprite.animation == "dash"):
 		dash = false
+		
+	if (animated_sprite.animation == "jump"):
+		jump = false
