@@ -201,7 +201,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"idle",
-"speed": 5.0
+"speed": 10.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -286,10 +286,9 @@ shape = SubResource("CircleShape2D_0gysh")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_p1odr")
-animation = &"dash_new"
+animation = &"idle"
 autoplay = "idle"
-frame = 3
-frame_progress = 1.0
+frame_progress = 0.052855637
 offset = Vector2(0, -5)
 
 [node name="Camera2D" type="Camera2D" parent="."]

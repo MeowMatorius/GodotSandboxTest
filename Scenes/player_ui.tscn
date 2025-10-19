@@ -1,4 +1,6 @@
-[gd_scene load_steps=5 format=3 uid="uid://l21017dfwaun"]
+[gd_scene load_steps=6 format=3 uid="uid://l21017dfwaun"]
+
+[ext_resource type="FontFile" uid="uid://n0t3jrv5gwf8" path="res://Assets/Fonts/PixelOperator8/PixelOperator8.ttf" id="1_ohrjl"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4ai1x"]
 bg_color = Color(1, 0, 0, 1)
@@ -23,7 +25,7 @@ gradient = SubResource("Gradient_4ai1x")
 
 [node name="PlayerUI" type="CanvasLayer"]
 
-[node name="Control" type="Control" parent="."]
+[node name="PlayerStatus" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -35,7 +37,7 @@ offset_bottom = -48.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="VFlowContainer" type="VFlowContainer" parent="Control"]
+[node name="ValuesContainer" type="VBoxContainer" parent="PlayerStatus"]
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
@@ -46,17 +48,19 @@ offset_right = -27.0
 offset_bottom = 112.0
 grow_horizontal = 0
 
-[node name="Coins" type="Label" parent="Control/VFlowContainer"]
+[node name="Coins" type="Label" parent="PlayerStatus/ValuesContainer"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("1_ohrjl")
 theme_override_font_sizes/font_size = 24
 text = "Coins: 0"
 
-[node name="Expirience" type="Label" parent="Control/VFlowContainer"]
+[node name="Expirience" type="Label" parent="PlayerStatus/ValuesContainer"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("1_ohrjl")
 theme_override_font_sizes/font_size = 24
 text = "Expirience: 0"
 
-[node name="StatusContainer" type="MarginContainer" parent="Control"]
+[node name="StatusContainer" type="MarginContainer" parent="PlayerStatus"]
 layout_mode = 1
 anchors_preset = 12
 anchor_top = 1.0
@@ -69,51 +73,61 @@ offset_bottom = -29.0
 grow_horizontal = 2
 grow_vertical = 0
 
-[node name="HealthContainer" type="VFlowContainer" parent="Control/StatusContainer"]
-custom_minimum_size = Vector2(0, 80)
+[node name="HealthContainer" type="VBoxContainer" parent="PlayerStatus/StatusContainer"]
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 8
 
-[node name="Label" type="Label" parent="Control/StatusContainer/HealthContainer"]
+[node name="Label" type="Label" parent="PlayerStatus/StatusContainer/HealthContainer"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("1_ohrjl")
 theme_override_font_sizes/font_size = 24
 text = "Health"
 
-[node name="HealthBar" type="ProgressBar" parent="Control/StatusContainer/HealthContainer"]
+[node name="HealthBar" type="ProgressBar" parent="PlayerStatus/StatusContainer/HealthContainer"]
 custom_minimum_size = Vector2(200, 30)
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 8
+theme_override_fonts/font = ExtResource("1_ohrjl")
 theme_override_styles/fill = SubResource("StyleBoxFlat_4ai1x")
 value = 100.0
 rounded = true
 
-[node name="StaminaContainer" type="VFlowContainer" parent="Control/StatusContainer"]
-custom_minimum_size = Vector2(0, 80)
+[node name="StaminaContainer" type="VBoxContainer" parent="PlayerStatus/StatusContainer"]
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 8
 
-[node name="Label" type="Label" parent="Control/StatusContainer/StaminaContainer"]
+[node name="Label" type="Label" parent="PlayerStatus/StatusContainer/StaminaContainer"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("1_ohrjl")
 theme_override_font_sizes/font_size = 24
 text = "Stamina"
 
-[node name="StaminaBar" type="ProgressBar" parent="Control/StatusContainer/StaminaContainer"]
+[node name="StaminaBar" type="ProgressBar" parent="PlayerStatus/StatusContainer/StaminaContainer"]
 custom_minimum_size = Vector2(200, 30)
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 8
+theme_override_fonts/font = ExtResource("1_ohrjl")
 theme_override_styles/fill = SubResource("StyleBoxFlat_ohrjl")
 value = 100.0
 rounded = true
 
 [node name="Letterbox" type="Control" parent="."]
 layout_mode = 3
-anchors_preset = 0
-offset_right = 1152.0
-offset_bottom = 646.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -576.0
+offset_top = -323.0
+offset_right = 576.0
+offset_bottom = 323.0
+grow_horizontal = 2
+grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
