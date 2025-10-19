@@ -4,8 +4,8 @@ extends CanvasLayer
 @onready var game_manager = GameManager
 
 var paused = false
-var giveCoins = 10
-var give_exp = 10
+var coin_amount = 10
+var exp_amount = 10
 var pauseTime = 0
 
 func _ready() -> void:
@@ -47,13 +47,11 @@ func _on_exit_button_up() -> void:
 
 
 func _on_give_coins_button_up() -> void:
-	game_manager.coins_count += giveCoins
-	game_manager.updateLabels()
+	game_manager.add_coin(coin_amount)
 
 
 func _on_give_exp_button_up() -> void:
-	game_manager.exp_count += give_exp
-	game_manager.updateLabels()
+	game_manager.add_exp(exp_amount)
 
 
 func _on_damage_player_button_up() -> void:

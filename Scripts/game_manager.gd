@@ -14,14 +14,14 @@ func _process(delta: float) -> void:
 		death()
 
 # Увеличение счетчика монет
-func add_coin():
-	coins_count += 1
+func add_coin(coin_amount: int):
+	coins_count += coin_amount
 	updateLabels()
 
 
 # Увеличение счетчика опыта
 func add_exp(exp_emount):
-	coins_count += exp_emount
+	exp_count += exp_emount
 	updateLabels()
 
 
