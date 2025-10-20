@@ -1,13 +1,13 @@
 [gd_scene load_steps=21 format=4 uid="uid://f10xv8s5tkq1"]
 
-[ext_resource type="Texture2D" uid="uid://bwy31n6ldcsyk" path="res://Assets/Sprites/Brackeys Assets/world_tileset.png" id="2_8ffim"]
-[ext_resource type="PackedScene" uid="uid://drkpxgvgqe5c2" path="res://Scenes/player.tscn" id="2_xfk5q"]
-[ext_resource type="PackedScene" uid="uid://b2m1ta1u1rsr3" path="res://Scenes/killzone.tscn" id="3_6444e"]
-[ext_resource type="AudioStream" uid="uid://ddwmtelngh4g2" path="res://Assets/Music/Bilewater.mp3" id="3_xfk5q"]
-[ext_resource type="PackedScene" uid="uid://bb2goadjdsl1s" path="res://Scenes/slime.tscn" id="4_evi0p"]
-[ext_resource type="PackedScene" uid="uid://d3psd025liwe7" path="res://Scenes/sign.tscn" id="5_chwpn"]
-[ext_resource type="PackedScene" uid="uid://cb1hf4bp8blke" path="res://Scenes/coin.tscn" id="7_xrdnt"]
-[ext_resource type="PackedScene" uid="uid://bj3gfaxg6jdwl" path="res://Scenes/chest.tscn" id="11_af3po"]
+[ext_resource type="Texture2D" uid="uid://bwy31n6ldcsyk" path="res://Assets/Sprites/Brackeys Assets/world_tileset.png" id="1_bjebc"]
+[ext_resource type="AudioStream" uid="uid://ddwmtelngh4g2" path="res://Assets/Music/Bilewater.mp3" id="2_5rr72"]
+[ext_resource type="PackedScene" uid="uid://b2m1ta1u1rsr3" path="res://Objects/Scenes/killzone.tscn" id="3_gyffv"]
+[ext_resource type="PackedScene" uid="uid://bb2goadjdsl1s" path="res://Entities/slime.tscn" id="4_1pe0h"]
+[ext_resource type="PackedScene" uid="uid://cb1hf4bp8blke" path="res://Objects/Scenes/coin.tscn" id="5_27bay"]
+[ext_resource type="PackedScene" uid="uid://bj3gfaxg6jdwl" path="res://Objects/Scenes/chest.tscn" id="6_sof0w"]
+[ext_resource type="PackedScene" uid="uid://d3psd025liwe7" path="res://Objects/Scenes/sign.tscn" id="7_ggavl"]
+[ext_resource type="PackedScene" uid="uid://drkpxgvgqe5c2" path="res://Entities/player.tscn" id="8_ubhxj"]
 
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_xrdnt"]
 polygon = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
@@ -37,7 +37,7 @@ polygon = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 polygon = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_xfk5q"]
-texture = ExtResource("2_8ffim")
+texture = ExtResource("1_bjebc")
 0:0/0 = 0
 0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 1:0/0 = 0
@@ -237,7 +237,7 @@ tile_map_data = PackedByteArray("AAD//wAAAAAAAAAAAAAAAAAAAAAAAAAAAAD+/wAAAAAAAAA
 tile_set = SubResource("TileSet_7p6j4")
 
 [node name="Music" type="AudioStreamPlayer2D" parent="Enviroment"]
-stream = ExtResource("3_xfk5q")
+stream = ExtResource("2_5rr72")
 max_distance = 4096.0
 panning_strength = 0.0
 bus = &"BG Music"
@@ -251,115 +251,117 @@ shadow_color = Color(0, 0, 0, 0.5254902)
 shadow_filter = 1
 shadow_filter_smooth = 4.0
 
-[node name="Killzone" parent="Enviroment" instance=ExtResource("3_6444e")]
+[node name="Killzone" parent="Enviroment" instance=ExtResource("3_gyffv")]
 position = Vector2(0, 128)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Enviroment/Killzone"]
 shape = SubResource("WorldBoundaryShape2D_evi0p")
 debug_color = Color(0.99206454, 0, 0.2634141, 0.41960785)
 
-[node name="Player" parent="." instance=ExtResource("2_xfk5q")]
-position = Vector2(0, -8)
-
 [node name="Enemies" type="Node" parent="."]
 
-[node name="slime" parent="Enemies" instance=ExtResource("4_evi0p")]
+[node name="slime" parent="Enemies" instance=ExtResource("4_1pe0h")]
 position = Vector2(-232, -11)
 
 [node name="Coins" type="Node" parent="."]
 
-[node name="Coin" parent="Coins" instance=ExtResource("7_xrdnt")]
+[node name="Coin" parent="Coins" instance=ExtResource("5_27bay")]
 position = Vector2(-184, -20)
 
-[node name="Coin2" parent="Coins" instance=ExtResource("7_xrdnt")]
+[node name="Coin2" parent="Coins" instance=ExtResource("5_27bay")]
 position = Vector2(-280, -20)
 
-[node name="Coin3" parent="Coins" instance=ExtResource("7_xrdnt")]
+[node name="Coin3" parent="Coins" instance=ExtResource("5_27bay")]
 position = Vector2(424, -23)
 
-[node name="Coin4" parent="Coins" instance=ExtResource("7_xrdnt")]
+[node name="Coin4" parent="Coins" instance=ExtResource("5_27bay")]
 position = Vector2(520, -40)
 
-[node name="Coin5" parent="Coins" instance=ExtResource("7_xrdnt")]
+[node name="Coin5" parent="Coins" instance=ExtResource("5_27bay")]
 position = Vector2(552, -56)
 
-[node name="Coin6" parent="Coins" instance=ExtResource("7_xrdnt")]
+[node name="Coin6" parent="Coins" instance=ExtResource("5_27bay")]
 position = Vector2(536, -56)
 
-[node name="Coin7" parent="Coins" instance=ExtResource("7_xrdnt")]
+[node name="Coin7" parent="Coins" instance=ExtResource("5_27bay")]
 position = Vector2(-140, -8)
 
-[node name="Coin8" parent="Coins" instance=ExtResource("7_xrdnt")]
+[node name="Coin8" parent="Coins" instance=ExtResource("5_27bay")]
 position = Vector2(-116, -8)
 
-[node name="Coin9" parent="Coins" instance=ExtResource("7_xrdnt")]
+[node name="Coin9" parent="Coins" instance=ExtResource("5_27bay")]
 position = Vector2(-92, -8)
 
-[node name="Coin10" parent="Coins" instance=ExtResource("7_xrdnt")]
+[node name="Coin10" parent="Coins" instance=ExtResource("5_27bay")]
 position = Vector2(-68, -8)
 
-[node name="Coin11" parent="Coins" instance=ExtResource("7_xrdnt")]
+[node name="Coin11" parent="Coins" instance=ExtResource("5_27bay")]
 position = Vector2(-80, -32)
 
-[node name="Coin12" parent="Coins" instance=ExtResource("7_xrdnt")]
+[node name="Coin12" parent="Coins" instance=ExtResource("5_27bay")]
 position = Vector2(-104, -32)
 
-[node name="Coin13" parent="Coins" instance=ExtResource("7_xrdnt")]
+[node name="Coin13" parent="Coins" instance=ExtResource("5_27bay")]
 position = Vector2(-128, -32)
 
-[node name="Coin14" parent="Coins" instance=ExtResource("7_xrdnt")]
+[node name="Coin14" parent="Coins" instance=ExtResource("5_27bay")]
 position = Vector2(-104, -56)
 
-[node name="Coin15" parent="Coins" instance=ExtResource("7_xrdnt")]
+[node name="Coin15" parent="Coins" instance=ExtResource("5_27bay")]
 position = Vector2(76, -8)
 
-[node name="Coin16" parent="Coins" instance=ExtResource("7_xrdnt")]
+[node name="Coin16" parent="Coins" instance=ExtResource("5_27bay")]
 position = Vector2(100, -8)
 
-[node name="Coin17" parent="Coins" instance=ExtResource("7_xrdnt")]
+[node name="Coin17" parent="Coins" instance=ExtResource("5_27bay")]
 position = Vector2(124, -8)
 
-[node name="Coin18" parent="Coins" instance=ExtResource("7_xrdnt")]
+[node name="Coin18" parent="Coins" instance=ExtResource("5_27bay")]
 position = Vector2(148, -8)
 
-[node name="Coin19" parent="Coins" instance=ExtResource("7_xrdnt")]
+[node name="Coin19" parent="Coins" instance=ExtResource("5_27bay")]
 position = Vector2(136, -32)
 
-[node name="Coin20" parent="Coins" instance=ExtResource("7_xrdnt")]
+[node name="Coin20" parent="Coins" instance=ExtResource("5_27bay")]
 position = Vector2(112, -32)
 
-[node name="Coin21" parent="Coins" instance=ExtResource("7_xrdnt")]
+[node name="Coin21" parent="Coins" instance=ExtResource("5_27bay")]
 position = Vector2(88, -32)
 
-[node name="Coin22" parent="Coins" instance=ExtResource("7_xrdnt")]
+[node name="Coin22" parent="Coins" instance=ExtResource("5_27bay")]
 position = Vector2(112, -56)
 
-[node name="Coin23" parent="Coins" instance=ExtResource("7_xrdnt")]
+[node name="Coin23" parent="Coins" instance=ExtResource("5_27bay")]
 position = Vector2(308, -8)
 
-[node name="Coin24" parent="Coins" instance=ExtResource("7_xrdnt")]
+[node name="Coin24" parent="Coins" instance=ExtResource("5_27bay")]
 position = Vector2(332, -8)
 
-[node name="Coin25" parent="Coins" instance=ExtResource("7_xrdnt")]
+[node name="Coin25" parent="Coins" instance=ExtResource("5_27bay")]
 position = Vector2(356, -8)
 
-[node name="Coin26" parent="Coins" instance=ExtResource("7_xrdnt")]
+[node name="Coin26" parent="Coins" instance=ExtResource("5_27bay")]
 position = Vector2(380, -8)
 
-[node name="Coin27" parent="Coins" instance=ExtResource("7_xrdnt")]
+[node name="Coin27" parent="Coins" instance=ExtResource("5_27bay")]
 position = Vector2(368, -32)
 
-[node name="Coin28" parent="Coins" instance=ExtResource("7_xrdnt")]
+[node name="Coin28" parent="Coins" instance=ExtResource("5_27bay")]
 position = Vector2(344, -32)
 
-[node name="Coin29" parent="Coins" instance=ExtResource("7_xrdnt")]
+[node name="Coin29" parent="Coins" instance=ExtResource("5_27bay")]
 position = Vector2(320, -32)
 
-[node name="Coin30" parent="Coins" instance=ExtResource("7_xrdnt")]
+[node name="Coin30" parent="Coins" instance=ExtResource("5_27bay")]
 position = Vector2(344, -56)
 
-[node name="Chest" parent="." instance=ExtResource("11_af3po")]
+[node name="Objects" type="Node" parent="."]
+
+[node name="Chest" parent="Objects" instance=ExtResource("6_sof0w")]
 position = Vector2(472, -6)
 
-[node name="Sign" parent="." instance=ExtResource("5_chwpn")]
+[node name="Sign" parent="Objects" instance=ExtResource("7_ggavl")]
 position = Vector2(232, -8)
+
+[node name="Player" parent="." instance=ExtResource("8_ubhxj")]
+position = Vector2(0, -8)

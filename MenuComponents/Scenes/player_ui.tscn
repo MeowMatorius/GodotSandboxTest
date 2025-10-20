@@ -1,6 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://l21017dfwaun"]
+[gd_scene load_steps=7 format=3 uid="uid://l21017dfwaun"]
 
 [ext_resource type="FontFile" uid="uid://n0t3jrv5gwf8" path="res://Assets/Fonts/PixelOperator8/PixelOperator8.ttf" id="1_ohrjl"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_t0iga"]
+outline_size = 5
+outline_color = Color(0, 0, 0, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4ai1x"]
 bg_color = Color(1, 0, 0, 1)
@@ -50,15 +54,33 @@ grow_horizontal = 0
 
 [node name="Coins" type="Label" parent="PlayerStatus/ValuesContainer"]
 layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("1_ohrjl")
-theme_override_font_sizes/font_size = 24
 text = "Coins: 0"
+label_settings = SubResource("LabelSettings_t0iga")
 
 [node name="Expirience" type="Label" parent="PlayerStatus/ValuesContainer"]
 layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("1_ohrjl")
-theme_override_font_sizes/font_size = 24
-text = "Expirience: 0"
+text = "EXP: 0"
+label_settings = SubResource("LabelSettings_t0iga")
+
+[node name="Level" type="Label" parent="PlayerStatus/ValuesContainer"]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("1_ohrjl")
+text = "Level: 1"
+label_settings = SubResource("LabelSettings_t0iga")
+vertical_alignment = 1
+
+[node name="ExpNedeed" type="Label" parent="PlayerStatus/ValuesContainer"]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("1_ohrjl")
+text = "lvl UP on: 100"
+label_settings = SubResource("LabelSettings_t0iga")
+vertical_alignment = 1
 
 [node name="StatusContainer" type="MarginContainer" parent="PlayerStatus"]
 layout_mode = 1
@@ -80,9 +102,10 @@ size_flags_vertical = 8
 
 [node name="Label" type="Label" parent="PlayerStatus/StatusContainer/HealthContainer"]
 layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("1_ohrjl")
-theme_override_font_sizes/font_size = 24
 text = "Health"
+label_settings = SubResource("LabelSettings_t0iga")
 
 [node name="HealthBar" type="ProgressBar" parent="PlayerStatus/StatusContainer/HealthContainer"]
 custom_minimum_size = Vector2(200, 30)
@@ -101,9 +124,10 @@ size_flags_vertical = 8
 
 [node name="Label" type="Label" parent="PlayerStatus/StatusContainer/StaminaContainer"]
 layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("1_ohrjl")
-theme_override_font_sizes/font_size = 24
 text = "Stamina"
+label_settings = SubResource("LabelSettings_t0iga")
 
 [node name="StaminaBar" type="ProgressBar" parent="PlayerStatus/StatusContainer/StaminaContainer"]
 custom_minimum_size = Vector2(200, 30)

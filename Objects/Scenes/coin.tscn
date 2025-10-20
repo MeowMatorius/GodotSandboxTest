@@ -1,7 +1,7 @@
 [gd_scene load_steps=21 format=3 uid="uid://cb1hf4bp8blke"]
 
 [ext_resource type="Texture2D" uid="uid://on1n5w2n54op" path="res://Assets/Sprites/Brackeys Assets/coin.png" id="1_2qo34"]
-[ext_resource type="Script" uid="uid://burfl4ws6fvqf" path="res://Scripts/coin.gd" id="1_jgi06"]
+[ext_resource type="Script" uid="uid://burfl4ws6fvqf" path="res://Scripts/Objects/coin.gd" id="1_jgi06"]
 [ext_resource type="AudioStream" uid="uid://cruvegi6epdwr" path="res://Assets/Sounds/Default/coin.wav" id="3_g537i"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jgi06"]

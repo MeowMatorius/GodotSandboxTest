@@ -1,8 +1,8 @@
 [gd_scene load_steps=7 format=3 uid="uid://bj3gfaxg6jdwl"]
 
-[ext_resource type="Script" uid="uid://ibjipgk7pmix" path="res://Scripts/chest.gd" id="1_bagqn"]
+[ext_resource type="Script" uid="uid://ibjipgk7pmix" path="res://Objects/Scripts/chest.gd" id="1_bagqn"]
 [ext_resource type="Texture2D" uid="uid://blio311fmuybh" path="res://Assets/Sprites/Kenney Assets/New Platformer/Spritesheets/spritesheet-tiles-default.png" id="1_lyb87"]
-[ext_resource type="PackedScene" uid="uid://bvvwpmc2643sj" path="res://Scenes/InteractionComponents/interactable.tscn" id="3_pmguq"]
+[ext_resource type="PackedScene" uid="uid://bvvwpmc2643sj" path="res://InteractionComponents/interactable.tscn" id="3_pmguq"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cjfl1"]
 size = Vector2(64, 64)

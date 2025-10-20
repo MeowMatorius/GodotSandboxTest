@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://d3psd025liwe7"]
 
-[ext_resource type="PackedScene" uid="uid://bvvwpmc2643sj" path="res://Scenes/InteractionComponents/interactable.tscn" id="1_fmf1u"]
-[ext_resource type="Script" uid="uid://ooyw84sqkbbe" path="res://Scripts/sign.gd" id="1_hqvqy"]
+[ext_resource type="PackedScene" uid="uid://bvvwpmc2643sj" path="res://InteractionComponents/interactable.tscn" id="1_fmf1u"]
+[ext_resource type="Script" uid="uid://ooyw84sqkbbe" path="res://Objects/Scripts/sign.gd" id="1_hqvqy"]
 [ext_resource type="Texture2D" uid="uid://bwy31n6ldcsyk" path="res://Assets/Sprites/Brackeys Assets/world_tileset.png" id="1_m6mpx"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hqvqy"]

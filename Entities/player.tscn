@@ -1,9 +1,9 @@
 [gd_scene load_steps=75 format=3 uid="uid://drkpxgvgqe5c2"]
 
-[ext_resource type="Script" uid="uid://cdoeoefum4ojh" path="res://Scripts/player.gd" id="1_cvnsp"]
+[ext_resource type="Script" uid="uid://cdoeoefum4ojh" path="res://Entities/player.gd" id="1_cvnsp"]
 [ext_resource type="Texture2D" uid="uid://dkwvwiml7ya5n" path="res://Assets/Sprites/Brackeys Assets/knight.png" id="2_6t5aa"]
 [ext_resource type="Texture2D" uid="uid://ds3vdjqlui4we" path="res://Assets/Sprites/knight.png" id="2_vgqql"]
-[ext_resource type="PackedScene" uid="uid://b7gknuiv3tuko" path="res://Scenes/InteractionComponents/interacting_component.tscn" id="3_6t5aa"]
+[ext_resource type="PackedScene" uid="uid://b7gknuiv3tuko" path="res://InteractionComponents/interacting_component.tscn" id="3_6t5aa"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_0gysh"]
 radius = 6.0
@@ -546,7 +546,6 @@ collision_layer = 2
 script = ExtResource("1_cvnsp")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
 shape = SubResource("CircleShape2D_0gysh")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
@@ -576,7 +575,6 @@ wait_time = 0.7
 one_shot = true
 
 [node name="InteractingComponent" parent="." instance=ExtResource("3_6t5aa")]
-visible = false
 
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
