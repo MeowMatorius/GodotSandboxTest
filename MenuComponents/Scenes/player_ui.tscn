@@ -1,191 +1,92 @@
 [gd_scene load_steps=8 format=3 uid="uid://l21017dfwaun"]
 
-[ext_resource type="FontFile" uid="uid://n0t3jrv5gwf8" path="res://Assets/Fonts/PixelOperator8/PixelOperator8.ttf" id="1_ohrjl"]
-[ext_resource type="Script" uid="uid://bf7wrgtt088lb" path="res://Objects/Scripts/health_bar.gd" id="2_dxtgh"]
+[ext_resource type="Script" uid="uid://d4f5ogyweyfwv" path="res://Objects/Scripts/health_bottle.gd" id="1_23eck"]
+[ext_resource type="Texture2D" uid="uid://bwy31n6ldcsyk" path="res://Assets/Sprites/Brackeys Assets/world_tileset.png" id="2_3aw7q"]
 
-[sub_resource type="LabelSettings" id="LabelSettings_t0iga"]
-outline_size = 5
-outline_color = Color(0, 0, 0, 1)
+[sub_resource type="CircleShape2D" id="CircleShape2D_hpfkt"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4ai1x"]
-bg_color = Color(1, 0, 0, 1)
-corner_radius_top_left = 10
-corner_radius_top_right = 10
-corner_radius_bottom_right = 10
-corner_radius_bottom_left = 10
+[sub_resource type="AtlasTexture" id="AtlasTexture_xu7l2"]
+atlas = ExtResource("2_3aw7q")
+region = Rect2(0, 112, 32, 32)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ohrjl"]
-bg_color = Color(0, 0.7252315, 0.20791152, 1)
-corner_radius_top_left = 10
-corner_radius_top_right = 10
-corner_radius_bottom_right = 10
-corner_radius_bottom_left = 10
+[sub_resource type="Animation" id="Animation_e64dc"]
+resource_name = "pickup"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CollisionShape2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.033333335),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
-[sub_resource type="Gradient" id="Gradient_4ai1x"]
-offsets = PackedFloat32Array(0)
-colors = PackedColorArray(0, 0, 0, 1)
+[sub_resource type="Animation" id="Animation_fti0p"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CollisionShape2D:disabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_ohrjl"]
-gradient = SubResource("Gradient_4ai1x")
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_3dd6r"]
+_data = {
+&"RESET": SubResource("Animation_fti0p"),
+&"pickup": SubResource("Animation_e64dc")
+}
 
-[node name="PlayerUI" type="CanvasLayer"]
+[node name="HealthBottle" type="Area2D"]
+collision_mask = 2
+script = ExtResource("1_23eck")
 
-[node name="PlayerStatus" type="Control" parent="."]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 16.0
-offset_top = 48.0
-offset_right = -16.0
-offset_bottom = -48.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -7)
+shape = SubResource("CircleShape2D_hpfkt")
+disabled = true
 
-[node name="ValuesContainer" type="VBoxContainer" parent="PlayerStatus"]
-layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -200.0
-offset_top = 24.0
-offset_right = -27.0
-offset_bottom = 112.0
-grow_horizontal = 0
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -8)
+texture = SubResource("AtlasTexture_xu7l2")
+hframes = 2
+vframes = 2
 
-[node name="Coins" type="Label" parent="PlayerStatus/ValuesContainer"]
-layout_mode = 2
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("1_ohrjl")
-text = "Coins: 0"
-label_settings = SubResource("LabelSettings_t0iga")
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_3dd6r")
+}
 
-[node name="Expirience" type="Label" parent="PlayerStatus/ValuesContainer"]
-layout_mode = 2
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("1_ohrjl")
-text = "EXP: 0"
-label_settings = SubResource("LabelSettings_t0iga")
-
-[node name="Level" type="Label" parent="PlayerStatus/ValuesContainer"]
-layout_mode = 2
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("1_ohrjl")
-text = "Level: 1"
-label_settings = SubResource("LabelSettings_t0iga")
-vertical_alignment = 1
-
-[node name="ExpNedeed" type="Label" parent="PlayerStatus/ValuesContainer"]
-layout_mode = 2
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("1_ohrjl")
-text = "lvl UP on: 100"
-label_settings = SubResource("LabelSettings_t0iga")
-vertical_alignment = 1
-
-[node name="StatusContainer" type="MarginContainer" parent="PlayerStatus"]
-layout_mode = 1
-anchors_preset = 12
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 27.0
-offset_top = -56.0
-offset_right = -27.0
-offset_bottom = -29.0
-grow_horizontal = 2
-grow_vertical = 0
-
-[node name="HealthContainer" type="VBoxContainer" parent="PlayerStatus/StatusContainer"]
-layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 8
-
-[node name="Label" type="Label" parent="PlayerStatus/StatusContainer/HealthContainer"]
-layout_mode = 2
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("1_ohrjl")
-text = "Health"
-label_settings = SubResource("LabelSettings_t0iga")
-
-[node name="HealthBar" type="ProgressBar" parent="PlayerStatus/StatusContainer/HealthContainer"]
-custom_minimum_size = Vector2(200, 30)
-layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 8
-theme_override_fonts/font = ExtResource("1_ohrjl")
-theme_override_styles/fill = SubResource("StyleBoxFlat_4ai1x")
-value = 100.0
-rounded = true
-script = ExtResource("2_dxtgh")
-
-[node name="StaminaContainer" type="VBoxContainer" parent="PlayerStatus/StatusContainer"]
-layout_mode = 2
-size_flags_horizontal = 8
-size_flags_vertical = 8
-
-[node name="Label" type="Label" parent="PlayerStatus/StatusContainer/StaminaContainer"]
-layout_mode = 2
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("1_ohrjl")
-text = "Stamina"
-label_settings = SubResource("LabelSettings_t0iga")
-
-[node name="StaminaBar" type="ProgressBar" parent="PlayerStatus/StatusContainer/StaminaContainer"]
-custom_minimum_size = Vector2(200, 30)
-layout_mode = 2
-size_flags_horizontal = 8
-size_flags_vertical = 8
-theme_override_fonts/font = ExtResource("1_ohrjl")
-theme_override_styles/fill = SubResource("StyleBoxFlat_ohrjl")
-value = 100.0
-rounded = true
-
-[node name="Letterbox" type="Control" parent="."]
-layout_mode = 3
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -576.0
-offset_top = -323.0
-offset_right = 576.0
-offset_bottom = 323.0
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="MarginContainer" type="MarginContainer" parent="Letterbox"]
-layout_mode = 1
-anchors_preset = 10
-anchor_right = 1.0
-grow_horizontal = 2
-
-[node name="Sprite2D" type="Polygon2D" parent="Letterbox/MarginContainer"]
-position = Vector2(600, 25)
-scale = Vector2(-25, 1)
-texture = SubResource("GradientTexture2D_ohrjl")
-polygon = PackedVector2Array(-32, -32, -32, 32, 32, 32, 32, -32)
-uv = PackedVector2Array(0, 0, 0, 64, 64, 64, 64, 0)
-polygons = [PackedInt32Array(0, 1, 2, 3)]
-
-[node name="MarginContainer2" type="MarginContainer" parent="Letterbox"]
-layout_mode = 1
-anchors_preset = 12
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 0
-
-[node name="Sprite2D2" type="Polygon2D" parent="Letterbox/MarginContainer2"]
-position = Vector2(600, -25)
-scale = Vector2(25, 1)
-texture = SubResource("GradientTexture2D_ohrjl")
-polygon = PackedVector2Array(-32, -32, -32, 32, 32, 32, 32, -32)
-uv = PackedVector2Array(0, 0, 0, 64, 64, 64, 64, 0)
-polygons = [PackedInt32Array(0, 1, 2, 3)]
-
-[connection signal="changed" from="PlayerStatus/StatusContainer/HealthContainer/HealthBar" to="PlayerStatus/StatusContainer/HealthContainer/HealthBar" method="_on_changed"]
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
