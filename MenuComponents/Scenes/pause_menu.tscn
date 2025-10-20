@@ -1,92 +1,1529 @@
-[gd_scene load_steps=8 format=3 uid="uid://csckpnko3l8e5"]
+[gd_scene load_steps=37 format=4 uid="uid://csckpnko3l8e5"]
 
-[ext_resource type="Script" uid="uid://d4f5ogyweyfwv" path="res://Objects/Scripts/health_bottle.gd" id="1_qvq2x"]
+[ext_resource type="FontFile" uid="uid://n0t3jrv5gwf8" path="res://Assets/Fonts/PixelOperator8/PixelOperator8.ttf" id="1_1och7"]
+[ext_resource type="Texture2D" uid="uid://ddccyv8ggdm1q" path="res://Assets/Sprites/Brackeys Assets/fruit.png" id="1_emv3i"]
+[ext_resource type="FontFile" uid="uid://btvnwnk7ueujc" path="res://Assets/Fonts/PixelOperator8/PixelOperator8-Bold.ttf" id="1_k0w1u"]
+[ext_resource type="Script" uid="uid://dfulmy2nawsn3" path="res://MenuComponents/Scripts/pause_menu.gd" id="1_vmyb1"]
+[ext_resource type="Texture2D" uid="uid://b85pv858nlkmx" path="res://Assets/Sprites/Kenney Assets/Input Promts/Tilemap/tilemap_packed.png" id="4_bpi0q"]
+[ext_resource type="Texture2D" uid="uid://d02kdmv1l4h46" path="res://Assets/Sprites/Kenney Assets/Input Promts/Tilemap/tilemap.png" id="6_myy0f"]
+[ext_resource type="Texture2D" uid="uid://dkwvwiml7ya5n" path="res://Assets/Sprites/Brackeys Assets/knight.png" id="6_u8tnp"]
 [ext_resource type="Texture2D" uid="uid://bwy31n6ldcsyk" path="res://Assets/Sprites/Brackeys Assets/world_tileset.png" id="8_ix48p"]
+[ext_resource type="Texture2D" uid="uid://dnvpyo1tum6la" path="res://Assets/Sprites/Brackeys Assets/slime_purple.png" id="8_u8tnp"]
+[ext_resource type="Script" uid="uid://tsiok44eut54" path="res://MenuComponents/Scripts/tab_bar.gd" id="9_0fi7f"]
+[ext_resource type="Texture2D" uid="uid://on1n5w2n54op" path="res://Assets/Sprites/Brackeys Assets/coin.png" id="9_524vl"]
+[ext_resource type="Texture2D" uid="uid://cjyjgoewvj62k" path="res://Assets/Sprites/39af8424bb91a3b0a6ec1977ed95e1bb.png" id="13_uscpe"]
+[ext_resource type="Texture2D" uid="uid://ds3vdjqlui4we" path="res://Assets/Sprites/knight.png" id="14_q7fiq"]
+[ext_resource type="Texture2D" uid="uid://dnckfitjuwk1n" path="res://Assets/Sprites/Kenney Assets/Pixel Platformer/Tilemap/tilemap_packed.png" id="14_taale"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_hpfkt"]
+[sub_resource type="Gradient" id="Gradient_y2c35"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(0, 0, 0, 0.9607843)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_xu7l2"]
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_emv3i"]
+gradient = SubResource("Gradient_y2c35")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vmyb1"]
+atlas = ExtResource("1_emv3i")
+region = Rect2(32, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ix48p"]
+atlas = ExtResource("6_u8tnp")
+region = Rect2(8, 106, 15, 17)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u8tnp"]
+atlas = ExtResource("6_myy0f")
+region = Rect2(425, 68, 15, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0fi7f"]
 atlas = ExtResource("8_ix48p")
-region = Rect2(0, 112, 32, 32)
+region = Rect2(80, 32, 16, 16)
 
-[sub_resource type="Animation" id="Animation_e64dc"]
-resource_name = "pickup"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:visible")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("CollisionShape2D:disabled")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0.033333335),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
+[sub_resource type="AtlasTexture" id="AtlasTexture_k0w1u"]
+atlas = ExtResource("9_524vl")
+region = Rect2(0, 0, 16, 16)
 
-[sub_resource type="Animation" id="Animation_fti0p"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("CollisionShape2D:disabled")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Sprite2D:visible")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
+[sub_resource type="AtlasTexture" id="AtlasTexture_524vl"]
+atlas = ExtResource("8_u8tnp")
+region = Rect2(52, 32, 16, 16)
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_3dd6r"]
-_data = {
-&"RESET": SubResource("Animation_fti0p"),
-&"pickup": SubResource("Animation_e64dc")
-}
+[sub_resource type="GDScript" id="GDScript_myy0f"]
+script/source = "extends Button
+var gameMagager = GameManager
 
-[node name="HealthBottle" type="Area2D"]
-collision_mask = 2
-script = ExtResource("1_qvq2x")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -7)
-shape = SubResource("CircleShape2D_hpfkt")
-disabled = true
+func _on_button_up() -> void:
+	GameManager.resume()
+"
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(0, -8)
-texture = SubResource("AtlasTexture_xu7l2")
-hframes = 2
-vframes = 2
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_vmyb1"]
+texture = ExtResource("4_bpi0q")
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+3:0/0 = 0
+4:0/0 = 0
+5:0/0 = 0
+6:0/0 = 0
+7:0/0 = 0
+8:0/0 = 0
+9:0/0 = 0
+10:0/0 = 0
+11:0/0 = 0
+12:0/0 = 0
+13:0/0 = 0
+14:0/0 = 0
+15:0/0 = 0
+16:0/0 = 0
+17:0/0 = 0
+18:0/0 = 0
+19:0/0 = 0
+20:0/0 = 0
+21:0/0 = 0
+22:0/0 = 0
+23:0/0 = 0
+24:0/0 = 0
+25:0/0 = 0
+26:0/0 = 0
+27:0/0 = 0
+28:0/0 = 0
+29:0/0 = 0
+30:0/0 = 0
+31:0/0 = 0
+32:0/0 = 0
+33:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+2:1/0 = 0
+3:1/0 = 0
+4:1/0 = 0
+5:1/0 = 0
+6:1/0 = 0
+7:1/0 = 0
+8:1/0 = 0
+9:1/0 = 0
+10:1/0 = 0
+11:1/0 = 0
+12:1/0 = 0
+13:1/0 = 0
+14:1/0 = 0
+15:1/0 = 0
+16:1/0 = 0
+17:1/0 = 0
+18:1/0 = 0
+19:1/0 = 0
+20:1/0 = 0
+21:1/0 = 0
+22:1/0 = 0
+23:1/0 = 0
+24:1/0 = 0
+25:1/0 = 0
+26:1/0 = 0
+27:1/0 = 0
+28:1/0 = 0
+29:1/0 = 0
+30:1/0 = 0
+31:1/0 = 0
+32:1/0 = 0
+33:1/0 = 0
+0:2/0 = 0
+1:2/0 = 0
+2:2/0 = 0
+3:2/0 = 0
+4:2/0 = 0
+5:2/0 = 0
+6:2/0 = 0
+7:2/0 = 0
+8:2/0 = 0
+9:2/0 = 0
+10:2/0 = 0
+11:2/0 = 0
+12:2/0 = 0
+13:2/0 = 0
+14:2/0 = 0
+15:2/0 = 0
+16:2/0 = 0
+17:2/0 = 0
+18:2/0 = 0
+19:2/0 = 0
+20:2/0 = 0
+21:2/0 = 0
+22:2/0 = 0
+23:2/0 = 0
+24:2/0 = 0
+25:2/0 = 0
+26:2/0 = 0
+27:2/0 = 0
+28:2/0 = 0
+29:2/0 = 0
+30:2/0 = 0
+31:2/0 = 0
+32:2/0 = 0
+33:2/0 = 0
+0:3/0 = 0
+1:3/0 = 0
+2:3/0 = 0
+3:3/0 = 0
+4:3/0 = 0
+5:3/0 = 0
+6:3/0 = 0
+7:3/0 = 0
+8:3/0 = 0
+9:3/0 = 0
+10:3/0 = 0
+11:3/0 = 0
+12:3/0 = 0
+13:3/0 = 0
+14:3/0 = 0
+15:3/0 = 0
+16:3/0 = 0
+17:3/0 = 0
+18:3/0 = 0
+19:3/0 = 0
+20:3/0 = 0
+21:3/0 = 0
+22:3/0 = 0
+23:3/0 = 0
+24:3/0 = 0
+25:3/0 = 0
+26:3/0 = 0
+27:3/0 = 0
+28:3/0 = 0
+29:3/0 = 0
+30:3/0 = 0
+31:3/0 = 0
+32:3/0 = 0
+33:3/0 = 0
+0:4/0 = 0
+1:4/0 = 0
+2:4/0 = 0
+3:4/0 = 0
+4:4/0 = 0
+5:4/0 = 0
+6:4/0 = 0
+7:4/0 = 0
+8:4/0 = 0
+9:4/0 = 0
+10:4/0 = 0
+11:4/0 = 0
+12:4/0 = 0
+13:4/0 = 0
+14:4/0 = 0
+15:4/0 = 0
+16:4/0 = 0
+17:4/0 = 0
+18:4/0 = 0
+19:4/0 = 0
+20:4/0 = 0
+21:4/0 = 0
+22:4/0 = 0
+23:4/0 = 0
+24:4/0 = 0
+25:4/0 = 0
+26:4/0 = 0
+27:4/0 = 0
+28:4/0 = 0
+29:4/0 = 0
+30:4/0 = 0
+31:4/0 = 0
+32:4/0 = 0
+33:4/0 = 0
+0:5/0 = 0
+1:5/0 = 0
+2:5/0 = 0
+3:5/0 = 0
+4:5/0 = 0
+5:5/0 = 0
+6:5/0 = 0
+7:5/0 = 0
+8:5/0 = 0
+9:5/0 = 0
+10:5/0 = 0
+11:5/0 = 0
+12:5/0 = 0
+13:5/0 = 0
+14:5/0 = 0
+15:5/0 = 0
+16:5/0 = 0
+17:5/0 = 0
+18:5/0 = 0
+19:5/0 = 0
+20:5/0 = 0
+21:5/0 = 0
+22:5/0 = 0
+23:5/0 = 0
+24:5/0 = 0
+25:5/0 = 0
+26:5/0 = 0
+27:5/0 = 0
+28:5/0 = 0
+29:5/0 = 0
+30:5/0 = 0
+31:5/0 = 0
+32:5/0 = 0
+33:5/0 = 0
+0:6/0 = 0
+1:6/0 = 0
+2:6/0 = 0
+3:6/0 = 0
+4:6/0 = 0
+5:6/0 = 0
+6:6/0 = 0
+7:6/0 = 0
+8:6/0 = 0
+9:6/0 = 0
+10:6/0 = 0
+11:6/0 = 0
+12:6/0 = 0
+13:6/0 = 0
+14:6/0 = 0
+15:6/0 = 0
+16:6/0 = 0
+17:6/0 = 0
+18:6/0 = 0
+19:6/0 = 0
+20:6/0 = 0
+21:6/0 = 0
+22:6/0 = 0
+23:6/0 = 0
+24:6/0 = 0
+25:6/0 = 0
+26:6/0 = 0
+27:6/0 = 0
+28:6/0 = 0
+29:6/0 = 0
+30:6/0 = 0
+31:6/0 = 0
+32:6/0 = 0
+33:6/0 = 0
+0:7/0 = 0
+1:7/0 = 0
+2:7/0 = 0
+3:7/0 = 0
+4:7/0 = 0
+5:7/0 = 0
+6:7/0 = 0
+7:7/0 = 0
+8:7/0 = 0
+9:7/0 = 0
+10:7/0 = 0
+11:7/0 = 0
+12:7/0 = 0
+13:7/0 = 0
+14:7/0 = 0
+15:7/0 = 0
+16:7/0 = 0
+17:7/0 = 0
+18:7/0 = 0
+19:7/0 = 0
+20:7/0 = 0
+21:7/0 = 0
+22:7/0 = 0
+23:7/0 = 0
+24:7/0 = 0
+25:7/0 = 0
+26:7/0 = 0
+27:7/0 = 0
+28:7/0 = 0
+29:7/0 = 0
+30:7/0 = 0
+31:7/0 = 0
+32:7/0 = 0
+33:7/0 = 0
+0:8/0 = 0
+1:8/0 = 0
+2:8/0 = 0
+3:8/0 = 0
+4:8/0 = 0
+5:8/0 = 0
+6:8/0 = 0
+7:8/0 = 0
+8:8/0 = 0
+9:8/0 = 0
+10:8/0 = 0
+11:8/0 = 0
+12:8/0 = 0
+13:8/0 = 0
+14:8/0 = 0
+15:8/0 = 0
+16:8/0 = 0
+17:8/0 = 0
+18:8/0 = 0
+19:8/0 = 0
+20:8/0 = 0
+21:8/0 = 0
+22:8/0 = 0
+23:8/0 = 0
+24:8/0 = 0
+25:8/0 = 0
+26:8/0 = 0
+27:8/0 = 0
+28:8/0 = 0
+29:8/0 = 0
+30:8/0 = 0
+31:8/0 = 0
+32:8/0 = 0
+33:8/0 = 0
+0:9/0 = 0
+1:9/0 = 0
+2:9/0 = 0
+3:9/0 = 0
+4:9/0 = 0
+5:9/0 = 0
+6:9/0 = 0
+7:9/0 = 0
+8:9/0 = 0
+9:9/0 = 0
+10:9/0 = 0
+11:9/0 = 0
+12:9/0 = 0
+13:9/0 = 0
+14:9/0 = 0
+15:9/0 = 0
+16:9/0 = 0
+17:9/0 = 0
+18:9/0 = 0
+19:9/0 = 0
+20:9/0 = 0
+21:9/0 = 0
+22:9/0 = 0
+23:9/0 = 0
+24:9/0 = 0
+25:9/0 = 0
+26:9/0 = 0
+27:9/0 = 0
+28:9/0 = 0
+29:9/0 = 0
+30:9/0 = 0
+31:9/0 = 0
+32:9/0 = 0
+33:9/0 = 0
+0:10/0 = 0
+1:10/0 = 0
+2:10/0 = 0
+3:10/0 = 0
+4:10/0 = 0
+5:10/0 = 0
+6:10/0 = 0
+7:10/0 = 0
+8:10/0 = 0
+9:10/0 = 0
+10:10/0 = 0
+11:10/0 = 0
+12:10/0 = 0
+13:10/0 = 0
+14:10/0 = 0
+15:10/0 = 0
+16:10/0 = 0
+17:10/0 = 0
+18:10/0 = 0
+19:10/0 = 0
+20:10/0 = 0
+21:10/0 = 0
+22:10/0 = 0
+23:10/0 = 0
+24:10/0 = 0
+25:10/0 = 0
+26:10/0 = 0
+27:10/0 = 0
+28:10/0 = 0
+29:10/0 = 0
+30:10/0 = 0
+31:10/0 = 0
+32:10/0 = 0
+33:10/0 = 0
+0:11/0 = 0
+1:11/0 = 0
+2:11/0 = 0
+3:11/0 = 0
+4:11/0 = 0
+5:11/0 = 0
+6:11/0 = 0
+7:11/0 = 0
+8:11/0 = 0
+9:11/0 = 0
+10:11/0 = 0
+11:11/0 = 0
+12:11/0 = 0
+13:11/0 = 0
+14:11/0 = 0
+15:11/0 = 0
+16:11/0 = 0
+17:11/0 = 0
+18:11/0 = 0
+19:11/0 = 0
+20:11/0 = 0
+21:11/0 = 0
+22:11/0 = 0
+23:11/0 = 0
+24:11/0 = 0
+25:11/0 = 0
+26:11/0 = 0
+27:11/0 = 0
+28:11/0 = 0
+29:11/0 = 0
+30:11/0 = 0
+31:11/0 = 0
+32:11/0 = 0
+33:11/0 = 0
+0:12/0 = 0
+1:12/0 = 0
+2:12/0 = 0
+3:12/0 = 0
+4:12/0 = 0
+5:12/0 = 0
+6:12/0 = 0
+7:12/0 = 0
+8:12/0 = 0
+9:12/0 = 0
+10:12/0 = 0
+11:12/0 = 0
+12:12/0 = 0
+13:12/0 = 0
+14:12/0 = 0
+15:12/0 = 0
+16:12/0 = 0
+17:12/0 = 0
+18:12/0 = 0
+19:12/0 = 0
+20:12/0 = 0
+21:12/0 = 0
+22:12/0 = 0
+23:12/0 = 0
+24:12/0 = 0
+25:12/0 = 0
+26:12/0 = 0
+27:12/0 = 0
+28:12/0 = 0
+29:12/0 = 0
+30:12/0 = 0
+31:12/0 = 0
+32:12/0 = 0
+33:12/0 = 0
+0:13/0 = 0
+1:13/0 = 0
+2:13/0 = 0
+3:13/0 = 0
+4:13/0 = 0
+5:13/0 = 0
+6:13/0 = 0
+7:13/0 = 0
+8:13/0 = 0
+9:13/0 = 0
+10:13/0 = 0
+11:13/0 = 0
+12:13/0 = 0
+13:13/0 = 0
+14:13/0 = 0
+15:13/0 = 0
+16:13/0 = 0
+17:13/0 = 0
+18:13/0 = 0
+19:13/0 = 0
+20:13/0 = 0
+21:13/0 = 0
+22:13/0 = 0
+23:13/0 = 0
+24:13/0 = 0
+25:13/0 = 0
+26:13/0 = 0
+27:13/0 = 0
+28:13/0 = 0
+29:13/0 = 0
+30:13/0 = 0
+31:13/0 = 0
+32:13/0 = 0
+33:13/0 = 0
+0:14/0 = 0
+1:14/0 = 0
+2:14/0 = 0
+3:14/0 = 0
+4:14/0 = 0
+5:14/0 = 0
+6:14/0 = 0
+7:14/0 = 0
+8:14/0 = 0
+9:14/0 = 0
+10:14/0 = 0
+11:14/0 = 0
+12:14/0 = 0
+13:14/0 = 0
+14:14/0 = 0
+15:14/0 = 0
+16:14/0 = 0
+17:14/0 = 0
+18:14/0 = 0
+19:14/0 = 0
+20:14/0 = 0
+21:14/0 = 0
+22:14/0 = 0
+23:14/0 = 0
+24:14/0 = 0
+25:14/0 = 0
+26:14/0 = 0
+27:14/0 = 0
+28:14/0 = 0
+29:14/0 = 0
+30:14/0 = 0
+31:14/0 = 0
+32:14/0 = 0
+33:14/0 = 0
+0:15/0 = 0
+1:15/0 = 0
+2:15/0 = 0
+3:15/0 = 0
+4:15/0 = 0
+5:15/0 = 0
+6:15/0 = 0
+7:15/0 = 0
+8:15/0 = 0
+9:15/0 = 0
+10:15/0 = 0
+11:15/0 = 0
+12:15/0 = 0
+13:15/0 = 0
+14:15/0 = 0
+15:15/0 = 0
+16:15/0 = 0
+17:15/0 = 0
+18:15/0 = 0
+19:15/0 = 0
+20:15/0 = 0
+21:15/0 = 0
+22:15/0 = 0
+23:15/0 = 0
+24:15/0 = 0
+25:15/0 = 0
+26:15/0 = 0
+27:15/0 = 0
+28:15/0 = 0
+29:15/0 = 0
+30:15/0 = 0
+31:15/0 = 0
+32:15/0 = 0
+33:15/0 = 0
+0:16/0 = 0
+1:16/0 = 0
+2:16/0 = 0
+3:16/0 = 0
+4:16/0 = 0
+5:16/0 = 0
+6:16/0 = 0
+7:16/0 = 0
+8:16/0 = 0
+9:16/0 = 0
+10:16/0 = 0
+11:16/0 = 0
+12:16/0 = 0
+13:16/0 = 0
+14:16/0 = 0
+15:16/0 = 0
+16:16/0 = 0
+17:16/0 = 0
+18:16/0 = 0
+19:16/0 = 0
+20:16/0 = 0
+21:16/0 = 0
+22:16/0 = 0
+23:16/0 = 0
+24:16/0 = 0
+25:16/0 = 0
+26:16/0 = 0
+27:16/0 = 0
+28:16/0 = 0
+29:16/0 = 0
+30:16/0 = 0
+31:16/0 = 0
+32:16/0 = 0
+33:16/0 = 0
+0:17/0 = 0
+1:17/0 = 0
+2:17/0 = 0
+3:17/0 = 0
+4:17/0 = 0
+5:17/0 = 0
+6:17/0 = 0
+7:17/0 = 0
+8:17/0 = 0
+9:17/0 = 0
+10:17/0 = 0
+11:17/0 = 0
+12:17/0 = 0
+13:17/0 = 0
+14:17/0 = 0
+15:17/0 = 0
+16:17/0 = 0
+17:17/0 = 0
+18:17/0 = 0
+19:17/0 = 0
+20:17/0 = 0
+21:17/0 = 0
+22:17/0 = 0
+23:17/0 = 0
+24:17/0 = 0
+25:17/0 = 0
+26:17/0 = 0
+27:17/0 = 0
+28:17/0 = 0
+29:17/0 = 0
+30:17/0 = 0
+31:17/0 = 0
+32:17/0 = 0
+33:17/0 = 0
+0:18/0 = 0
+1:18/0 = 0
+2:18/0 = 0
+3:18/0 = 0
+4:18/0 = 0
+5:18/0 = 0
+6:18/0 = 0
+7:18/0 = 0
+8:18/0 = 0
+9:18/0 = 0
+10:18/0 = 0
+11:18/0 = 0
+12:18/0 = 0
+13:18/0 = 0
+14:18/0 = 0
+15:18/0 = 0
+16:18/0 = 0
+17:18/0 = 0
+18:18/0 = 0
+19:18/0 = 0
+20:18/0 = 0
+21:18/0 = 0
+22:18/0 = 0
+23:18/0 = 0
+24:18/0 = 0
+25:18/0 = 0
+26:18/0 = 0
+27:18/0 = 0
+28:18/0 = 0
+29:18/0 = 0
+30:18/0 = 0
+31:18/0 = 0
+32:18/0 = 0
+33:18/0 = 0
+0:19/0 = 0
+1:19/0 = 0
+2:19/0 = 0
+3:19/0 = 0
+4:19/0 = 0
+5:19/0 = 0
+6:19/0 = 0
+7:19/0 = 0
+8:19/0 = 0
+9:19/0 = 0
+10:19/0 = 0
+11:19/0 = 0
+12:19/0 = 0
+13:19/0 = 0
+14:19/0 = 0
+15:19/0 = 0
+16:19/0 = 0
+17:19/0 = 0
+18:19/0 = 0
+19:19/0 = 0
+20:19/0 = 0
+21:19/0 = 0
+22:19/0 = 0
+23:19/0 = 0
+24:19/0 = 0
+25:19/0 = 0
+26:19/0 = 0
+27:19/0 = 0
+28:19/0 = 0
+29:19/0 = 0
+30:19/0 = 0
+31:19/0 = 0
+32:19/0 = 0
+33:19/0 = 0
+0:20/0 = 0
+1:20/0 = 0
+2:20/0 = 0
+3:20/0 = 0
+4:20/0 = 0
+5:20/0 = 0
+6:20/0 = 0
+7:20/0 = 0
+8:20/0 = 0
+9:20/0 = 0
+10:20/0 = 0
+11:20/0 = 0
+12:20/0 = 0
+13:20/0 = 0
+14:20/0 = 0
+15:20/0 = 0
+16:20/0 = 0
+17:20/0 = 0
+18:20/0 = 0
+19:20/0 = 0
+20:20/0 = 0
+21:20/0 = 0
+22:20/0 = 0
+23:20/0 = 0
+24:20/0 = 0
+25:20/0 = 0
+26:20/0 = 0
+27:20/0 = 0
+28:20/0 = 0
+29:20/0 = 0
+30:20/0 = 0
+31:20/0 = 0
+32:20/0 = 0
+33:20/0 = 0
+0:21/0 = 0
+1:21/0 = 0
+2:21/0 = 0
+3:21/0 = 0
+4:21/0 = 0
+5:21/0 = 0
+6:21/0 = 0
+7:21/0 = 0
+8:21/0 = 0
+9:21/0 = 0
+10:21/0 = 0
+11:21/0 = 0
+12:21/0 = 0
+13:21/0 = 0
+14:21/0 = 0
+15:21/0 = 0
+16:21/0 = 0
+17:21/0 = 0
+18:21/0 = 0
+19:21/0 = 0
+20:21/0 = 0
+21:21/0 = 0
+22:21/0 = 0
+23:21/0 = 0
+24:21/0 = 0
+25:21/0 = 0
+26:21/0 = 0
+27:21/0 = 0
+28:21/0 = 0
+29:21/0 = 0
+30:21/0 = 0
+31:21/0 = 0
+32:21/0 = 0
+33:21/0 = 0
+0:22/0 = 0
+1:22/0 = 0
+2:22/0 = 0
+3:22/0 = 0
+4:22/0 = 0
+5:22/0 = 0
+6:22/0 = 0
+7:22/0 = 0
+8:22/0 = 0
+9:22/0 = 0
+10:22/0 = 0
+11:22/0 = 0
+12:22/0 = 0
+13:22/0 = 0
+14:22/0 = 0
+15:22/0 = 0
+16:22/0 = 0
+17:22/0 = 0
+18:22/0 = 0
+19:22/0 = 0
+20:22/0 = 0
+21:22/0 = 0
+22:22/0 = 0
+23:22/0 = 0
+24:22/0 = 0
+25:22/0 = 0
+26:22/0 = 0
+27:22/0 = 0
+28:22/0 = 0
+29:22/0 = 0
+30:22/0 = 0
+31:22/0 = 0
+32:22/0 = 0
+33:22/0 = 0
+0:23/0 = 0
+1:23/0 = 0
+2:23/0 = 0
+3:23/0 = 0
+4:23/0 = 0
+5:23/0 = 0
+6:23/0 = 0
+7:23/0 = 0
+8:23/0 = 0
+9:23/0 = 0
+10:23/0 = 0
+11:23/0 = 0
+12:23/0 = 0
+13:23/0 = 0
+14:23/0 = 0
+15:23/0 = 0
+16:23/0 = 0
+17:23/0 = 0
+18:23/0 = 0
+19:23/0 = 0
+20:23/0 = 0
+21:23/0 = 0
+22:23/0 = 0
+23:23/0 = 0
+24:23/0 = 0
+25:23/0 = 0
+26:23/0 = 0
+27:23/0 = 0
+28:23/0 = 0
+29:23/0 = 0
+30:23/0 = 0
+31:23/0 = 0
+32:23/0 = 0
+33:23/0 = 0
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-&"": SubResource("AnimationLibrary_3dd6r")
-}
+[sub_resource type="TileSet" id="TileSet_myy0f"]
+sources/0 = SubResource("TileSetAtlasSource_vmyb1")
 
-[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_1ymcx"]
+atlas = ExtResource("14_taale")
+region = Rect2(74, 38, 14, 14)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_taale"]
+atlas = ExtResource("8_ix48p")
+region = Rect2(16, 112, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q7fiq"]
+atlas = ExtResource("14_taale")
+region = Rect2(126, 56, 18, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6wqnn"]
+atlas = ExtResource("14_taale")
+region = Rect2(198, 128, 18, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h7ojb"]
+atlas = ExtResource("14_q7fiq")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wqpeb"]
+atlas = ExtResource("14_q7fiq")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tekra"]
+atlas = ExtResource("14_q7fiq")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8flw2"]
+atlas = ExtResource("14_q7fiq")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_c8xnj"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h7ojb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wqpeb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tekra")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wqpeb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8flw2")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="LabelSettings" id="LabelSettings_rl3mt"]
+font = ExtResource("1_1och7")
+
+[sub_resource type="LabelSettings" id="LabelSettings_sbjkf"]
+font = ExtResource("1_1och7")
+
+[node name="PauseMenu" type="CanvasLayer"]
+script = ExtResource("1_vmyb1")
+
+[node name="MenuContainer" type="MarginContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 35.555542
+offset_right = -35.555542
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Background" type="MarginContainer" parent="MenuContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="Sprite2D" type="Sprite2D" parent="MenuContainer/Background"]
+position = Vector2(-11.555603, -2.0000305)
+scale = Vector2(6.95, -1000)
+texture = SubResource("GradientTexture1D_emv3i")
+
+[node name="TabBar" type="TabBar" parent="MenuContainer"]
+z_index = 1
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+size_flags_vertical = 0
+mouse_default_cursor_shape = 2
+theme_override_fonts/font = ExtResource("1_k0w1u")
+current_tab = 0
+tab_alignment = 1
+close_with_middle_mouse = false
+scrolling_enabled = false
+scroll_to_selected = false
+tab_count = 6
+tab_0/title = "Main Menu"
+tab_0/tooltip = "Главное меню"
+tab_0/icon = SubResource("AtlasTexture_vmyb1")
+tab_1/title = "Character"
+tab_1/tooltip = "Меню персонажа"
+tab_1/icon = SubResource("AtlasTexture_ix48p")
+tab_2/title = "World Map"
+tab_2/tooltip = "Карта мира"
+tab_2/icon = SubResource("AtlasTexture_u8tnp")
+tab_2/disabled = true
+tab_3/title = "Quests"
+tab_3/tooltip = "Задания"
+tab_3/icon = SubResource("AtlasTexture_0fi7f")
+tab_3/disabled = true
+tab_4/title = "Inventory"
+tab_4/tooltip = "Инвентарь"
+tab_4/icon = SubResource("AtlasTexture_k0w1u")
+tab_4/disabled = true
+tab_5/title = "Library"
+tab_5/tooltip = "Глоссарий"
+tab_5/icon = SubResource("AtlasTexture_524vl")
+tab_5/disabled = true
+script = ExtResource("9_0fi7f")
+
+[node name="Tab1" type="MarginContainer" parent="MenuContainer/TabBar"]
+visible = false
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.029000001
+anchor_right = 1.034
+anchor_bottom = 12.8
+offset_left = 84.65337
+offset_top = 44.0
+offset_right = -89.16455
+offset_bottom = -48.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MainMenu" type="VBoxContainer" parent="MenuContainer/TabBar/Tab1"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 4
+
+[node name="Label" type="Label" parent="MenuContainer/TabBar/Tab1/MainMenu"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_k0w1u")
+theme_override_font_sizes/font_size = 16
+text = "Menu"
+vertical_alignment = 1
+
+[node name="Resume" type="Button" parent="MenuContainer/TabBar/Tab1/MainMenu"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_1och7")
+text = "Resume"
+alignment = 0
+script = SubResource("GDScript_myy0f")
+
+[node name="Options" type="Button" parent="MenuContainer/TabBar/Tab1/MainMenu"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_1och7")
+text = "Options"
+alignment = 0
+
+[node name="Exit" type="Button" parent="MenuContainer/TabBar/Tab1/MainMenu"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_1och7")
+text = "Exit Game"
+alignment = 0
+
+[node name="TestMenu" type="VBoxContainer" parent="MenuContainer/TabBar/Tab1"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+size_flags_horizontal = 10
+size_flags_vertical = 4
+
+[node name="Label" type="Label" parent="MenuContainer/TabBar/Tab1/TestMenu"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_k0w1u")
+theme_override_font_sizes/font_size = 16
+text = "Test"
+vertical_alignment = 1
+
+[node name="GiveCoins" type="Button" parent="MenuContainer/TabBar/Tab1/TestMenu"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_1och7")
+text = "Give Coins"
+alignment = 0
+
+[node name="GiveEXP" type="Button" parent="MenuContainer/TabBar/Tab1/TestMenu"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_1och7")
+text = "Give EXP"
+alignment = 0
+
+[node name="DamagePlayer" type="Button" parent="MenuContainer/TabBar/Tab1/TestMenu"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_1och7")
+text = "Damage Player"
+alignment = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="MenuContainer/TabBar/Tab1"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="TileMapLayer" type="TileMapLayer" parent="MenuContainer/TabBar/Tab1/MarginContainer"]
+position = Vector2(-983.8889, -514)
+scale = Vector2(2, 2)
+tile_map_data = PackedByteArray("AAAXAA4AAAAfAAYAAAAYAA4AAAAgAAYAAAAZAA4AAAAhAAYAAAAXABAAAAARAAcAAAAYABAAAAASAAcAAAAaAA4AAAASAAIAAAAZABAAAAAKAAMAAAAaABIAAAARAAEAAAAbABIAAAASAAEAAAAcABIAAAATAAEAAAAdABIAAAAUAAEAAAAeABIAAAAVAAEAAAAfABIAAAAWAAEAAAAgABIAAAAXAAEAAAAXABIAAAATAAUAAAAYABIAAAAUAAUAAAAkAA4AAAAUAAMAAAAjAA4AAAASAAMAAAAjAA8AAAAhAAQAAAAkAA8AAAAfAAQAAAAjABIAAAARAAAAAAAdAA4AAAAJAAMAAAAdABAAAAATAAoAAAA=")
+tile_set = SubResource("TileSet_myy0f")
+
+[node name="Label" type="Label" parent="MenuContainer/TabBar/Tab1/MarginContainer/TileMapLayer"]
+offset_left = 326.0
+offset_top = 222.0
+offset_right = 367.0
+offset_bottom = 245.0
+theme_override_fonts/font = ExtResource("1_1och7")
+theme_override_font_sizes/font_size = 8
+text = "Jump"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label2" type="Label" parent="MenuContainer/TabBar/Tab1/MarginContainer/TileMapLayer"]
+offset_left = 326.0
+offset_top = 252.0
+offset_right = 367.0
+offset_bottom = 275.0
+theme_override_fonts/font = ExtResource("1_1och7")
+theme_override_font_sizes/font_size = 8
+text = "Dash"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label3" type="Label" parent="MenuContainer/TabBar/Tab1/MarginContainer/TileMapLayer"]
+offset_left = 324.0
+offset_top = 286.0
+offset_right = 365.0
+offset_bottom = 309.0
+theme_override_fonts/font = ExtResource("1_1och7")
+theme_override_font_sizes/font_size = 8
+text = "Map"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label4" type="Label" parent="MenuContainer/TabBar/Tab1/MarginContainer/TileMapLayer"]
+offset_left = 592.0
+offset_top = 230.0
+offset_right = 633.0
+offset_bottom = 253.0
+theme_override_fonts/font = ExtResource("1_1och7")
+theme_override_font_sizes/font_size = 8
+text = "Move"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label6" type="Label" parent="MenuContainer/TabBar/Tab1/MarginContainer/TileMapLayer"]
+offset_left = 578.0
+offset_top = 286.0
+offset_right = 619.0
+offset_bottom = 309.0
+theme_override_fonts/font = ExtResource("1_1och7")
+theme_override_font_sizes/font_size = 8
+text = "Pause"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label7" type="Label" parent="MenuContainer/TabBar/Tab1/MarginContainer/TileMapLayer"]
+offset_left = 482.0
+offset_top = 254.0
+offset_right = 534.0
+offset_bottom = 277.0
+theme_override_fonts/font = ExtResource("1_1och7")
+theme_override_font_sizes/font_size = 8
+text = "Interact"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label8" type="Label" parent="MenuContainer/TabBar/Tab1/MarginContainer/TileMapLayer"]
+offset_left = 482.0
+offset_top = 222.0
+offset_right = 523.0
+offset_bottom = 245.0
+theme_override_fonts/font = ExtResource("1_1och7")
+theme_override_font_sizes/font_size = 8
+text = "Attack"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label9" type="Label" parent="MenuContainer/TabBar/Tab1/MarginContainer/TileMapLayer"]
+offset_left = 442.0
+offset_top = 306.0
+offset_right = 500.0
+offset_bottom = 329.0
+theme_override_fonts/font = ExtResource("1_1och7")
+theme_override_font_sizes/font_size = 8
+text = "Quick Bar"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Tab2" type="MarginContainer" parent="MenuContainer/TabBar"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.029000001
+anchor_right = 1.034
+anchor_bottom = 12.8
+offset_left = 84.65337
+offset_top = 64.0
+offset_right = -89.16455
+offset_bottom = -28.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MenuContainer/TabBar/Tab2"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MenuContainer/TabBar/Tab2/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MenuContainer/TabBar/Tab2/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 4
+
+[node name="Label" type="Label" parent="MenuContainer/TabBar/Tab2/HBoxContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_1och7")
+text = "Points:"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="StatPointsLabel" type="Label" parent="MenuContainer/TabBar/Tab2/HBoxContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_1och7")
+text = "0"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="EndContainer" type="HBoxContainer" parent="MenuContainer/TabBar/Tab2/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MenuContainer/TabBar/Tab2/HBoxContainer/VBoxContainer/EndContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="Sprite2D" type="Sprite2D" parent="MenuContainer/TabBar/Tab2/HBoxContainer/VBoxContainer/EndContainer/MarginContainer"]
+position = Vector2(-24.888916, 23.979996)
+scale = Vector2(2, 2)
+texture = SubResource("AtlasTexture_1ymcx")
+
+[node name="EndLabel" type="Label" parent="MenuContainer/TabBar/Tab2/HBoxContainer/VBoxContainer/EndContainer"]
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_1och7")
+text = "Endurance"
+vertical_alignment = 1
+
+[node name="EndPointsLabel" type="Label" parent="MenuContainer/TabBar/Tab2/HBoxContainer/VBoxContainer/EndContainer"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_1och7")
+text = "10"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="EndButton" type="Button" parent="MenuContainer/TabBar/Tab2/HBoxContainer/VBoxContainer/EndContainer"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_1och7")
+theme_override_font_sizes/font_size = 16
+text = "+"
+
+[node name="StrContainer" type="HBoxContainer" parent="MenuContainer/TabBar/Tab2/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MenuContainer/TabBar/Tab2/HBoxContainer/VBoxContainer/StrContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="MenuContainer/TabBar/Tab2/HBoxContainer/VBoxContainer/StrContainer/MarginContainer"]
+position = Vector2(-24.888916, 23.979996)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("13_uscpe")
+
+[node name="StrLabel" type="Label" parent="MenuContainer/TabBar/Tab2/HBoxContainer/VBoxContainer/StrContainer"]
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_1och7")
+text = "Strength"
+vertical_alignment = 1
+
+[node name="StrPointsLabel" type="Label" parent="MenuContainer/TabBar/Tab2/HBoxContainer/VBoxContainer/StrContainer"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_1och7")
+text = "10"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="StrButton" type="Button" parent="MenuContainer/TabBar/Tab2/HBoxContainer/VBoxContainer/StrContainer"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_1och7")
+theme_override_font_sizes/font_size = 16
+text = "+"
+
+[node name="AglContainer" type="HBoxContainer" parent="MenuContainer/TabBar/Tab2/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MenuContainer/TabBar/Tab2/HBoxContainer/VBoxContainer/AglContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="MenuContainer/TabBar/Tab2/HBoxContainer/VBoxContainer/AglContainer/MarginContainer"]
+position = Vector2(-24.888916, 23.979996)
+scale = Vector2(2, 2)
+texture = SubResource("AtlasTexture_taale")
+
+[node name="AglLabel" type="Label" parent="MenuContainer/TabBar/Tab2/HBoxContainer/VBoxContainer/AglContainer"]
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_1och7")
+text = "Agility"
+vertical_alignment = 1
+
+[node name="AglPointsLabel" type="Label" parent="MenuContainer/TabBar/Tab2/HBoxContainer/VBoxContainer/AglContainer"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_1och7")
+text = "10"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AglButton" type="Button" parent="MenuContainer/TabBar/Tab2/HBoxContainer/VBoxContainer/AglContainer"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_1och7")
+theme_override_font_sizes/font_size = 16
+text = "+"
+
+[node name="IntContainer" type="HBoxContainer" parent="MenuContainer/TabBar/Tab2/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MenuContainer/TabBar/Tab2/HBoxContainer/VBoxContainer/IntContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="MenuContainer/TabBar/Tab2/HBoxContainer/VBoxContainer/IntContainer/MarginContainer"]
+position = Vector2(-24.888916, 23.979996)
+scale = Vector2(2, 2)
+texture = SubResource("AtlasTexture_q7fiq")
+
+[node name="IntLabel" type="Label" parent="MenuContainer/TabBar/Tab2/HBoxContainer/VBoxContainer/IntContainer"]
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_1och7")
+text = "Inteligence"
+vertical_alignment = 1
+
+[node name="IntPointsLabel" type="Label" parent="MenuContainer/TabBar/Tab2/HBoxContainer/VBoxContainer/IntContainer"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_1och7")
+text = "10"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="IntButton" type="Button" parent="MenuContainer/TabBar/Tab2/HBoxContainer/VBoxContainer/IntContainer"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_1och7")
+theme_override_font_sizes/font_size = 16
+text = "+"
+
+[node name="LckContainer" type="HBoxContainer" parent="MenuContainer/TabBar/Tab2/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MenuContainer/TabBar/Tab2/HBoxContainer/VBoxContainer/LckContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="MenuContainer/TabBar/Tab2/HBoxContainer/VBoxContainer/LckContainer/MarginContainer"]
+position = Vector2(-24.888916, 23.979996)
+scale = Vector2(2, 2)
+texture = SubResource("AtlasTexture_6wqnn")
+
+[node name="LuckLabel" type="Label" parent="MenuContainer/TabBar/Tab2/HBoxContainer/VBoxContainer/LckContainer"]
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_1och7")
+text = "Luck"
+vertical_alignment = 1
+
+[node name="LckPointsLabel" type="Label" parent="MenuContainer/TabBar/Tab2/HBoxContainer/VBoxContainer/LckContainer"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_1och7")
+text = "10"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LckButton" type="Button" parent="MenuContainer/TabBar/Tab2/HBoxContainer/VBoxContainer/LckContainer"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_1och7")
+theme_override_font_sizes/font_size = 16
+text = "+"
+
+[node name="MarginContainer" type="MarginContainer" parent="MenuContainer/TabBar/Tab2/HBoxContainer"]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="MenuContainer/TabBar/Tab2/HBoxContainer/MarginContainer"]
+position = Vector2(198.11108, 123)
+scale = Vector2(10, 10)
+sprite_frames = SubResource("SpriteFrames_c8xnj")
+autoplay = "default"
+frame_progress = 0.72284865
+
+[node name="Container" type="HBoxContainer" parent="MenuContainer/TabBar/Tab2/HBoxContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="LevelContainer" type="HBoxContainer" parent="MenuContainer/TabBar/Tab2/HBoxContainer/MarginContainer/Container"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 0
+
+[node name="Label" type="Label" parent="MenuContainer/TabBar/Tab2/HBoxContainer/MarginContainer/Container/LevelContainer"]
+layout_mode = 2
+text = "Level"
+label_settings = SubResource("LabelSettings_rl3mt")
+
+[node name="LevelLabel" type="Label" parent="MenuContainer/TabBar/Tab2/HBoxContainer/MarginContainer/Container/LevelContainer"]
+layout_mode = 2
+size_flags_horizontal = 6
+theme_override_fonts/font = ExtResource("1_1och7")
+text = "1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ExpContainer" type="HBoxContainer" parent="MenuContainer/TabBar/Tab2/HBoxContainer/MarginContainer/Container"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 0
+
+[node name="Label" type="Label" parent="MenuContainer/TabBar/Tab2/HBoxContainer/MarginContainer/Container/ExpContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "EXP:"
+label_settings = SubResource("LabelSettings_rl3mt")
+
+[node name="ExpLabel" type="Label" parent="MenuContainer/TabBar/Tab2/HBoxContainer/MarginContainer/Container/ExpContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("1_1och7")
+text = "100"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label2" type="Label" parent="MenuContainer/TabBar/Tab2/HBoxContainer/MarginContainer/Container/ExpContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "/"
+label_settings = SubResource("LabelSettings_sbjkf")
+
+[node name="ExpNeededLabel" type="Label" parent="MenuContainer/TabBar/Tab2/HBoxContainer/MarginContainer/Container/ExpContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("1_1och7")
+text = "100"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Tab3" type="MarginContainer" parent="MenuContainer/TabBar"]
+visible = false
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.029000001
+anchor_right = 1.034
+anchor_bottom = 12.8
+offset_left = 84.65337
+offset_top = 64.0
+offset_right = -89.16455
+offset_bottom = -28.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Tab4" type="MarginContainer" parent="MenuContainer/TabBar"]
+visible = false
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.029000001
+anchor_right = 1.034
+anchor_bottom = 12.8
+offset_left = 84.65337
+offset_top = 64.0
+offset_right = -89.16455
+offset_bottom = -28.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Tab5" type="MarginContainer" parent="MenuContainer/TabBar"]
+visible = false
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.029000001
+anchor_right = 1.034
+anchor_bottom = 12.8
+offset_left = 84.65337
+offset_top = 64.0
+offset_right = -89.16455
+offset_bottom = -28.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Tab6" type="MarginContainer" parent="MenuContainer/TabBar"]
+visible = false
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.029000001
+anchor_right = 1.034
+anchor_bottom = 12.8
+offset_left = 84.65337
+offset_top = 64.0
+offset_right = -89.16455
+offset_bottom = -28.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[connection signal="tab_clicked" from="MenuContainer/TabBar" to="MenuContainer/TabBar" method="_on_tab_clicked"]
+[connection signal="button_up" from="MenuContainer/TabBar/Tab1/MainMenu/Resume" to="." method="_on_resume_button_up"]
+[connection signal="button_up" from="MenuContainer/TabBar/Tab1/MainMenu/Exit" to="." method="_on_exit_button_up"]
+[connection signal="button_up" from="MenuContainer/TabBar/Tab1/TestMenu/GiveCoins" to="." method="_on_give_coins_button_up"]
+[connection signal="button_up" from="MenuContainer/TabBar/Tab1/TestMenu/GiveEXP" to="." method="_on_give_exp_button_up"]
+[connection signal="button_up" from="MenuContainer/TabBar/Tab1/TestMenu/DamagePlayer" to="." method="_on_damage_player_button_up"]
+[connection signal="button_up" from="MenuContainer/TabBar/Tab2/HBoxContainer/VBoxContainer/EndContainer/EndButton" to="." method="_on_end_button_button_up"]
+[connection signal="button_up" from="MenuContainer/TabBar/Tab2/HBoxContainer/VBoxContainer/StrContainer/StrButton" to="." method="_on_str_button_button_up"]
+[connection signal="button_up" from="MenuContainer/TabBar/Tab2/HBoxContainer/VBoxContainer/AglContainer/AglButton" to="." method="_on_agl_button_button_up"]
+[connection signal="button_up" from="MenuContainer/TabBar/Tab2/HBoxContainer/VBoxContainer/IntContainer/IntButton" to="." method="_on_int_button_button_up"]
+[connection signal="button_up" from="MenuContainer/TabBar/Tab2/HBoxContainer/VBoxContainer/LckContainer/LckButton" to="." method="_on_lck_button_button_up"]
