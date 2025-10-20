@@ -9,6 +9,7 @@ var paused = false
 var coin_amount = 50
 var exp_amount = 50
 var pauseTime = 0
+var damage_amount = 50
 
 
 func _ready() -> void:
@@ -57,4 +58,4 @@ func _on_give_exp_button_up() -> void:
 	stats_manager.add_exp(exp_amount)
 
 func _on_damage_player_button_up() -> void:
-	pass # Replace with function body.
+	HealthManager.take_damage(damage_amount)

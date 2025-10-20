@@ -1,7 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://l21017dfwaun"]
+[gd_scene load_steps=8 format=3 uid="uid://l21017dfwaun"]
 
 [ext_resource type="FontFile" uid="uid://n0t3jrv5gwf8" path="res://Assets/Fonts/PixelOperator8/PixelOperator8.ttf" id="1_ohrjl"]
-[ext_resource type="Script" uid="uid://bf7wrgtt088lb" path="res://Scripts/health_bar.gd" id="2_dxtgh"]
+[ext_resource type="Script" uid="uid://bf7wrgtt088lb" path="res://Objects/Scripts/health_bar.gd" id="2_dxtgh"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_t0iga"]
 outline_size = 5

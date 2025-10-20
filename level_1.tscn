@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=4 uid="uid://c20prbmp4lgnm"]
+[gd_scene load_steps=22 format=4 uid="uid://c20prbmp4lgnm"]
 
 [ext_resource type="Texture2D" uid="uid://bwy31n6ldcsyk" path="res://Assets/Sprites/Brackeys Assets/world_tileset.png" id="1_bjebc"]
 [ext_resource type="AudioStream" uid="uid://ddwmtelngh4g2" path="res://Assets/Music/Bilewater.mp3" id="2_5rr72"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://cb1hf4bp8blke" path="res://Objects/Scenes/coin.tscn" id="5_27bay"]
 [ext_resource type="PackedScene" uid="uid://bj3gfaxg6jdwl" path="res://Objects/Scenes/chest.tscn" id="6_sof0w"]
 [ext_resource type="PackedScene" uid="uid://d3psd025liwe7" path="res://Objects/Scenes/sign.tscn" id="7_ggavl"]
+[ext_resource type="PackedScene" uid="uid://d0rsetodnya6i" path="res://Objects/Scenes/health_bottle.tscn" id="8_5rr72"]
 [ext_resource type="PackedScene" uid="uid://drkpxgvgqe5c2" path="res://Entities/player.tscn" id="8_ubhxj"]
 
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_xrdnt"]
@@ -362,6 +363,10 @@ position = Vector2(472, -6)
 
 [node name="Sign" parent="Objects" instance=ExtResource("7_ggavl")]
 position = Vector2(232, -8)
+
+[node name="HealthBottle" parent="Objects" instance=ExtResource("8_5rr72")]
+position = Vector2(205, 1)
+scale = Vector2(0.86531234, 0.9200008)
 
 [node name="Player" parent="." instance=ExtResource("8_ubhxj")]
 position = Vector2(0, -8)

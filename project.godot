@@ -17,8 +17,8 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-PlayerUI="*res://MenuComponents/Scenes/player_ui.tscn"
 StatsManager="*res://Managers/stats_manager.gd"
+PlayerUI="*res://MenuComponents/Scenes/player_ui.tscn"
 HealthManager="*res://Managers/health_manager.gd"
 GameManager="*res://Managers/game_manager.gd"
 PauseMenu="*res://MenuComponents/Scenes/pause_menu.tscn"

@@ -1,13 +1,15 @@
 extends ProgressBar
 
-
-# Called when the node enters the scene tree for the first time.
+var damage_amount = 10
 func _ready() -> void:
-	pass # Replace with function body.
+	HealthManager.connect("on_take_damage", jopa)
+	
+func jopa():
+	print("jopa")
 
-@onready var health = HealthManager
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	if Input.is_action_just_pressed("attack"):
-		health._damage()
+	#if Input.is_action_just_pressed("attack"):
+		#HealthManager.take_damage(damage_amount)
+		
+	if HealthManager.health_bar.value <= 0:
+		HealthManager.death()
