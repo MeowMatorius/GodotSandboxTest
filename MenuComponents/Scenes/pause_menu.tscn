@@ -960,6 +960,7 @@ scale = Vector2(6.95, -1000)
 texture = SubResource("GradientTexture1D_emv3i")
 
 [node name="TabBar" type="TabBar" parent="MenuContainer"]
+z_index = 1
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 size_flags_vertical = 0
