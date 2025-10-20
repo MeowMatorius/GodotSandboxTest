@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=4 uid="uid://csckpnko3l8e5"]
+[gd_scene load_steps=37 format=4 uid="uid://csckpnko3l8e5"]
 
 [ext_resource type="FontFile" uid="uid://n0t3jrv5gwf8" path="res://Assets/Fonts/PixelOperator8/PixelOperator8.ttf" id="1_1och7"]
 [ext_resource type="Texture2D" uid="uid://ddccyv8ggdm1q" path="res://Assets/Sprites/Brackeys Assets/fruit.png" id="1_emv3i"]
@@ -11,14 +11,9 @@
 [ext_resource type="Texture2D" uid="uid://dnvpyo1tum6la" path="res://Assets/Sprites/Brackeys Assets/slime_purple.png" id="8_u8tnp"]
 [ext_resource type="Script" uid="uid://tsiok44eut54" path="res://MenuComponents/Scripts/tab_bar.gd" id="9_0fi7f"]
 [ext_resource type="Texture2D" uid="uid://on1n5w2n54op" path="res://Assets/Sprites/Brackeys Assets/coin.png" id="9_524vl"]
-[ext_resource type="Script" uid="uid://bmut4601qmroo" path="res://MenuComponents/Scripts/StatButtons/end_button.gd" id="13_sbjkf"]
 [ext_resource type="Texture2D" uid="uid://cjyjgoewvj62k" path="res://Assets/Sprites/39af8424bb91a3b0a6ec1977ed95e1bb.png" id="13_uscpe"]
 [ext_resource type="Texture2D" uid="uid://ds3vdjqlui4we" path="res://Assets/Sprites/knight.png" id="14_q7fiq"]
 [ext_resource type="Texture2D" uid="uid://dnckfitjuwk1n" path="res://Assets/Sprites/Kenney Assets/Pixel Platformer/Tilemap/tilemap_packed.png" id="14_taale"]
-[ext_resource type="Script" uid="uid://d4kuw670yxypx" path="res://MenuComponents/Scripts/StatButtons/str_button.gd" id="15_pl2n6"]
-[ext_resource type="Script" uid="uid://llq1ilonu6ol" path="res://MenuComponents/Scripts/StatButtons/agl_button.gd" id="16_qaylb"]
-[ext_resource type="Script" uid="uid://bo1fdvasnkwoj" path="res://MenuComponents/Scripts/StatButtons/int_button.gd" id="17_61ur2"]
-[ext_resource type="Script" uid="uid://qijj4nd2jihc" path="res://MenuComponents/Scripts/StatButtons/lck_button.gd" id="18_61ur2"]
 
 [sub_resource type="Gradient" id="Gradient_y2c35"]
 offsets = PackedFloat32Array(0)
@@ -937,6 +932,12 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="LabelSettings" id="LabelSettings_rl3mt"]
+font = ExtResource("1_1och7")
+
+[sub_resource type="LabelSettings" id="LabelSettings_sbjkf"]
+font = ExtResource("1_1och7")
+
 [node name="PauseMenu" type="CanvasLayer"]
 script = ExtResource("1_vmyb1")
 
@@ -1202,10 +1203,23 @@ size_flags_vertical = 4
 layout_mode = 2
 size_flags_horizontal = 0
 
-[node name="StatPoints" type="Label" parent="MenuContainer/TabBar/Tab2/HBoxContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="MenuContainer/TabBar/Tab2/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 4
+
+[node name="Label" type="Label" parent="MenuContainer/TabBar/Tab2/HBoxContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("1_1och7")
-text = "Points: 0"
+text = "Points:"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="StatPointsLabel" type="Label" parent="MenuContainer/TabBar/Tab2/HBoxContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_1och7")
+text = "0"
 horizontal_alignment = 2
 vertical_alignment = 1
 
@@ -1221,14 +1235,14 @@ position = Vector2(-24.888916, 23.979996)
 scale = Vector2(2, 2)
 texture = SubResource("AtlasTexture_1ymcx")
 
-[node name="Endurance" type="Label" parent="MenuContainer/TabBar/Tab2/HBoxContainer/VBoxContainer/EndContainer"]
+[node name="EndLabel" type="Label" parent="MenuContainer/TabBar/Tab2/HBoxContainer/VBoxContainer/EndContainer"]
 custom_minimum_size = Vector2(200, 50)
 layout_mode = 2
 theme_override_fonts/font = ExtResource("1_1och7")
 text = "Endurance"
 vertical_alignment = 1
 
-[node name="EndPoints" type="Label" parent="MenuContainer/TabBar/Tab2/HBoxContainer/VBoxContainer/EndContainer"]
+[node name="EndPointsLabel" type="Label" parent="MenuContainer/TabBar/Tab2/HBoxContainer/VBoxContainer/EndContainer"]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 theme_override_fonts/font = ExtResource("1_1och7")
@@ -1242,7 +1256,6 @@ layout_mode = 2
 theme_override_fonts/font = ExtResource("1_1och7")
 theme_override_font_sizes/font_size = 16
 text = "+"
-script = ExtResource("13_sbjkf")
 
 [node name="StrContainer" type="HBoxContainer" parent="MenuContainer/TabBar/Tab2/HBoxContainer/VBoxContainer"]
 layout_mode = 2
@@ -1256,14 +1269,14 @@ position = Vector2(-24.888916, 23.979996)
 scale = Vector2(0.1, 0.1)
 texture = ExtResource("13_uscpe")
 
-[node name="Strength" type="Label" parent="MenuContainer/TabBar/Tab2/HBoxContainer/VBoxContainer/StrContainer"]
+[node name="StrLabel" type="Label" parent="MenuContainer/TabBar/Tab2/HBoxContainer/VBoxContainer/StrContainer"]
 custom_minimum_size = Vector2(200, 50)
 layout_mode = 2
 theme_override_fonts/font = ExtResource("1_1och7")
 text = "Strength"
 vertical_alignment = 1
 
-[node name="StrPoints" type="Label" parent="MenuContainer/TabBar/Tab2/HBoxContainer/VBoxContainer/StrContainer"]
+[node name="StrPointsLabel" type="Label" parent="MenuContainer/TabBar/Tab2/HBoxContainer/VBoxContainer/StrContainer"]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 theme_override_fonts/font = ExtResource("1_1och7")
@@ -1277,7 +1290,6 @@ layout_mode = 2
 theme_override_fonts/font = ExtResource("1_1och7")
 theme_override_font_sizes/font_size = 16
 text = "+"
-script = ExtResource("15_pl2n6")
 
 [node name="AglContainer" type="HBoxContainer" parent="MenuContainer/TabBar/Tab2/HBoxContainer/VBoxContainer"]
 layout_mode = 2
@@ -1291,14 +1303,14 @@ position = Vector2(-24.888916, 23.979996)
 scale = Vector2(2, 2)
 texture = SubResource("AtlasTexture_taale")
 
-[node name="Agility" type="Label" parent="MenuContainer/TabBar/Tab2/HBoxContainer/VBoxContainer/AglContainer"]
+[node name="AglLabel" type="Label" parent="MenuContainer/TabBar/Tab2/HBoxContainer/VBoxContainer/AglContainer"]
 custom_minimum_size = Vector2(200, 50)
 layout_mode = 2
 theme_override_fonts/font = ExtResource("1_1och7")
 text = "Agility"
 vertical_alignment = 1
 
-[node name="AglPoints" type="Label" parent="MenuContainer/TabBar/Tab2/HBoxContainer/VBoxContainer/AglContainer"]
+[node name="AglPointsLabel" type="Label" parent="MenuContainer/TabBar/Tab2/HBoxContainer/VBoxContainer/AglContainer"]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 theme_override_fonts/font = ExtResource("1_1och7")
@@ -1312,7 +1324,6 @@ layout_mode = 2
 theme_override_fonts/font = ExtResource("1_1och7")
 theme_override_font_sizes/font_size = 16
 text = "+"
-script = ExtResource("16_qaylb")
 
 [node name="IntContainer" type="HBoxContainer" parent="MenuContainer/TabBar/Tab2/HBoxContainer/VBoxContainer"]
 layout_mode = 2
@@ -1326,14 +1337,14 @@ position = Vector2(-24.888916, 23.979996)
 scale = Vector2(2, 2)
 texture = SubResource("AtlasTexture_q7fiq")
 
-[node name="Inteligence" type="Label" parent="MenuContainer/TabBar/Tab2/HBoxContainer/VBoxContainer/IntContainer"]
+[node name="IntLabel" type="Label" parent="MenuContainer/TabBar/Tab2/HBoxContainer/VBoxContainer/IntContainer"]
 custom_minimum_size = Vector2(200, 50)
 layout_mode = 2
 theme_override_fonts/font = ExtResource("1_1och7")
 text = "Inteligence"
 vertical_alignment = 1
 
-[node name="IntPoints" type="Label" parent="MenuContainer/TabBar/Tab2/HBoxContainer/VBoxContainer/IntContainer"]
+[node name="IntPointsLabel" type="Label" parent="MenuContainer/TabBar/Tab2/HBoxContainer/VBoxContainer/IntContainer"]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 theme_override_fonts/font = ExtResource("1_1och7")
@@ -1347,7 +1358,6 @@ layout_mode = 2
 theme_override_fonts/font = ExtResource("1_1och7")
 theme_override_font_sizes/font_size = 16
 text = "+"
-script = ExtResource("17_61ur2")
 
 [node name="LckContainer" type="HBoxContainer" parent="MenuContainer/TabBar/Tab2/HBoxContainer/VBoxContainer"]
 layout_mode = 2
@@ -1361,14 +1371,14 @@ position = Vector2(-24.888916, 23.979996)
 scale = Vector2(2, 2)
 texture = SubResource("AtlasTexture_6wqnn")
 
-[node name="Luck" type="Label" parent="MenuContainer/TabBar/Tab2/HBoxContainer/VBoxContainer/LckContainer"]
+[node name="LuckLabel" type="Label" parent="MenuContainer/TabBar/Tab2/HBoxContainer/VBoxContainer/LckContainer"]
 custom_minimum_size = Vector2(200, 50)
 layout_mode = 2
 theme_override_fonts/font = ExtResource("1_1och7")
 text = "Luck"
 vertical_alignment = 1
 
-[node name="LckPoints" type="Label" parent="MenuContainer/TabBar/Tab2/HBoxContainer/VBoxContainer/LckContainer"]
+[node name="LckPointsLabel" type="Label" parent="MenuContainer/TabBar/Tab2/HBoxContainer/VBoxContainer/LckContainer"]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 theme_override_fonts/font = ExtResource("1_1och7")
@@ -1382,7 +1392,6 @@ layout_mode = 2
 theme_override_fonts/font = ExtResource("1_1och7")
 theme_override_font_sizes/font_size = 16
 text = "+"
-script = ExtResource("18_61ur2")
 
 [node name="MarginContainer" type="MarginContainer" parent="MenuContainer/TabBar/Tab2/HBoxContainer"]
 custom_minimum_size = Vector2(400, 0)
@@ -1395,24 +1404,59 @@ sprite_frames = SubResource("SpriteFrames_c8xnj")
 autoplay = "default"
 frame_progress = 0.72284865
 
-[node name="ExpContainer" type="HBoxContainer" parent="MenuContainer/TabBar/Tab2/HBoxContainer/MarginContainer"]
+[node name="Container" type="HBoxContainer" parent="MenuContainer/TabBar/Tab2/HBoxContainer/MarginContainer"]
 layout_mode = 2
 
-[node name="LevelLabel" type="Label" parent="MenuContainer/TabBar/Tab2/HBoxContainer/MarginContainer/ExpContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 0
-theme_override_fonts/font = ExtResource("1_1och7")
-text = "Level: 1"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="ExpLabel" type="Label" parent="MenuContainer/TabBar/Tab2/HBoxContainer/MarginContainer/ExpContainer"]
+[node name="LevelContainer" type="HBoxContainer" parent="MenuContainer/TabBar/Tab2/HBoxContainer/MarginContainer/Container"]
+custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_horizontal = 6
 size_flags_vertical = 0
+
+[node name="Label" type="Label" parent="MenuContainer/TabBar/Tab2/HBoxContainer/MarginContainer/Container/LevelContainer"]
+layout_mode = 2
+text = "Level"
+label_settings = SubResource("LabelSettings_rl3mt")
+
+[node name="LevelLabel" type="Label" parent="MenuContainer/TabBar/Tab2/HBoxContainer/MarginContainer/Container/LevelContainer"]
+layout_mode = 2
+size_flags_horizontal = 6
 theme_override_fonts/font = ExtResource("1_1och7")
-text = "Exp: 0 / 100"
+text = "1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ExpContainer" type="HBoxContainer" parent="MenuContainer/TabBar/Tab2/HBoxContainer/MarginContainer/Container"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 0
+
+[node name="Label" type="Label" parent="MenuContainer/TabBar/Tab2/HBoxContainer/MarginContainer/Container/ExpContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "EXP:"
+label_settings = SubResource("LabelSettings_rl3mt")
+
+[node name="ExpLabel" type="Label" parent="MenuContainer/TabBar/Tab2/HBoxContainer/MarginContainer/Container/ExpContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("1_1och7")
+text = "100"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label2" type="Label" parent="MenuContainer/TabBar/Tab2/HBoxContainer/MarginContainer/Container/ExpContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "/"
+label_settings = SubResource("LabelSettings_sbjkf")
+
+[node name="ExpNeededLabel" type="Label" parent="MenuContainer/TabBar/Tab2/HBoxContainer/MarginContainer/Container/ExpContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("1_1och7")
+text = "100"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -1478,8 +1522,8 @@ grow_vertical = 2
 [connection signal="button_up" from="MenuContainer/TabBar/Tab1/TestMenu/GiveCoins" to="." method="_on_give_coins_button_up"]
 [connection signal="button_up" from="MenuContainer/TabBar/Tab1/TestMenu/GiveEXP" to="." method="_on_give_exp_button_up"]
 [connection signal="button_up" from="MenuContainer/TabBar/Tab1/TestMenu/DamagePlayer" to="." method="_on_damage_player_button_up"]
-[connection signal="button_up" from="MenuContainer/TabBar/Tab2/HBoxContainer/VBoxContainer/EndContainer/EndButton" to="MenuContainer/TabBar/Tab2/HBoxContainer/VBoxContainer/EndContainer/EndButton" method="_on_button_up"]
-[connection signal="button_up" from="MenuContainer/TabBar/Tab2/HBoxContainer/VBoxContainer/StrContainer/StrButton" to="MenuContainer/TabBar/Tab2/HBoxContainer/VBoxContainer/StrContainer/StrButton" method="_on_button_up"]
-[connection signal="button_up" from="MenuContainer/TabBar/Tab2/HBoxContainer/VBoxContainer/AglContainer/AglButton" to="MenuContainer/TabBar/Tab2/HBoxContainer/VBoxContainer/AglContainer/AglButton" method="_on_button_up"]
-[connection signal="button_up" from="MenuContainer/TabBar/Tab2/HBoxContainer/VBoxContainer/IntContainer/IntButton" to="MenuContainer/TabBar/Tab2/HBoxContainer/VBoxContainer/IntContainer/IntButton" method="_on_button_up"]
-[connection signal="button_up" from="MenuContainer/TabBar/Tab2/HBoxContainer/VBoxContainer/LckContainer/LckButton" to="MenuContainer/TabBar/Tab2/HBoxContainer/VBoxContainer/LckContainer/LckButton" method="_on_button_up"]
+[connection signal="button_up" from="MenuContainer/TabBar/Tab2/HBoxContainer/VBoxContainer/EndContainer/EndButton" to="." method="_on_end_button_button_up"]
+[connection signal="button_up" from="MenuContainer/TabBar/Tab2/HBoxContainer/VBoxContainer/StrContainer/StrButton" to="." method="_on_str_button_button_up"]
+[connection signal="button_up" from="MenuContainer/TabBar/Tab2/HBoxContainer/VBoxContainer/AglContainer/AglButton" to="." method="_on_agl_button_button_up"]
+[connection signal="button_up" from="MenuContainer/TabBar/Tab2/HBoxContainer/VBoxContainer/IntContainer/IntButton" to="." method="_on_int_button_button_up"]
+[connection signal="button_up" from="MenuContainer/TabBar/Tab2/HBoxContainer/VBoxContainer/LckContainer/LckButton" to="." method="_on_lck_button_button_up"]

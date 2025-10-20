@@ -1,7 +1,6 @@
 extends TabBar
 
 var currentTab
-var allTabs = []
 
 func _ready() -> void:
 	hide_tabs()
