@@ -4,6 +4,7 @@ var paused: bool = false
 var coin_amount: int = 50
 var exp_amount: int = 50
 var pauseTime: float = 0
+var damage_amount = 10
 
 # Надписи для опыта и уровня
 @onready var level_label:  		Label = PauseMenu.find_child("LevelLabel")
@@ -81,7 +82,7 @@ func _on_give_exp_button_up() -> void:
 	StatsManager.add_exp(exp_amount)
 
 func _on_damage_player_button_up() -> void:
-	HealthManager._damage()
+	HealthManager.take_damage(damage_amount)
 
 
 # Логика кнопок повышения характеристик
@@ -109,4 +110,4 @@ func _on_lck_button_button_up() -> void:
 	if StatsManager.pointsAmount > 0:
 		StatsManager.luck += 1
 		stat_manager_update()
-	HealthManager.take_damage(damage_amount)
+	

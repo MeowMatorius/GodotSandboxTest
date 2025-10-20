@@ -1,6 +1,6 @@
 extends Area2D
 
-@onready var health = HealthManager
 
-func _on_body_entered(body: Node2D) -> void:
-	health._damage()
+var damage_amount = 40
+func _on_body_entered(_body: Node2D) -> void:
+	HealthManager.take_damage(damage_amount)

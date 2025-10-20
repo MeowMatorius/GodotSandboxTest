@@ -7,7 +7,7 @@ func _ready() -> void:
 func jopa():
 	print("jopa")
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	#if Input.is_action_just_pressed("attack"):
 		#HealthManager.take_damage(damage_amount)
 		

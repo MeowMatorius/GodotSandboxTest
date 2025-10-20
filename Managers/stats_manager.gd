@@ -10,7 +10,7 @@ var currentStat: String
 # Опыт
 var exp_count: int = 0 # Счетчик опыта
 var exp_needed: int = 100 # Количество опыта до повышения уровня
-var exp_multiplier: float = 1.5 # После повышения уровня требования повышаются
+var exp_multiplier: int = 2 # После повышения уровня требования повышаются
 
 # Повышение уровня
 var playerlevel: int = 1  # Уровень персонажа

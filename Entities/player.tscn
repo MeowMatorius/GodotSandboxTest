@@ -293,7 +293,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_36dho")
 }],
-"loop": true,
+"loop": false,
 "name": &"attack",
 "speed": 10.0
 }, {
@@ -370,7 +370,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"dash3",
-"speed": 10.0
+"speed": 15.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -404,7 +404,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"idle2",
-"speed": 10.0
+"speed": 5.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -550,7 +550,7 @@ shape = SubResource("CircleShape2D_0gysh")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_p1odr")
-animation = &"jump2"
+animation = &"dash3"
 autoplay = "idle2"
 offset = Vector2(0, -5)
 
