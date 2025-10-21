@@ -14,7 +14,6 @@ var direction
 
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var timer: Timer = $Timer
-@onready var health_bar = HealthManager.health_bar
 
 
 func _physics_process(delta: float) -> void:

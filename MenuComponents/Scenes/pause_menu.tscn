@@ -938,8 +938,17 @@ font = ExtResource("1_1och7")
 [sub_resource type="LabelSettings" id="LabelSettings_sbjkf"]
 font = ExtResource("1_1och7")
 
-[node name="PauseMenu" type="CanvasLayer"]
+[node name="PauseMenu" type="CanvasLayer" node_paths=PackedStringArray("level_label", "exp_label", "exp_needed_label", "stat_points_label", "end_points_label", "str_points_label", "agl_points_label", "int_points_label", "lck_points_label")]
 script = ExtResource("1_vmyb1")
+level_label = NodePath("MenuContainer/TabBar/Tab2/HBoxContainer/MarginContainer/Container/LevelContainer/MenuLevelLabel")
+exp_label = NodePath("MenuContainer/TabBar/Tab2/HBoxContainer/MarginContainer/Container/ExpContainer/MenuExpLabel")
+exp_needed_label = NodePath("MenuContainer/TabBar/Tab2/HBoxContainer/MarginContainer/Container/ExpContainer/MenuExpNeededLabel")
+stat_points_label = NodePath("MenuContainer/TabBar/Tab2/HBoxContainer/VBoxContainer/HBoxContainer/MenuStatPointsLabel")
+end_points_label = NodePath("MenuContainer/TabBar/Tab2/HBoxContainer/VBoxContainer/EndContainer/EndPointsLabel")
+str_points_label = NodePath("MenuContainer/TabBar/Tab2/HBoxContainer/VBoxContainer/StrContainer/StrPointsLabel")
+agl_points_label = NodePath("MenuContainer/TabBar/Tab2/HBoxContainer/VBoxContainer/AglContainer/AglPointsLabel")
+int_points_label = NodePath("MenuContainer/TabBar/Tab2/HBoxContainer/VBoxContainer/IntContainer/IntPointsLabel")
+lck_points_label = NodePath("MenuContainer/TabBar/Tab2/HBoxContainer/VBoxContainer/LckContainer/LckPointsLabel")
 
 [node name="MenuContainer" type="MarginContainer" parent="."]
 anchors_preset = 15
@@ -998,7 +1007,6 @@ tab_5/disabled = true
 script = ExtResource("9_0fi7f")
 
 [node name="Tab1" type="MarginContainer" parent="MenuContainer/TabBar"]
-visible = false
 layout_mode = 1
 anchors_preset = -1
 anchor_left = -0.029000001
@@ -1025,7 +1033,7 @@ theme_override_font_sizes/font_size = 16
 text = "Menu"
 vertical_alignment = 1
 
-[node name="Resume" type="Button" parent="MenuContainer/TabBar/Tab1/MainMenu"]
+[node name="ResumeButton" type="Button" parent="MenuContainer/TabBar/Tab1/MainMenu"]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 theme_override_fonts/font = ExtResource("1_1och7")
@@ -1033,14 +1041,14 @@ text = "Resume"
 alignment = 0
 script = SubResource("GDScript_myy0f")
 
-[node name="Options" type="Button" parent="MenuContainer/TabBar/Tab1/MainMenu"]
+[node name="ReloadButton" type="Button" parent="MenuContainer/TabBar/Tab1/MainMenu"]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 theme_override_fonts/font = ExtResource("1_1och7")
-text = "Options"
+text = "Reload"
 alignment = 0
 
-[node name="Exit" type="Button" parent="MenuContainer/TabBar/Tab1/MainMenu"]
+[node name="ExitButton" type="Button" parent="MenuContainer/TabBar/Tab1/MainMenu"]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 theme_override_fonts/font = ExtResource("1_1och7")
@@ -1058,28 +1066,42 @@ custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 theme_override_fonts/font = ExtResource("1_k0w1u")
 theme_override_font_sizes/font_size = 16
-text = "Test"
+text = "Cheats"
 vertical_alignment = 1
 
-[node name="GiveCoins" type="Button" parent="MenuContainer/TabBar/Tab1/TestMenu"]
+[node name="GiveCoinsButton" type="Button" parent="MenuContainer/TabBar/Tab1/TestMenu"]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 theme_override_fonts/font = ExtResource("1_1och7")
 text = "Give Coins"
 alignment = 0
 
-[node name="GiveEXP" type="Button" parent="MenuContainer/TabBar/Tab1/TestMenu"]
+[node name="GiveKeysButton" type="Button" parent="MenuContainer/TabBar/Tab1/TestMenu"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_1och7")
+text = "Give Keys"
+alignment = 0
+
+[node name="GiveEXPButton" type="Button" parent="MenuContainer/TabBar/Tab1/TestMenu"]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 theme_override_fonts/font = ExtResource("1_1och7")
 text = "Give EXP"
 alignment = 0
 
-[node name="DamagePlayer" type="Button" parent="MenuContainer/TabBar/Tab1/TestMenu"]
+[node name="DamagePlayerButton" type="Button" parent="MenuContainer/TabBar/Tab1/TestMenu"]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 theme_override_fonts/font = ExtResource("1_1och7")
 text = "Damage Player"
+alignment = 0
+
+[node name="HealPlayerButton" type="Button" parent="MenuContainer/TabBar/Tab1/TestMenu"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_1och7")
+text = "Heal Player"
 alignment = 0
 
 [node name="MarginContainer" type="MarginContainer" parent="MenuContainer/TabBar/Tab1"]
@@ -1182,6 +1204,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Tab2" type="MarginContainer" parent="MenuContainer/TabBar"]
+visible = false
 layout_mode = 1
 anchors_preset = -1
 anchor_left = -0.029000001
@@ -1216,7 +1239,7 @@ text = "Points:"
 horizontal_alignment = 2
 vertical_alignment = 1
 
-[node name="StatPointsLabel" type="Label" parent="MenuContainer/TabBar/Tab2/HBoxContainer/VBoxContainer/HBoxContainer"]
+[node name="MenuStatPointsLabel" type="Label" parent="MenuContainer/TabBar/Tab2/HBoxContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("1_1och7")
 text = "0"
@@ -1418,7 +1441,7 @@ layout_mode = 2
 text = "Level"
 label_settings = SubResource("LabelSettings_rl3mt")
 
-[node name="LevelLabel" type="Label" parent="MenuContainer/TabBar/Tab2/HBoxContainer/MarginContainer/Container/LevelContainer"]
+[node name="MenuLevelLabel" type="Label" parent="MenuContainer/TabBar/Tab2/HBoxContainer/MarginContainer/Container/LevelContainer"]
 layout_mode = 2
 size_flags_horizontal = 6
 theme_override_fonts/font = ExtResource("1_1och7")
@@ -1438,7 +1461,7 @@ size_flags_horizontal = 4
 text = "EXP:"
 label_settings = SubResource("LabelSettings_rl3mt")
 
-[node name="ExpLabel" type="Label" parent="MenuContainer/TabBar/Tab2/HBoxContainer/MarginContainer/Container/ExpContainer"]
+[node name="MenuExpLabel" type="Label" parent="MenuContainer/TabBar/Tab2/HBoxContainer/MarginContainer/Container/ExpContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_fonts/font = ExtResource("1_1och7")
@@ -1452,7 +1475,7 @@ size_flags_horizontal = 4
 text = "/"
 label_settings = SubResource("LabelSettings_sbjkf")
 
-[node name="ExpNeededLabel" type="Label" parent="MenuContainer/TabBar/Tab2/HBoxContainer/MarginContainer/Container/ExpContainer"]
+[node name="MenuExpNeededLabel" type="Label" parent="MenuContainer/TabBar/Tab2/HBoxContainer/MarginContainer/Container/ExpContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_fonts/font = ExtResource("1_1och7")
@@ -1517,11 +1540,13 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [connection signal="tab_clicked" from="MenuContainer/TabBar" to="MenuContainer/TabBar" method="_on_tab_clicked"]
-[connection signal="button_up" from="MenuContainer/TabBar/Tab1/MainMenu/Resume" to="." method="_on_resume_button_up"]
-[connection signal="button_up" from="MenuContainer/TabBar/Tab1/MainMenu/Exit" to="." method="_on_exit_button_up"]
-[connection signal="button_up" from="MenuContainer/TabBar/Tab1/TestMenu/GiveCoins" to="." method="_on_give_coins_button_up"]
-[connection signal="button_up" from="MenuContainer/TabBar/Tab1/TestMenu/GiveEXP" to="." method="_on_give_exp_button_up"]
-[connection signal="button_up" from="MenuContainer/TabBar/Tab1/TestMenu/DamagePlayer" to="." method="_on_damage_player_button_up"]
+[connection signal="button_up" from="MenuContainer/TabBar/Tab1/MainMenu/ResumeButton" to="." method="_on_resume_button_button_up"]
+[connection signal="button_up" from="MenuContainer/TabBar/Tab1/MainMenu/ReloadButton" to="." method="_on_reload_button_button_up"]
+[connection signal="button_up" from="MenuContainer/TabBar/Tab1/MainMenu/ExitButton" to="." method="_on_exit_button_button_up"]
+[connection signal="button_up" from="MenuContainer/TabBar/Tab1/TestMenu/GiveCoinsButton" to="." method="_on_give_coins_button_button_up"]
+[connection signal="button_up" from="MenuContainer/TabBar/Tab1/TestMenu/GiveEXPButton" to="." method="_on_give_exp_button_button_up"]
+[connection signal="button_up" from="MenuContainer/TabBar/Tab1/TestMenu/DamagePlayerButton" to="." method="_on_damage_player_button_button_up"]
+[connection signal="button_up" from="MenuContainer/TabBar/Tab1/TestMenu/HealPlayerButton" to="." method="_on_heal_player_button_button_up"]
 [connection signal="button_up" from="MenuContainer/TabBar/Tab2/HBoxContainer/VBoxContainer/EndContainer/EndButton" to="." method="_on_end_button_button_up"]
 [connection signal="button_up" from="MenuContainer/TabBar/Tab2/HBoxContainer/VBoxContainer/StrContainer/StrButton" to="." method="_on_str_button_button_up"]
 [connection signal="button_up" from="MenuContainer/TabBar/Tab2/HBoxContainer/VBoxContainer/AglContainer/AglButton" to="." method="_on_agl_button_button_up"]

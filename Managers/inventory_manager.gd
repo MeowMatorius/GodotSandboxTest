@@ -1,9 +1,20 @@
 extends Node
 
-var coins_count = 0
-@onready var coins_label: Label = $/root/PlayerUI/PlayerStatus/ValuesContainer/Coins
+var coins_amount: int = 0
+var keys_amount: int = 0
+var added_exp: int = 10
+
+signal on_coin_collected
+signal on_keys_collected
+
 
 # Увеличение счетчика монет
-func add_coin(coin_amount: int):
-	coins_count += coin_amount
-	coins_label.text = "Coins: " + str(coins_count)
+func add_coins(added_coins: int):
+	StatsManager.add_exp(added_exp)
+	coins_amount += added_coins
+	on_coin_collected.emit()
+
+# Увеличение счетчика ключей
+func add_keys(added_keys: int):
+	keys_amount += added_keys
+	on_keys_collected.emit()

@@ -1,26 +1,35 @@
-[gd_scene load_steps=9 format=3 uid="uid://l21017dfwaun"]
+[gd_scene load_steps=11 format=3 uid="uid://l21017dfwaun"]
 
 [ext_resource type="Script" uid="uid://nghueb4i06gx" path="res://MenuComponents/Scripts/player_ui.gd" id="1_3aw7q"]
 [ext_resource type="FontFile" uid="uid://n0t3jrv5gwf8" path="res://Assets/Fonts/PixelOperator8/PixelOperator8.ttf" id="1_ohrjl"]
 [ext_resource type="Script" uid="uid://bf7wrgtt088lb" path="res://Objects/Scripts/health_bar.gd" id="2_dxtgh"]
 
+[sub_resource type="LabelSettings" id="LabelSettings_3aw7q"]
+font = ExtResource("1_ohrjl")
+outline_size = 2
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3aw7q"]
+bg_color = Color(0.80415237, 0.3602652, 1, 1)
+
 [sub_resource type="LabelSettings" id="LabelSettings_t0iga"]
+font = ExtResource("1_ohrjl")
 outline_size = 5
 outline_color = Color(0, 0, 0, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4ai1x"]
 bg_color = Color(1, 0, 0, 1)
-corner_radius_top_left = 10
-corner_radius_top_right = 10
-corner_radius_bottom_right = 10
-corner_radius_bottom_left = 10
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ohrjl"]
-bg_color = Color(0, 0.7252315, 0.20791152, 1)
-corner_radius_top_left = 10
-corner_radius_top_right = 10
-corner_radius_bottom_right = 10
-corner_radius_bottom_left = 10
+bg_color = Color(0, 0.7254902, 1, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
 
 [sub_resource type="Gradient" id="Gradient_4ai1x"]
 offsets = PackedFloat32Array(0)
@@ -29,60 +38,107 @@ colors = PackedColorArray(0, 0, 0, 1)
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_ohrjl"]
 gradient = SubResource("Gradient_4ai1x")
 
-[node name="PlayerUI" type="CanvasLayer"]
+[node name="PlayerUI" type="CanvasLayer" node_paths=PackedStringArray("exp_label", "lvl_label", "exp_progress_bar", "coins_label", "keys_label")]
 script = ExtResource("1_3aw7q")
+exp_label = NodePath("PlayerStatus/EXPContainer/HBoxContainer2/ExpAmountLabel")
+lvl_label = NodePath("PlayerStatus/EXPContainer/HBoxContainer/PlayerLevelLabel")
+exp_progress_bar = NodePath("PlayerStatus/EXPContainer/ExpProgressBar")
+coins_label = NodePath("PlayerStatus/ValuesContainer/HBoxContainer/CoinsAmountLabel")
+keys_label = NodePath("PlayerStatus/ValuesContainer/HBoxContainer2/KeysAmountLabel")
 
 [node name="PlayerStatus" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 16.0
-offset_top = 48.0
-offset_right = -16.0
-offset_bottom = -48.0
+offset_left = 34.909058
+offset_top = 76.0
+offset_right = -34.909058
+offset_bottom = -76.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="EXPContainer" type="VBoxContainer" parent="PlayerStatus"]
+layout_mode = 1
+offset_right = 102.0
+offset_bottom = 60.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PlayerStatus/EXPContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PlayerStatus/EXPContainer/HBoxContainer"]
+layout_mode = 2
+text = "Level: "
+label_settings = SubResource("LabelSettings_3aw7q")
+
+[node name="PlayerLevelLabel" type="Label" parent="PlayerStatus/EXPContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("1_ohrjl")
+text = "0"
+label_settings = SubResource("LabelSettings_3aw7q")
+vertical_alignment = 1
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="PlayerStatus/EXPContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PlayerStatus/EXPContainer/HBoxContainer2"]
+layout_mode = 2
+text = "EXP: "
+label_settings = SubResource("LabelSettings_3aw7q")
+
+[node name="ExpAmountLabel" type="Label" parent="PlayerStatus/EXPContainer/HBoxContainer2"]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("1_ohrjl")
+text = "0"
+label_settings = SubResource("LabelSettings_3aw7q")
+
+[node name="ExpProgressBar" type="ProgressBar" parent="PlayerStatus/EXPContainer"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+theme_override_styles/fill = SubResource("StyleBoxFlat_3aw7q")
+step = 1.0
+show_percentage = false
 
 [node name="ValuesContainer" type="VBoxContainer" parent="PlayerStatus"]
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -200.0
-offset_top = 24.0
-offset_right = -27.0
-offset_bottom = 112.0
+offset_left = -98.0
+offset_bottom = 36.0
 grow_horizontal = 0
 
-[node name="Coins" type="Label" parent="PlayerStatus/ValuesContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="PlayerStatus/ValuesContainer"]
 layout_mode = 2
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("1_ohrjl")
-text = "Coins: 0"
-label_settings = SubResource("LabelSettings_t0iga")
 
-[node name="Expirience" type="Label" parent="PlayerStatus/ValuesContainer"]
+[node name="Label" type="Label" parent="PlayerStatus/ValuesContainer/HBoxContainer"]
 layout_mode = 2
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("1_ohrjl")
-text = "EXP: 0"
-label_settings = SubResource("LabelSettings_t0iga")
+text = "Coins: "
+label_settings = SubResource("LabelSettings_3aw7q")
 
-[node name="Level" type="Label" parent="PlayerStatus/ValuesContainer"]
+[node name="CoinsAmountLabel" type="Label" parent="PlayerStatus/ValuesContainer/HBoxContainer"]
 layout_mode = 2
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("1_ohrjl")
-text = "Level: 1"
-label_settings = SubResource("LabelSettings_t0iga")
-vertical_alignment = 1
+text = "0"
+label_settings = SubResource("LabelSettings_3aw7q")
 
-[node name="ExpNedeed" type="Label" parent="PlayerStatus/ValuesContainer"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="PlayerStatus/ValuesContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PlayerStatus/ValuesContainer/HBoxContainer2"]
+layout_mode = 2
+text = "Keys: "
+label_settings = SubResource("LabelSettings_3aw7q")
+
+[node name="KeysAmountLabel" type="Label" parent="PlayerStatus/ValuesContainer/HBoxContainer2"]
 layout_mode = 2
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("1_ohrjl")
-text = "lvl UP on: 100"
-label_settings = SubResource("LabelSettings_t0iga")
+text = "0"
+label_settings = SubResource("LabelSettings_3aw7q")
 vertical_alignment = 1
 
 [node name="StatusContainer" type="MarginContainer" parent="PlayerStatus"]
@@ -91,10 +147,7 @@ anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 27.0
-offset_top = -56.0
-offset_right = -27.0
-offset_bottom = -29.0
+offset_top = -50.0
 grow_horizontal = 2
 grow_vertical = 0
 
@@ -111,7 +164,7 @@ text = "Health"
 label_settings = SubResource("LabelSettings_t0iga")
 
 [node name="HealthBar" type="ProgressBar" parent="PlayerStatus/StatusContainer/HealthContainer"]
-custom_minimum_size = Vector2(200, 30)
+custom_minimum_size = Vector2(200, 20)
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 8
@@ -130,18 +183,17 @@ size_flags_vertical = 8
 layout_mode = 2
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("1_ohrjl")
-text = "Stamina"
+text = "Magic"
 label_settings = SubResource("LabelSettings_t0iga")
 
-[node name="StaminaBar" type="ProgressBar" parent="PlayerStatus/StatusContainer/StaminaContainer"]
-custom_minimum_size = Vector2(200, 30)
+[node name="MagicBar" type="ProgressBar" parent="PlayerStatus/StatusContainer/StaminaContainer"]
+custom_minimum_size = Vector2(200, 20)
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 8
 theme_override_fonts/font = ExtResource("1_ohrjl")
 theme_override_styles/fill = SubResource("StyleBoxFlat_ohrjl")
 value = 100.0
-rounded = true
 
 [node name="Letterbox" type="Control" parent="."]
 layout_mode = 3

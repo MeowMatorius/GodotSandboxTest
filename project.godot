@@ -17,12 +17,12 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-StatsManager="*res://Managers/stats_manager.gd"
 PlayerUI="*res://MenuComponents/Scenes/player_ui.tscn"
-HealthManager="*res://Managers/health_manager.gd"
-GameManager="*res://Managers/game_manager.gd"
 PauseMenu="*res://MenuComponents/Scenes/pause_menu.tscn"
 InventoryManager="*res://Managers/inventory_manager.gd"
+StatsManager="*res://Managers/stats_manager.gd"
+HealthManager="*res://Managers/health_manager.gd"
+GameManager="*res://Managers/game_manager.gd"
 
 [display]
 

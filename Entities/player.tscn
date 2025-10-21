@@ -1,9 +1,10 @@
-[gd_scene load_steps=75 format=3 uid="uid://drkpxgvgqe5c2"]
+[gd_scene load_steps=76 format=3 uid="uid://drkpxgvgqe5c2"]
 
 [ext_resource type="Script" uid="uid://cdoeoefum4ojh" path="res://Entities/player.gd" id="1_cvnsp"]
 [ext_resource type="Texture2D" uid="uid://dkwvwiml7ya5n" path="res://Assets/Sprites/Brackeys Assets/knight.png" id="2_6t5aa"]
 [ext_resource type="Texture2D" uid="uid://ds3vdjqlui4we" path="res://Assets/Sprites/knight.png" id="2_vgqql"]
 [ext_resource type="PackedScene" uid="uid://b7gknuiv3tuko" path="res://InteractionComponents/interacting_component.tscn" id="3_6t5aa"]
+[ext_resource type="AudioStream" uid="uid://cruvegi6epdwr" path="res://Assets/Sounds/Default/coin.wav" id="5_kee72"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_0gysh"]
 radius = 6.0
@@ -562,7 +563,11 @@ limit_smoothed = true
 position_smoothing_enabled = true
 position_smoothing_speed = 10.0
 
-[node name="Lantern" type="PointLight2D" parent="."]
+[node name="InteractingComponent" parent="." instance=ExtResource("3_6t5aa")]
+
+[node name="Experimental" type="Node" parent="."]
+
+[node name="Lantern" type="PointLight2D" parent="Experimental"]
 visible = false
 shadow_enabled = true
 shadow_filter = 1
@@ -570,11 +575,15 @@ shadow_filter_smooth = 4.0
 shadow_item_cull_mask = 3
 texture = SubResource("GradientTexture2D_6t5aa")
 
-[node name="Timer" type="Timer" parent="."]
+[node name="Timer" type="Timer" parent="Experimental"]
 wait_time = 0.7
 one_shot = true
 
-[node name="InteractingComponent" parent="." instance=ExtResource("3_6t5aa")]
+[node name="SoundComponent" type="Node2D" parent="Experimental"]
+
+[node name="PickupSound" type="AudioStreamPlayer2D" parent="Experimental/SoundComponent"]
+stream = ExtResource("5_kee72")
+bus = &"SFX"
 
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
-[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="Experimental/Timer" to="." method="_on_timer_timeout"]

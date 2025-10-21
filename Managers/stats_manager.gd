@@ -1,21 +1,17 @@
 extends Node
 
-@onready var health_manager: HealthManager = HealthManager
-@onready var game_manager: GameManager = GameManager
-
 signal on_add_xp
 signal on_level_up
-var currentStat: String
 
 # Опыт
-var exp_count: int = 0 # Счетчик опыта
+var exp_amount: int = 0 # Счетчик опыта
 var exp_needed: int = 100 # Количество опыта до повышения уровня
-var exp_multiplier: int = 2 # После повышения уровня требования повышаются
+var exp_needed_mult: int = 2 # После повышения уровня требования повышаются
 
 # Повышение уровня
-var playerlevel: int = 1  # Уровень персонажа
-var pointsForLvl: int = 5 # Очки характеристик за уровень
-var pointsAmount: int = 0 # Текущие очки для распределения
+var player_level: int = 1  # Уровень персонажа
+var lvl_up_points: int = 0 # Доступные очки повышения характеристик
+var added_lvl_up_points: int = 5 # Сколько очков характеристик дают за уровень
 
 # Характеристики
 var endurance: int = 10 	# Живучесть
@@ -26,21 +22,22 @@ var luck: int = 10			# Удача
 
 
 # Увеличение счетчика опыта и повышение уровня
-func add_exp(exp_emount):
-	on_add_xp.emit()
-	exp_count += exp_emount
-	if exp_count >= exp_needed:
+func add_exp(added_exp: int):
+	exp_amount += added_exp
+	if exp_amount >= exp_needed:
 		lvl_up()
+	else: pass
+	on_add_xp.emit()
 
 
 # Получение нового уровня и повышение требований
 func lvl_up():
 		on_level_up.emit()
-		playerlevel += 1
-		pointsAmount += pointsForLvl
-		exp_needed = exp_needed * exp_multiplier
+		player_level += 1
+		lvl_up_points += added_lvl_up_points
+		exp_needed = exp_needed * exp_needed_mult
 
 
-func upd_lvl_points():
-	if pointsAmount != 0:
-		pointsAmount -= 1
+func spend_lvl_up_points():
+	if lvl_up_points != 0:
+		lvl_up_points -= 1
