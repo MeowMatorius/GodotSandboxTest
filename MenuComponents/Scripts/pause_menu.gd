@@ -119,3 +119,11 @@ func _on_damage_player_button_button_up() -> void:
 
 func _on_heal_player_button_button_up() -> void:
 	HealthManager.give_heal(heal_amount)
+
+# Карта Мира
+func _on_forest_button_button_up() -> void:
+	GameManager.change_scene('Forest')
+
+
+func _on_mountain_button_button_up() -> void:
+	GameManager.change_scene('Mountain')

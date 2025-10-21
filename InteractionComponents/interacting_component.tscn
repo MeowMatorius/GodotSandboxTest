@@ -35,7 +35,6 @@ offset_bottom = -13.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
-text = "E to interact"
 label_settings = SubResource("LabelSettings_par2y")
 horizontal_alignment = 1
 vertical_alignment = 1

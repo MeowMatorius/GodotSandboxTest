@@ -31,3 +31,4 @@ func update_labels():
 	exp_progress_bar.max_value = StatsManager.exp_needed
 	lvl_label.text = str(StatsManager.player_level)
 	coins_label.text = str(InventoryManager.coins_amount)
+	keys_label.text = str(InventoryManager.keys_amount)

@@ -15,7 +15,9 @@ func take_damage(damage_amount):
 
 func death():
 	health_bar.value = 100
-	get_tree().reload_current_scene()
+	PauseMenu.resume()
+	get_tree().current_scene.queue_free()
+	get_tree().call_deferred("reload_current_scene")
 	
 	
 func give_heal(heal_amount):
