@@ -101,6 +101,7 @@ func _on_resume_button_button_up() -> void:
 	resume()
 
 func _on_reload_button_button_up() -> void:
+	resume()
 	GameManager.player_reset(true)
 	get_tree().reload_current_scene() 
 
