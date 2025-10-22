@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://l21017dfwaun"]
+[gd_scene load_steps=8 format=3 uid="uid://l21017dfwaun"]
 
 [ext_resource type="Script" uid="uid://nghueb4i06gx" path="res://MenuComponents/Scripts/player_ui.gd" id="1_3aw7q"]
 [ext_resource type="FontFile" uid="uid://n0t3jrv5gwf8" path="res://Assets/Fonts/PixelOperator8/PixelOperator8.ttf" id="1_ohrjl"]
@@ -6,16 +6,11 @@
 
 [sub_resource type="LabelSettings" id="LabelSettings_3aw7q"]
 font = ExtResource("1_ohrjl")
-outline_size = 2
+outline_size = 4
 outline_color = Color(0, 0, 0, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3aw7q"]
 bg_color = Color(0.80415237, 0.3602652, 1, 1)
-
-[sub_resource type="LabelSettings" id="LabelSettings_t0iga"]
-font = ExtResource("1_ohrjl")
-outline_size = 5
-outline_color = Color(0, 0, 0, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4ai1x"]
 bg_color = Color(1, 0, 0, 1)
@@ -154,7 +149,7 @@ layout_mode = 2
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("1_ohrjl")
 text = "Health"
-label_settings = SubResource("LabelSettings_t0iga")
+label_settings = SubResource("LabelSettings_3aw7q")
 
 [node name="HealthBar" type="ProgressBar" parent="PlayerStatus/StatusContainer/HealthContainer"]
 custom_minimum_size = Vector2(200, 20)
@@ -177,7 +172,7 @@ layout_mode = 2
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("1_ohrjl")
 text = "Magic"
-label_settings = SubResource("LabelSettings_t0iga")
+label_settings = SubResource("LabelSettings_3aw7q")
 
 [node name="MagicBar" type="ProgressBar" parent="PlayerStatus/StatusContainer/StaminaContainer"]
 custom_minimum_size = Vector2(200, 20)

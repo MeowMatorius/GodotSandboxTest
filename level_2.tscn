@@ -520,7 +520,6 @@ tile_set = SubResource("TileSet_5kfcu")
 
 [node name="Music" type="AudioStreamPlayer2D" parent="Enviroment"]
 stream = ExtResource("2_15wb7")
-autoplay = true
 max_distance = 4096.0
 panning_strength = 0.0
 bus = &"BG Music"

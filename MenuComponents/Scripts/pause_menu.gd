@@ -1,9 +1,14 @@
 extends CanvasLayer
 
 var is_paused: bool = false
-var on_pause_time: float = 0
+var pause_slow_time: float = 0
 
-@export_category("Button Values")
+signal on_pause
+signal on_pause_exit
+
+@onready var tab_bar: TabBar = $MenuContainer/TabBar
+
+@export_category("Main Manu Button Values")
 @export var coins_amount: int = 50
 @export var exp_amount: int = 50
 @export var damage_amount: int = 10
@@ -24,31 +29,39 @@ var on_pause_time: float = 0
 
 
 func _ready() -> void:
-	hide()
-	StatsManager.connect("on_add_xp", update_labels)
-	StatsManager.connect("on_level_up", update_labels)
+	PauseMenu.hide()
+	StatsManager.on_add_xp.connect(update_labels)
+	StatsManager.on_level_up.connect(update_labels)
 
 
 func _process(_delta: float) -> void:
 	# Кнопка Паузы
 	if Input.is_action_just_pressed("menu"):
-		pauseMenu()
+		toggle_pause_menu()
 
 
-# Меню Паузы
-func pauseMenu():
-	if is_paused: resume()
-	else: pause()
+# Функция при нажатии кнопки паузы
+func toggle_pause_menu():
+	if is_paused: exit_pause_menu()
+	else: enter_pause_menu()
 
-func resume():
+
+# Выход из паузы
+func exit_pause_menu():
+	on_pause_exit.emit()
 	hide()
-	Engine.time_scale = 1
 	is_paused = false
+	Engine.time_scale = 1
+	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
+	
 
-func pause():
+# Вход в меню паузы
+func enter_pause_menu():
+	on_pause.emit()
 	show()
-	Engine.time_scale = on_pause_time
 	is_paused = true
+	Engine.time_scale = pause_slow_time
+	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 
 
 func update_labels():
@@ -65,54 +78,68 @@ func update_labels():
 	int_points_label.text 	= str(StatsManager.inteligence)
 	lck_points_label.text 	= str(StatsManager.luck)
 
+
 func stat_manager_update():
 	StatsManager.spend_lvl_up_points()
 	update_labels()
 
-# Логика кнопок повышения характеристик
+
+#region Кнопки повышения характеристик
+
 func _on_end_button_button_up() -> void:
 	if StatsManager.lvl_up_points > 0:
 		StatsManager.endurance += 1
 		stat_manager_update()
+
 
 func _on_str_button_button_up() -> void:
 	if StatsManager.lvl_up_points > 0:
 		StatsManager.strenght += 1
 		stat_manager_update()
 
+
 func _on_agl_button_button_up() -> void:
 	if StatsManager.lvl_up_points > 0:
 		StatsManager.agility += 1
 		stat_manager_update()
+
 
 func _on_int_button_button_up() -> void:
 	if StatsManager.lvl_up_points > 0:
 		StatsManager.inteligence += 1
 		stat_manager_update()
 
+
 func _on_lck_button_button_up() -> void:
 	if StatsManager.lvl_up_points > 0:
 		StatsManager.luck += 1
 		stat_manager_update()
+#endregion
 
 
-# Логика кнопок Main Menu
+#region Управление кнопками tab: MainMenu
+
 func _on_resume_button_button_up() -> void:
-	resume()
+	exit_pause_menu()
+
 
 func _on_reload_button_button_up() -> void:
-	resume()
+	exit_pause_menu()
 	GameManager.player_reset(true)
 	get_tree().reload_current_scene() 
+
 
 func _on_exit_button_button_up() -> void:
 	get_tree().quit()
 
+
 func _on_give_coins_button_button_up() -> void:
 	InventoryManager.add_coins(coins_amount)
 
+
 func _on_give_exp_button_button_up() -> void:
 	StatsManager.add_exp(exp_amount)
+
 
 func _on_damage_player_button_button_up() -> void:
 	HealthManager.take_damage(damage_amount)
@@ -120,11 +147,16 @@ func _on_damage_player_button_button_up() -> void:
 
 func _on_heal_player_button_button_up() -> void:
 	HealthManager.give_heal(heal_amount)
+#endregion
 
-# Карта Мира
+
+#region Управление кнопками tab: World Map
+
 func _on_forest_button_button_up() -> void:
 	GameManager.change_scene('Forest')
 
 
 func _on_mountain_button_button_up() -> void:
 	GameManager.change_scene('Mountain')
+
+#endregion

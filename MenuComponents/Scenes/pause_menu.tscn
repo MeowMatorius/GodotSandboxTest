@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=4 uid="uid://csckpnko3l8e5"]
+[gd_scene load_steps=26 format=4 uid="uid://csckpnko3l8e5"]
 
 [ext_resource type="FontFile" uid="uid://n0t3jrv5gwf8" path="res://Assets/Fonts/PixelOperator8/PixelOperator8.ttf" id="1_1och7"]
 [ext_resource type="FontFile" uid="uid://btvnwnk7ueujc" path="res://Assets/Fonts/PixelOperator8/PixelOperator8-Bold.ttf" id="1_k0w1u"]
@@ -9,6 +9,8 @@
 [ext_resource type="Script" uid="uid://tsiok44eut54" path="res://MenuComponents/Scripts/tab_bar.gd" id="9_0fi7f"]
 [ext_resource type="Texture2D" uid="uid://cinjh65678j5q" path="res://Assets/Sprites/v2zoyp4qrry71.webp" id="10_enm6t"]
 [ext_resource type="Texture2D" uid="uid://dnckfitjuwk1n" path="res://Assets/Sprites/Kenney Assets/Pixel Platformer/Tilemap/tilemap_packed.png" id="14_taale"]
+
+[sub_resource type="Theme" id="Theme_h8vus"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_h8vus"]
 atlas = ExtResource("14_taale")
@@ -853,6 +855,9 @@ texture = ExtResource("4_bpi0q")
 [sub_resource type="TileSet" id="TileSet_myy0f"]
 sources/0 = SubResource("TileSetAtlasSource_vmyb1")
 
+[sub_resource type="LabelSettings" id="LabelSettings_h8vus"]
+font = ExtResource("1_1och7")
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_1ymcx"]
 atlas = ExtResource("14_taale")
 region = Rect2(74, 38, 14, 14)
@@ -909,13 +914,14 @@ custom_minimum_size = Vector2(1152, 648)
 layout_mode = 2
 color = Color(0, 0, 0, 1)
 
-[node name="TabBar" type="TabBar" parent="MenuContainer"]
+[node name="TabBar" type="TabBar" parent="MenuContainer" node_paths=PackedStringArray("checkbox", "option_button")]
 z_index = 1
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 size_flags_vertical = 0
 focus_mode = 0
 mouse_default_cursor_shape = 2
+theme = SubResource("Theme_h8vus")
 theme_override_constants/h_separation = 12
 theme_override_constants/icon_max_width = 16
 theme_override_fonts/font = ExtResource("1_k0w1u")
@@ -942,6 +948,8 @@ tab_5/title = "Library"
 tab_5/tooltip = "Глоссарий"
 tab_5/disabled = true
 script = ExtResource("9_0fi7f")
+checkbox = NodePath("Tab1/HBoxContainer/CheckBox")
+option_button = NodePath("Tab1/HBoxContainer/OptionButton")
 
 [node name="Tab1" type="MarginContainer" parent="MenuContainer/TabBar"]
 visible = false
@@ -1141,6 +1149,46 @@ theme_override_font_sizes/font_size = 8
 text = "Quick Bar"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MenuContainer/TabBar/Tab1"]
+custom_minimum_size = Vector2(450, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+
+[node name="Label" type="Label" parent="MenuContainer/TabBar/Tab1/HBoxContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 2
+text = "Custom Start Tab"
+label_settings = SubResource("LabelSettings_h8vus")
+
+[node name="CheckBox" type="CheckBox" parent="MenuContainer/TabBar/Tab1/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="OptionButton" type="OptionButton" parent="MenuContainer/TabBar/Tab1/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 10
+theme_override_fonts/font = ExtResource("1_1och7")
+disabled = true
+selected = 0
+item_count = 6
+popup/item_0/text = "Main Menu"
+popup/item_0/id = 0
+popup/item_1/text = "Character"
+popup/item_1/id = 1
+popup/item_2/text = "World Map"
+popup/item_2/id = 2
+popup/item_3/text = "Quests"
+popup/item_3/id = 3
+popup/item_3/disabled = true
+popup/item_4/text = "Inventory"
+popup/item_4/id = 4
+popup/item_4/disabled = true
+popup/item_5/text = "Library"
+popup/item_5/id = 5
+popup/item_5/disabled = true
 
 [node name="Tab2" type="MarginContainer" parent="MenuContainer/TabBar"]
 visible = false
@@ -1612,6 +1660,8 @@ mouse_filter = 0
 [connection signal="button_up" from="MenuContainer/TabBar/Tab1/TestMenu/GiveEXPButton" to="." method="_on_give_exp_button_button_up"]
 [connection signal="button_up" from="MenuContainer/TabBar/Tab1/TestMenu/DamagePlayerButton" to="." method="_on_damage_player_button_button_up"]
 [connection signal="button_up" from="MenuContainer/TabBar/Tab1/TestMenu/HealPlayerButton" to="." method="_on_heal_player_button_button_up"]
+[connection signal="button_up" from="MenuContainer/TabBar/Tab1/HBoxContainer/CheckBox" to="MenuContainer/TabBar" method="_on_check_box_button_up"]
+[connection signal="item_selected" from="MenuContainer/TabBar/Tab1/HBoxContainer/OptionButton" to="MenuContainer/TabBar" method="_on_option_button_item_selected"]
 [connection signal="button_up" from="MenuContainer/TabBar/Tab2/HBoxContainer/VBoxContainer/EndContainer/EndButton" to="." method="_on_end_button_button_up"]
 [connection signal="button_up" from="MenuContainer/TabBar/Tab2/HBoxContainer/VBoxContainer/StrContainer/StrButton" to="." method="_on_str_button_button_up"]
 [connection signal="button_up" from="MenuContainer/TabBar/Tab2/HBoxContainer/VBoxContainer/AglContainer/AglButton" to="." method="_on_agl_button_button_up"]

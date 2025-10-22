@@ -1,5 +1,8 @@
 extends Node
 
+func _ready() -> void:
+	PauseMenu.exit_pause_menu()
+
 func player_reset(hard_reset: bool):
 	if hard_reset == true:
 		HealthManager.health_bar.value = 100
@@ -14,8 +17,8 @@ func player_reset(hard_reset: bool):
 
 func change_scene(string):
 	if string == 'Forest':
-		PauseMenu.resume()
+		PauseMenu.exit_pause_menu()
 		get_tree().change_scene_to_file("res://level_1.tscn")
 	if string == 'Mountain':
-		PauseMenu.resume()
+		PauseMenu.exit_pause_menu()
 		get_tree().change_scene_to_file("res://level_2.tscn")
