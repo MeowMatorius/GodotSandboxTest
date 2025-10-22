@@ -18,12 +18,14 @@ func _on_tab_clicked(tab: int) -> void:
 
 
 func _on_check_box_button_up() -> void:
-	test()
+	check_for_custom_tab()
 
 
-func test():
-	if start_from_custom_start_tab: check_for_custom_tab_off()
-	else: check_for_custom_tab_on()
+func check_for_custom_tab():
+	if start_from_custom_start_tab: 
+		check_for_custom_tab_off()
+	else: 
+		check_for_custom_tab_on()
 
 
 func check_for_custom_tab_off():
