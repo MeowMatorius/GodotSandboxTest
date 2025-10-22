@@ -1657,6 +1657,7 @@ mouse_filter = 0
 [connection signal="button_up" from="MenuContainer/TabBar/Tab1/MainMenu/ReloadButton" to="." method="_on_reload_button_button_up"]
 [connection signal="button_up" from="MenuContainer/TabBar/Tab1/MainMenu/ExitButton" to="." method="_on_exit_button_button_up"]
 [connection signal="button_up" from="MenuContainer/TabBar/Tab1/TestMenu/GiveCoinsButton" to="." method="_on_give_coins_button_button_up"]
+[connection signal="button_up" from="MenuContainer/TabBar/Tab1/TestMenu/GiveKeysButton" to="." method="_on_give_keys_button_button_up"]
 [connection signal="button_up" from="MenuContainer/TabBar/Tab1/TestMenu/GiveEXPButton" to="." method="_on_give_exp_button_button_up"]
 [connection signal="button_up" from="MenuContainer/TabBar/Tab1/TestMenu/DamagePlayerButton" to="." method="_on_damage_player_button_button_up"]
 [connection signal="button_up" from="MenuContainer/TabBar/Tab1/TestMenu/HealPlayerButton" to="." method="_on_heal_player_button_button_up"]

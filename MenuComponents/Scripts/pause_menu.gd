@@ -10,6 +10,7 @@ signal on_pause_exit
 
 @export_category("Main Manu Button Values")
 @export var coins_amount: int = 50
+@export var keys_amount: int = 1
 @export var exp_amount: int = 50
 @export var damage_amount: int = 10
 @export var heal_amount: int = 10
@@ -134,7 +135,11 @@ func _on_exit_button_button_up() -> void:
 
 
 func _on_give_coins_button_button_up() -> void:
-	InventoryManager.add_coins(coins_amount)
+	InventoryManager.add_collectible("coin", coins_amount, 0)
+
+
+func _on_give_keys_button_button_up() -> void:
+	InventoryManager.add_collectible("key", keys_amount, 0)
 
 
 func _on_give_exp_button_button_up() -> void:

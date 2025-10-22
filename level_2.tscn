@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=4 uid="uid://c3ng1aobp60v0"]
+[gd_scene load_steps=29 format=4 uid="uid://c3ng1aobp60v0"]
 
 [ext_resource type="Texture2D" uid="uid://bwy31n6ldcsyk" path="res://Assets/Sprites/Brackeys Assets/world_tileset.png" id="1_ehv2h"]
 [ext_resource type="AudioStream" uid="uid://ddwmtelngh4g2" path="res://Assets/Music/Bilewater.mp3" id="2_15wb7"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://b2m1ta1u1rsr3" path="res://Objects/Scenes/killzone.tscn" id="3_eoq84"]
 [ext_resource type="PackedScene" uid="uid://cb1hf4bp8blke" path="res://Objects/Scenes/coin.tscn" id="5_xbcdb"]
 [ext_resource type="PackedScene" uid="uid://bj3gfaxg6jdwl" path="res://Objects/Scenes/chest.tscn" id="6_s77qv"]
+[ext_resource type="PackedScene" uid="uid://gtnj8rueipvx" path="res://Objects/Scenes/key.tscn" id="9_ehv2h"]
 [ext_resource type="PackedScene" uid="uid://drkpxgvgqe5c2" path="res://Entities/player.tscn" id="9_lvfll"]
 
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_xrdnt"]
@@ -602,9 +603,6 @@ position = Vector2(288, -8)
 [node name="Coin13" parent="Coins" instance=ExtResource("5_xbcdb")]
 position = Vector2(344, -24)
 
-[node name="Coin14" parent="Coins" instance=ExtResource("5_xbcdb")]
-position = Vector2(-296, -40)
-
 [node name="Objects" type="Node" parent="."]
 
 [node name="Chest" parent="Objects" instance=ExtResource("6_s77qv")]
@@ -619,3 +617,6 @@ shadow_filter = 1
 shadow_filter_smooth = 4.0
 shadow_item_cull_mask = 3
 texture = SubResource("GradientTexture2D_7dov7")
+
+[node name="Key" parent="." instance=ExtResource("9_ehv2h")]
+position = Vector2(-296, -40)

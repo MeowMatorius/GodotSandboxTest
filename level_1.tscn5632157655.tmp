@@ -268,37 +268,97 @@ position = Vector2(-232, -11)
 [node name="Collectibles" type="Node" parent="."]
 
 [node name="Coin" parent="Collectibles" instance=ExtResource("5_27bay")]
-position = Vector2(84, -8)
-
-[node name="Key" parent="Collectibles" instance=ExtResource("10_gyffv")]
-position = Vector2(544, -56)
-
-[node name="Key2" parent="Collectibles" instance=ExtResource("10_gyffv")]
-position = Vector2(-280, -24)
+position = Vector2(-184, -20)
 
 [node name="Coin2" parent="Collectibles" instance=ExtResource("5_27bay")]
-position = Vector2(104, -8)
+position = Vector2(-280, -20)
 
 [node name="Coin3" parent="Collectibles" instance=ExtResource("5_27bay")]
-position = Vector2(124, -8)
+position = Vector2(424, -23)
 
 [node name="Coin4" parent="Collectibles" instance=ExtResource("5_27bay")]
-position = Vector2(144, -8)
+position = Vector2(520, -40)
 
 [node name="Coin5" parent="Collectibles" instance=ExtResource("5_27bay")]
-position = Vector2(-144, -8)
+position = Vector2(552, -56)
 
 [node name="Coin6" parent="Collectibles" instance=ExtResource("5_27bay")]
-position = Vector2(-124, -8)
+position = Vector2(536, -56)
 
 [node name="Coin7" parent="Collectibles" instance=ExtResource("5_27bay")]
-position = Vector2(-104, -8)
+position = Vector2(-140, -8)
 
 [node name="Coin8" parent="Collectibles" instance=ExtResource("5_27bay")]
-position = Vector2(-84, -8)
+position = Vector2(-116, -8)
 
 [node name="Coin9" parent="Collectibles" instance=ExtResource("5_27bay")]
-position = Vector2(-64, -8)
+position = Vector2(-92, -8)
+
+[node name="Coin10" parent="Collectibles" instance=ExtResource("5_27bay")]
+position = Vector2(-68, -8)
+
+[node name="Coin11" parent="Collectibles" instance=ExtResource("5_27bay")]
+position = Vector2(-80, -32)
+
+[node name="Coin12" parent="Collectibles" instance=ExtResource("5_27bay")]
+position = Vector2(-104, -32)
+
+[node name="Coin13" parent="Collectibles" instance=ExtResource("5_27bay")]
+position = Vector2(-128, -32)
+
+[node name="Coin14" parent="Collectibles" instance=ExtResource("5_27bay")]
+position = Vector2(-104, -56)
+
+[node name="Coin15" parent="Collectibles" instance=ExtResource("5_27bay")]
+position = Vector2(76, -8)
+
+[node name="Coin16" parent="Collectibles" instance=ExtResource("5_27bay")]
+position = Vector2(100, -8)
+
+[node name="Coin17" parent="Collectibles" instance=ExtResource("5_27bay")]
+position = Vector2(124, -8)
+
+[node name="Coin18" parent="Collectibles" instance=ExtResource("5_27bay")]
+position = Vector2(148, -8)
+
+[node name="Coin19" parent="Collectibles" instance=ExtResource("5_27bay")]
+position = Vector2(136, -32)
+
+[node name="Coin20" parent="Collectibles" instance=ExtResource("5_27bay")]
+position = Vector2(112, -32)
+
+[node name="Coin21" parent="Collectibles" instance=ExtResource("5_27bay")]
+position = Vector2(88, -32)
+
+[node name="Coin22" parent="Collectibles" instance=ExtResource("5_27bay")]
+position = Vector2(112, -56)
+
+[node name="Coin23" parent="Collectibles" instance=ExtResource("5_27bay")]
+position = Vector2(308, -8)
+
+[node name="Coin24" parent="Collectibles" instance=ExtResource("5_27bay")]
+position = Vector2(332, -8)
+
+[node name="Coin25" parent="Collectibles" instance=ExtResource("5_27bay")]
+position = Vector2(356, -8)
+
+[node name="Coin26" parent="Collectibles" instance=ExtResource("5_27bay")]
+position = Vector2(380, -8)
+
+[node name="Coin27" parent="Collectibles" instance=ExtResource("5_27bay")]
+position = Vector2(368, -32)
+
+[node name="Coin28" parent="Collectibles" instance=ExtResource("5_27bay")]
+position = Vector2(344, -32)
+
+[node name="Coin29" parent="Collectibles" instance=ExtResource("5_27bay")]
+position = Vector2(320, -32)
+
+[node name="Coin30" parent="Collectibles" instance=ExtResource("5_27bay")]
+position = Vector2(344, -56)
+
+[node name="Key" parent="Collectibles" instance=ExtResource("10_gyffv")]
+position = Vector2(544, -76)
 
 [node name="Objects" type="Node" parent="."]
 
@@ -309,14 +369,8 @@ position = Vector2(472, -6)
 position = Vector2(232, -8)
 
 [node name="HealthBottle" parent="Objects" instance=ExtResource("8_5rr72")]
-position = Vector2(408, -15.999999)
+position = Vector2(205, 1)
 scale = Vector2(0.86531234, 0.9200008)
-
-[node name="HealthBottle2" parent="Objects" instance=ExtResource("8_5rr72")]
-position = Vector2(440, -32)
-
-[node name="HealthBottle3" parent="Objects" instance=ExtResource("8_5rr72")]
-position = Vector2(-184, -16)
 
 [node name="Player" parent="." instance=ExtResource("8_ubhxj")]
 position = Vector2(0, -8)

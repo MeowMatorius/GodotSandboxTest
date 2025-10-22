@@ -17,7 +17,6 @@ func _ready() -> void:
 	StatsManager.connect("on_add_xp", update_labels)
 	StatsManager.connect("on_level_up", update_labels)
 	StatsManager.on_level_up.connect(update_exp_bar)
-	InventoryManager.on_coin_collected.connect(update_labels)
 
 
 func update_exp_bar():

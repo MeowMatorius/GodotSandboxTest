@@ -23,3 +23,6 @@ func death():
 func give_heal(heal_amount):
 	on_heal.emit()
 	health_bar.value += heal_amount
+
+func reset_health():
+	health_bar.value = 100

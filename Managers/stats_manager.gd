@@ -41,3 +41,16 @@ func lvl_up():
 func spend_lvl_up_points():
 	if lvl_up_points != 0:
 		lvl_up_points -= 1
+
+
+func reset_player_stats():
+	player_level = 1
+	lvl_up_points = 0
+	exp_amount = 0
+	exp_needed = 100
+	
+	endurance = 10
+	strenght = 10
+	agility = 10
+	inteligence = 10
+	luck = 10
