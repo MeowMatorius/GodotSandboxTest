@@ -6,8 +6,6 @@ var pause_slow_time: float = 0
 signal on_pause
 signal on_pause_exit
 
-@onready var tab_bar: TabBar = $MenuContainer/TabBar
-
 @export_category("Main Manu Button Values")
 @export var coins_amount: int = 50
 @export var keys_amount: int = 1
@@ -30,7 +28,7 @@ signal on_pause_exit
 
 
 func _ready() -> void:
-	PauseMenu.hide()
+	exit_pause_menu()
 	StatsManager.on_add_xp.connect(update_labels)
 	StatsManager.on_level_up.connect(update_labels)
 
@@ -38,31 +36,31 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	# Кнопка Паузы
 	if Input.is_action_just_pressed("menu"):
-		toggle_pause_menu()
+		is_paused = !is_paused
+		if is_paused: 
+			enter_pause_menu()
+		else: 
+			exit_pause_menu()
 
 
-# Функция при нажатии кнопки паузы
-func toggle_pause_menu():
-	if is_paused: exit_pause_menu()
-	else: enter_pause_menu()
+# Вход в меню паузы
+func enter_pause_menu():
+	on_pause.emit()
+	is_paused = true
+	PauseMenu.show()
+	PlayerUI.hide()
+	Engine.time_scale = pause_slow_time
+	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 
 
 # Выход из паузы
 func exit_pause_menu():
 	on_pause_exit.emit()
-	hide()
 	is_paused = false
+	PauseMenu.hide()
+	PlayerUI.show()
 	Engine.time_scale = 1
 	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
-	
-
-# Вход в меню паузы
-func enter_pause_menu():
-	on_pause.emit()
-	show()
-	is_paused = true
-	Engine.time_scale = pause_slow_time
-	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 
 
 func update_labels():
@@ -71,7 +69,7 @@ func update_labels():
 	exp_label.text     		= str(StatsManager.exp_amount)
 	exp_needed_label.text  	= str(StatsManager.exp_needed)
 	stat_points_label.text 	= str(StatsManager.lvl_up_points)
-	
+
 	# Характеристики
 	end_points_label.text 	= str(StatsManager.endurance)
 	str_points_label.text 	= str(StatsManager.strenght)
@@ -85,7 +83,7 @@ func stat_manager_update():
 	update_labels()
 
 
-#region Кнопки повышения характеристик
+#region --- Кнопки повышения характеристик ---
 
 func _on_end_button_button_up() -> void:
 	if StatsManager.lvl_up_points > 0:
@@ -118,7 +116,7 @@ func _on_lck_button_button_up() -> void:
 #endregion
 
 
-#region Управление кнопками tab: MainMenu
+#region  --- Управление кнопками tab: MainMenu ---
 
 func _on_resume_button_button_up() -> void:
 	exit_pause_menu()
@@ -155,7 +153,7 @@ func _on_heal_player_button_button_up() -> void:
 #endregion
 
 
-#region Управление кнопками tab: World Map
+#region --- Управление кнопками tab: World Map ---
 
 func _on_forest_button_button_up() -> void:
 	GameManager.change_scene('Forest')
