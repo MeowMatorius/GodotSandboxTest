@@ -1,17 +1,12 @@
 extends CanvasLayer
 
 var is_paused: bool = false
-var pause_slow_time: float = 0
+@export var pause_time_value: float = 0
 
 signal on_pause
 signal on_pause_exit
 
-@export_category("Main Manu Button Values")
-@export var coins_amount: int = 50
-@export var keys_amount: int = 1
-@export var exp_amount: int = 50
-@export var damage_amount: int = 10
-@export var heal_amount: int = 10
+@export var value_amount: int = 10
 
 @export_category("LVL and EXP Labels")
 @export var level_label: Label
@@ -29,18 +24,14 @@ signal on_pause_exit
 
 func _ready() -> void:
 	exit_pause_menu()
-	StatsManager.on_add_xp.connect(update_labels)
-	StatsManager.on_level_up.connect(update_labels)
 
 
 func _process(_delta: float) -> void:
 	# Кнопка Паузы
 	if Input.is_action_just_pressed("menu"):
 		is_paused = !is_paused
-		if is_paused: 
-			enter_pause_menu()
-		else: 
-			exit_pause_menu()
+		if is_paused: enter_pause_menu()
+		else: exit_pause_menu()
 
 
 # Вход в меню паузы
@@ -49,7 +40,7 @@ func enter_pause_menu():
 	is_paused = true
 	PauseMenu.show()
 	PlayerUI.hide()
-	Engine.time_scale = pause_slow_time
+	Engine.time_scale = pause_time_value
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 
 
@@ -63,103 +54,61 @@ func exit_pause_menu():
 	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
 
 
-func update_labels():
-	# Уровень и опыт
-	level_label.text   		= str(StatsManager.player_level)
-	exp_label.text     		= str(StatsManager.exp_amount)
-	exp_needed_label.text  	= str(StatsManager.exp_needed)
-	stat_points_label.text 	= str(StatsManager.lvl_up_points)
-
-	# Характеристики
-	end_points_label.text 	= str(StatsManager.endurance)
-	str_points_label.text 	= str(StatsManager.strenght)
-	agl_points_label.text 	= str(StatsManager.agility)
-	int_points_label.text 	= str(StatsManager.inteligence)
-	lck_points_label.text 	= str(StatsManager.luck)
-
-
-func stat_manager_update():
-	StatsManager.spend_lvl_up_points()
-	update_labels()
-
-
 #region --- Кнопки повышения характеристик ---
-
 func _on_end_button_button_up() -> void:
 	if StatsManager.lvl_up_points > 0:
 		StatsManager.endurance += 1
-		stat_manager_update()
+		StatsManager.spend_lvl_up_points()
 
 
 func _on_str_button_button_up() -> void:
 	if StatsManager.lvl_up_points > 0:
 		StatsManager.strenght += 1
-		stat_manager_update()
+		StatsManager.spend_lvl_up_points()
 
 
 func _on_agl_button_button_up() -> void:
 	if StatsManager.lvl_up_points > 0:
 		StatsManager.agility += 1
-		stat_manager_update()
+		StatsManager.spend_lvl_up_points()
 
 
 func _on_int_button_button_up() -> void:
 	if StatsManager.lvl_up_points > 0:
 		StatsManager.inteligence += 1
-		stat_manager_update()
+		StatsManager.spend_lvl_up_points()
 
 
 func _on_lck_button_button_up() -> void:
 	if StatsManager.lvl_up_points > 0:
 		StatsManager.luck += 1
-		stat_manager_update()
+		StatsManager.spend_lvl_up_points()
 #endregion
 
 
 #region  --- Управление кнопками tab: MainMenu ---
-
-func _on_resume_button_button_up() -> void:
-	exit_pause_menu()
-
-
-func _on_reload_button_button_up() -> void:
-	exit_pause_menu()
-	GameManager.player_reset(true)
-	get_tree().reload_current_scene() 
-
-
-func _on_exit_button_button_up() -> void:
-	get_tree().quit()
-
-
-func _on_give_coins_button_button_up() -> void:
-	InventoryManager.add_collectible("coin", coins_amount, 0)
-
-
 func _on_give_keys_button_button_up() -> void:
-	InventoryManager.add_collectible("key", keys_amount, 0)
+	InventoryManager.add_collectible("key", value_amount, 0)
 
 
 func _on_give_exp_button_button_up() -> void:
-	StatsManager.add_exp(exp_amount)
+	StatsManager.add_exp(value_amount)
 
 
 func _on_damage_player_button_button_up() -> void:
-	HealthManager.take_damage(damage_amount)
+	HealthManager.take_damage(value_amount)
 
 
 func _on_heal_player_button_button_up() -> void:
-	HealthManager.give_heal(heal_amount)
+	HealthManager.give_heal(value_amount)
 #endregion
 
 
 #region --- Управление кнопками tab: World Map ---
-
 func _on_forest_button_button_up() -> void:
 	GameManager.change_scene('Forest')
 
 
 func _on_mountain_button_button_up() -> void:
 	GameManager.change_scene('Mountain')
-
 #endregion

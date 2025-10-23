@@ -8,12 +8,8 @@ func player_reset(hard_reset: bool):
 		InventoryManager.reset_collectibles()
 		HealthManager.reset_health()
 		StatsManager.reset_player_stats()
-		PlayerUI.update_labels()
-		PauseMenu.update_labels()
 	else:
 		HealthManager.reset_health()
-		PlayerUI.update_labels()
-		PauseMenu.update_labels()
 
 
 func change_scene(string):
