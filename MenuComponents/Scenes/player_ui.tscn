@@ -67,7 +67,7 @@ label_settings = SubResource("LabelSettings_3aw7q")
 layout_mode = 2
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("1_ohrjl")
-text = "0"
+text = "1"
 label_settings = SubResource("LabelSettings_3aw7q")
 vertical_alignment = 1
 
