@@ -1,0 +1,33 @@
+[gd_scene load_steps=6 format=3 uid="uid://gtnj8rueipvx"]
+
+[ext_resource type="Texture2D" uid="uid://dnckfitjuwk1n" path="res://Assets/Sprites/Kenney Assets/Pixel Platformer/tilemap.png" id="1_qtb0b"]
+[ext_resource type="PackedScene" uid="uid://dxy1rcrkaypdh" path="res://Custom/Objects/collectible.tscn" id="2_8tn5n"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7wphh"]
+atlas = ExtResource("1_qtb0b")
+region = Rect2(126, 18, 18, 18)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_0i8da"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7wphh")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7wphh"]
+
+[node name="Key" type="Node2D"]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_0i8da")
+
+[node name="Collectible" parent="." instance=ExtResource("2_8tn5n")]
+xp_amount = 50
+collectible_type = "key"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Collectible"]
+shape = SubResource("CircleShape2D_7wphh")

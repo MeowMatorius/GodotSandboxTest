@@ -1,0 +1,27 @@
+[gd_scene load_steps=5 format=3 uid="uid://d0rsetodnya6i"]
+
+[ext_resource type="Texture2D" uid="uid://bwy31n6ldcsyk" path="res://Assets/Sprites/Brackeys Assets/world_tileset.png" id="1_5in68"]
+[ext_resource type="Script" uid="uid://d4f5ogyweyfwv" path="res://Custom/Objects/Scripts/health_bottle.gd" id="1_fti0p"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_hpfkt"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xu7l2"]
+atlas = ExtResource("1_5in68")
+region = Rect2(0, 112, 32, 32)
+
+[node name="HealthBottle" type="Area2D"]
+z_index = 1
+collision_mask = 2
+script = ExtResource("1_fti0p")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -7)
+shape = SubResource("CircleShape2D_hpfkt")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -8)
+texture = SubResource("AtlasTexture_xu7l2")
+hframes = 2
+vframes = 2
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

@@ -1,0 +1,32 @@
+[gd_scene load_steps=7 format=3 uid="uid://bj3gfaxg6jdwl"]
+
+[ext_resource type="Script" uid="uid://ibjipgk7pmix" path="res://Custom/Objects/Scripts/chest.gd" id="1_bagqn"]
+[ext_resource type="Texture2D" uid="uid://blio311fmuybh" path="res://Assets/Sprites/Kenney Assets/New Platformer/spritesheet-tiles.png" id="1_lyb87"]
+[ext_resource type="PackedScene" uid="uid://bvvwpmc2643sj" path="res://Custom/Objects/InteractionComponents/interactable.tscn" id="3_pmguq"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cjfl1"]
+size = Vector2(64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bagqn"]
+atlas = ExtResource("1_lyb87")
+region = Rect2(704, 192, 64, 128)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dq33m"]
+size = Vector2(112, 96)
+
+[node name="Chest" type="StaticBody2D"]
+scale = Vector2(0.2, 0.2)
+script = ExtResource("1_bagqn")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_cjfl1")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = SubResource("AtlasTexture_bagqn")
+vframes = 2
+
+[node name="interactable" parent="." instance=ExtResource("3_pmguq")]
+interact_name = "Open"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="interactable"]
+shape = SubResource("RectangleShape2D_dq33m")

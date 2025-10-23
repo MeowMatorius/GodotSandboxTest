@@ -1,0 +1,29 @@
+[gd_scene load_steps=7 format=3 uid="uid://d3psd025liwe7"]
+
+[ext_resource type="PackedScene" uid="uid://bvvwpmc2643sj" path="res://Custom/Objects/InteractionComponents/interactable.tscn" id="1_fmf1u"]
+[ext_resource type="Script" uid="uid://ooyw84sqkbbe" path="res://Custom/Objects/Scripts/sign.gd" id="1_hqvqy"]
+[ext_resource type="Texture2D" uid="uid://bwy31n6ldcsyk" path="res://Assets/Sprites/Brackeys Assets/world_tileset.png" id="1_m6mpx"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hqvqy"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hqvqy"]
+atlas = ExtResource("1_m6mpx")
+region = Rect2(128, 48, 16, 16)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_m6mpx"]
+
+[node name="Sign" type="StaticBody2D"]
+script = ExtResource("1_hqvqy")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_hqvqy")
+disabled = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = SubResource("AtlasTexture_hqvqy")
+
+[node name="interactable" parent="." instance=ExtResource("1_fmf1u")]
+interact_name = "Read"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="interactable"]
+shape = SubResource("RectangleShape2D_m6mpx")

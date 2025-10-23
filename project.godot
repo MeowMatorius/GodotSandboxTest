@@ -13,16 +13,16 @@ config_version=5
 config/name="GodotSandbox"
 run/main_scene="uid://c20prbmp4lgnm"
 config/features=PackedStringArray("4.5", "Forward Plus")
-config/icon="res://icon.svg"
+config/icon="res://Assets/Sprites/GodotIcon.svg"
 
 [autoload]
 
-PlayerUI="*res://MenuComponents/Scenes/player_ui.tscn"
-PauseMenu="*res://MenuComponents/Scenes/pause_menu.tscn"
-InventoryManager="*res://Managers/inventory_manager.gd"
-StatsManager="*res://Managers/stats_manager.gd"
-HealthManager="*res://Managers/health_manager.gd"
-GameManager="*res://Managers/game_manager.gd"
+PlayerUI="*res://Custom/GUI/player_ui.tscn"
+PauseMenu="*res://Custom/GUI/pause_menu.tscn"
+InventoryManager="*res://Custom/Managers/inventory_manager.gd"
+StatsManager="*res://Custom/Managers/stats_manager.gd"
+HealthManager="*res://Custom/Managers/health_manager.gd"
+GameManager="*res://Custom/Managers/game_manager.gd"
 
 [display]
 
