@@ -1,11 +1,12 @@
 extends Node
 
-var location_1: String = "Sandbox"
-var location_2: String = "Snow"
+var current_location: String = "Sandbox"
+signal _on_location_change
+
 
 func _ready() -> void:
 	PauseMenu.exit_pause_menu()
-
+	
 
 func player_reset(hard_reset: bool):
 	if hard_reset:
@@ -16,10 +17,11 @@ func player_reset(hard_reset: bool):
 		HealthManager.reset_health()
 
 
-func change_scene(string):
-	match string:
-		location_1:
+func change_scene(location):
+	match location:
+		"Sandbox":
 			get_tree().change_scene_to_file("res://Levels/level_1.tscn")
-		location_2:
+		"Snow":
 			get_tree().change_scene_to_file("res://Levels/level_2.tscn")
+	_on_location_change.emit()
 	PauseMenu.exit_pause_menu()

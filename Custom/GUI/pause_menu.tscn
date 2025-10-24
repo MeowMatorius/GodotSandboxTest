@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=4 uid="uid://csckpnko3l8e5"]
+[gd_scene load_steps=35 format=4 uid="uid://csckpnko3l8e5"]
 
 [ext_resource type="FontFile" uid="uid://n0t3jrv5gwf8" path="res://Assets/Fonts/PixelOperator8/PixelOperator8.ttf" id="1_1och7"]
 [ext_resource type="FontFile" uid="uid://btvnwnk7ueujc" path="res://Assets/Fonts/PixelOperator8/PixelOperator8-Bold.ttf" id="1_k0w1u"]
@@ -865,7 +865,10 @@ texture = ExtResource("4_bpi0q")
 sources/0 = SubResource("TileSetAtlasSource_vmyb1")
 
 [sub_resource type="LabelSettings" id="LabelSettings_osmkb"]
-font = ExtResource("1_1och7")
+font = ExtResource("1_k0w1u")
+
+[sub_resource type="LabelSettings" id="LabelSettings_qoioq"]
+font = ExtResource("1_k0w1u")
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_1ymcx"]
 atlas = ExtResource("14_taale")
@@ -877,21 +880,15 @@ region = Rect2(198, 90, 18, 18)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_taale"]
 atlas = ExtResource("8_ix48p")
-region = Rect2(16, 112, 16, 16)
+region = Rect2(20, 114, 10, 14)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_q7fiq"]
 atlas = ExtResource("14_taale")
-region = Rect2(126, 56, 18, 16)
+region = Rect2(128, 56, 14, 14)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_6wqnn"]
 atlas = ExtResource("14_taale")
-region = Rect2(198, 128, 18, 16)
-
-[sub_resource type="LabelSettings" id="LabelSettings_rl3mt"]
-font = ExtResource("1_1och7")
-
-[sub_resource type="LabelSettings" id="LabelSettings_sbjkf"]
-font = ExtResource("1_1och7")
+region = Rect2(200, 128, 14, 14)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_osmkb"]
 atlas = ExtResource("6_u8tnp")
@@ -902,15 +899,15 @@ font = ExtResource("1_1och7")
 
 [node name="PauseMenu" type="CanvasLayer" node_paths=PackedStringArray("level_label", "exp_label", "exp_needed_label", "stat_points_label", "end_points_label", "str_points_label", "agl_points_label", "int_points_label", "lck_points_label")]
 script = ExtResource("1_vmyb1")
-level_label = NodePath("MenuContainer/TabBar/CharacterTab/HBoxContainer/VBoxContainer2/HBoxContainer/LevelContainer/MenuLevelLabel")
-exp_label = NodePath("MenuContainer/TabBar/CharacterTab/HBoxContainer/VBoxContainer2/HBoxContainer/ExpContainer/MenuExpLabel")
-exp_needed_label = NodePath("MenuContainer/TabBar/CharacterTab/HBoxContainer/VBoxContainer2/HBoxContainer/ExpContainer/MenuExpNeededLabel")
-stat_points_label = NodePath("MenuContainer/TabBar/CharacterTab/HBoxContainer/VBoxContainer/HBoxContainer/MenuStatPointsLabel")
-end_points_label = NodePath("MenuContainer/TabBar/CharacterTab/HBoxContainer/VBoxContainer/EndContainer/EndPointsLabel")
-str_points_label = NodePath("MenuContainer/TabBar/CharacterTab/HBoxContainer/VBoxContainer/StrContainer/StrPointsLabel")
-agl_points_label = NodePath("MenuContainer/TabBar/CharacterTab/HBoxContainer/VBoxContainer/AglContainer/AglPointsLabel")
-int_points_label = NodePath("MenuContainer/TabBar/CharacterTab/HBoxContainer/VBoxContainer/IntContainer/IntPointsLabel")
-lck_points_label = NodePath("MenuContainer/TabBar/CharacterTab/HBoxContainer/VBoxContainer/LckContainer/LckPointsLabel")
+level_label = NodePath("MenuContainer/TabBar/CharacterTab/HBoxContainer/CharBoxContainer/HBoxContainer/LevelContainer/MenuLevelLabel")
+exp_label = NodePath("MenuContainer/TabBar/CharacterTab/HBoxContainer/CharBoxContainer/HBoxContainer/ExpContainer/MenuExpLabel")
+exp_needed_label = NodePath("MenuContainer/TabBar/CharacterTab/HBoxContainer/CharBoxContainer/HBoxContainer/ExpContainer/MenuExpNeededLabel")
+stat_points_label = NodePath("MenuContainer/TabBar/CharacterTab/HBoxContainer/StatsBoxContainer/PointsContainer/MenuStatPointsLabel")
+end_points_label = NodePath("MenuContainer/TabBar/CharacterTab/HBoxContainer/StatsBoxContainer/EndContainer/EndPointsLabel")
+str_points_label = NodePath("MenuContainer/TabBar/CharacterTab/HBoxContainer/StatsBoxContainer/StrContainer/StrPointsLabel")
+agl_points_label = NodePath("MenuContainer/TabBar/CharacterTab/HBoxContainer/StatsBoxContainer/AglContainer/AglPointsLabel")
+int_points_label = NodePath("MenuContainer/TabBar/CharacterTab/HBoxContainer/StatsBoxContainer/IntContainer/IntPointsLabel")
+lck_points_label = NodePath("MenuContainer/TabBar/CharacterTab/HBoxContainer/StatsBoxContainer/LckContainer/LckPointsLabel")
 
 [node name="MenuContainer" type="MarginContainer" parent="."]
 anchors_preset = 15
@@ -1084,6 +1081,8 @@ theme_override_fonts/font = ExtResource("1_1och7")
 text = "Heal Player"
 alignment = 0
 script = ExtResource("13_sbjkf")
+effect_type = "heal"
+effect_value_amount = 10
 
 [node name="MarginContainer" type="MarginContainer" parent="MenuContainer/TabBar/MainMenuTab"]
 layout_mode = 2
@@ -1378,6 +1377,7 @@ button_pressed = true
 text = "Slow on Pause"
 
 [node name="CharacterTab" type="MarginContainer" parent="MenuContainer/TabBar"]
+visible = false
 layout_mode = 1
 anchors_preset = -1
 anchor_left = -0.029000001
@@ -1397,55 +1397,54 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 alignment = 1
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MenuContainer/TabBar/CharacterTab/HBoxContainer"]
-custom_minimum_size = Vector2(450, 0)
+[node name="StatsBoxContainer" type="VBoxContainer" parent="MenuContainer/TabBar/CharacterTab/HBoxContainer"]
 layout_mode = 2
 alignment = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MenuContainer/TabBar/CharacterTab/HBoxContainer/VBoxContainer"]
+[node name="PointsContainer" type="HBoxContainer" parent="MenuContainer/TabBar/CharacterTab/HBoxContainer/StatsBoxContainer"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
-size_flags_horizontal = 4
 size_flags_vertical = 2
 alignment = 2
 
-[node name="Label" type="Label" parent="MenuContainer/TabBar/CharacterTab/HBoxContainer/VBoxContainer/HBoxContainer"]
+[node name="Label" type="Label" parent="MenuContainer/TabBar/CharacterTab/HBoxContainer/StatsBoxContainer/PointsContainer"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("1_1och7")
 text = "Points:"
+label_settings = SubResource("LabelSettings_qoioq")
 horizontal_alignment = 2
 vertical_alignment = 1
 
-[node name="MenuStatPointsLabel" type="Label" parent="MenuContainer/TabBar/CharacterTab/HBoxContainer/VBoxContainer/HBoxContainer"]
+[node name="MenuStatPointsLabel" type="Label" parent="MenuContainer/TabBar/CharacterTab/HBoxContainer/StatsBoxContainer/PointsContainer"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("1_1och7")
 text = "0"
+label_settings = SubResource("LabelSettings_qoioq")
 horizontal_alignment = 2
 vertical_alignment = 1
 
-[node name="EndContainer" type="HBoxContainer" parent="MenuContainer/TabBar/CharacterTab/HBoxContainer/VBoxContainer"]
+[node name="EndContainer" type="HBoxContainer" parent="MenuContainer/TabBar/CharacterTab/HBoxContainer/StatsBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 3
+theme_override_constants/separation = 12
 alignment = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="MenuContainer/TabBar/CharacterTab/HBoxContainer/VBoxContainer/EndContainer"]
+[node name="Icon" type="TextureRect" parent="MenuContainer/TabBar/CharacterTab/HBoxContainer/StatsBoxContainer/EndContainer"]
+custom_minimum_size = Vector2(30, 0)
 layout_mode = 2
-size_flags_horizontal = 4
-
-[node name="Sprite2D" type="Sprite2D" parent="MenuContainer/TabBar/CharacterTab/HBoxContainer/VBoxContainer/EndContainer/MarginContainer"]
-position = Vector2(-24.888916, 23.979996)
-scale = Vector2(2, 2)
 texture = SubResource("AtlasTexture_1ymcx")
+stretch_mode = 5
 
-[node name="EndLabel" type="Label" parent="MenuContainer/TabBar/CharacterTab/HBoxContainer/VBoxContainer/EndContainer"]
+[node name="EndLabel" type="Label" parent="MenuContainer/TabBar/CharacterTab/HBoxContainer/StatsBoxContainer/EndContainer"]
 custom_minimum_size = Vector2(200, 50)
 layout_mode = 2
+size_flags_horizontal = 3
 theme_override_fonts/font = ExtResource("1_1och7")
 text = "Endurance"
 vertical_alignment = 1
 
-[node name="EndPointsLabel" type="Label" parent="MenuContainer/TabBar/CharacterTab/HBoxContainer/VBoxContainer/EndContainer"]
+[node name="EndPointsLabel" type="Label" parent="MenuContainer/TabBar/CharacterTab/HBoxContainer/StatsBoxContainer/EndContainer"]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 theme_override_fonts/font = ExtResource("1_1och7")
@@ -1453,7 +1452,7 @@ text = "10"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="EndButton" type="Button" parent="MenuContainer/TabBar/CharacterTab/HBoxContainer/VBoxContainer/EndContainer"]
+[node name="EndButton" type="Button" parent="MenuContainer/TabBar/CharacterTab/HBoxContainer/StatsBoxContainer/EndContainer"]
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 theme_override_fonts/font = ExtResource("1_1och7")
@@ -1462,29 +1461,28 @@ text = "+"
 script = ExtResource("14_at50w")
 current_stat = "endurance"
 
-[node name="StrContainer" type="HBoxContainer" parent="MenuContainer/TabBar/CharacterTab/HBoxContainer/VBoxContainer"]
+[node name="StrContainer" type="HBoxContainer" parent="MenuContainer/TabBar/CharacterTab/HBoxContainer/StatsBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 3
+theme_override_constants/separation = 12
 alignment = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="MenuContainer/TabBar/CharacterTab/HBoxContainer/VBoxContainer/StrContainer"]
+[node name="Icon" type="TextureRect" parent="MenuContainer/TabBar/CharacterTab/HBoxContainer/StatsBoxContainer/StrContainer"]
+custom_minimum_size = Vector2(30, 0)
 layout_mode = 2
-size_flags_horizontal = 0
-
-[node name="Sprite2D" type="Sprite2D" parent="MenuContainer/TabBar/CharacterTab/HBoxContainer/VBoxContainer/StrContainer/MarginContainer"]
-position = Vector2(-24.888916, 23.979996)
-scale = Vector2(1.5, 1.5)
 texture = SubResource("AtlasTexture_1oo2n")
+stretch_mode = 5
 
-[node name="StrLabel" type="Label" parent="MenuContainer/TabBar/CharacterTab/HBoxContainer/VBoxContainer/StrContainer"]
+[node name="StrLabel" type="Label" parent="MenuContainer/TabBar/CharacterTab/HBoxContainer/StatsBoxContainer/StrContainer"]
 custom_minimum_size = Vector2(200, 50)
 layout_mode = 2
+size_flags_horizontal = 3
 theme_override_fonts/font = ExtResource("1_1och7")
 text = "Strength"
 vertical_alignment = 1
 
-[node name="StrPointsLabel" type="Label" parent="MenuContainer/TabBar/CharacterTab/HBoxContainer/VBoxContainer/StrContainer"]
+[node name="StrPointsLabel" type="Label" parent="MenuContainer/TabBar/CharacterTab/HBoxContainer/StatsBoxContainer/StrContainer"]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 theme_override_fonts/font = ExtResource("1_1och7")
@@ -1492,7 +1490,7 @@ text = "10"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="StrButton" type="Button" parent="MenuContainer/TabBar/CharacterTab/HBoxContainer/VBoxContainer/StrContainer"]
+[node name="StrButton" type="Button" parent="MenuContainer/TabBar/CharacterTab/HBoxContainer/StatsBoxContainer/StrContainer"]
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 theme_override_fonts/font = ExtResource("1_1och7")
@@ -1501,29 +1499,28 @@ text = "+"
 script = ExtResource("14_at50w")
 current_stat = "strenght"
 
-[node name="AglContainer" type="HBoxContainer" parent="MenuContainer/TabBar/CharacterTab/HBoxContainer/VBoxContainer"]
+[node name="AglContainer" type="HBoxContainer" parent="MenuContainer/TabBar/CharacterTab/HBoxContainer/StatsBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 3
+theme_override_constants/separation = 12
 alignment = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="MenuContainer/TabBar/CharacterTab/HBoxContainer/VBoxContainer/AglContainer"]
+[node name="Icon" type="TextureRect" parent="MenuContainer/TabBar/CharacterTab/HBoxContainer/StatsBoxContainer/AglContainer"]
+custom_minimum_size = Vector2(30, 0)
 layout_mode = 2
-size_flags_horizontal = 0
-
-[node name="Sprite2D" type="Sprite2D" parent="MenuContainer/TabBar/CharacterTab/HBoxContainer/VBoxContainer/AglContainer/MarginContainer"]
-position = Vector2(-24.888916, 23.979996)
-scale = Vector2(2, 2)
 texture = SubResource("AtlasTexture_taale")
+stretch_mode = 5
 
-[node name="AglLabel" type="Label" parent="MenuContainer/TabBar/CharacterTab/HBoxContainer/VBoxContainer/AglContainer"]
+[node name="AglLabel" type="Label" parent="MenuContainer/TabBar/CharacterTab/HBoxContainer/StatsBoxContainer/AglContainer"]
 custom_minimum_size = Vector2(200, 50)
 layout_mode = 2
+size_flags_horizontal = 3
 theme_override_fonts/font = ExtResource("1_1och7")
 text = "Agility"
 vertical_alignment = 1
 
-[node name="AglPointsLabel" type="Label" parent="MenuContainer/TabBar/CharacterTab/HBoxContainer/VBoxContainer/AglContainer"]
+[node name="AglPointsLabel" type="Label" parent="MenuContainer/TabBar/CharacterTab/HBoxContainer/StatsBoxContainer/AglContainer"]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 theme_override_fonts/font = ExtResource("1_1och7")
@@ -1531,7 +1528,7 @@ text = "10"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="AglButton" type="Button" parent="MenuContainer/TabBar/CharacterTab/HBoxContainer/VBoxContainer/AglContainer"]
+[node name="AglButton" type="Button" parent="MenuContainer/TabBar/CharacterTab/HBoxContainer/StatsBoxContainer/AglContainer"]
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 theme_override_fonts/font = ExtResource("1_1och7")
@@ -1540,29 +1537,28 @@ text = "+"
 script = ExtResource("14_at50w")
 current_stat = "agility"
 
-[node name="IntContainer" type="HBoxContainer" parent="MenuContainer/TabBar/CharacterTab/HBoxContainer/VBoxContainer"]
+[node name="IntContainer" type="HBoxContainer" parent="MenuContainer/TabBar/CharacterTab/HBoxContainer/StatsBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 3
+theme_override_constants/separation = 12
 alignment = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="MenuContainer/TabBar/CharacterTab/HBoxContainer/VBoxContainer/IntContainer"]
+[node name="Icon" type="TextureRect" parent="MenuContainer/TabBar/CharacterTab/HBoxContainer/StatsBoxContainer/IntContainer"]
+custom_minimum_size = Vector2(30, 0)
 layout_mode = 2
-size_flags_horizontal = 0
-
-[node name="Sprite2D" type="Sprite2D" parent="MenuContainer/TabBar/CharacterTab/HBoxContainer/VBoxContainer/IntContainer/MarginContainer"]
-position = Vector2(-24.888916, 23.979996)
-scale = Vector2(2, 2)
 texture = SubResource("AtlasTexture_q7fiq")
+stretch_mode = 5
 
-[node name="IntLabel" type="Label" parent="MenuContainer/TabBar/CharacterTab/HBoxContainer/VBoxContainer/IntContainer"]
+[node name="IntLabel" type="Label" parent="MenuContainer/TabBar/CharacterTab/HBoxContainer/StatsBoxContainer/IntContainer"]
 custom_minimum_size = Vector2(200, 50)
 layout_mode = 2
+size_flags_horizontal = 3
 theme_override_fonts/font = ExtResource("1_1och7")
 text = "Inteligence"
 vertical_alignment = 1
 
-[node name="IntPointsLabel" type="Label" parent="MenuContainer/TabBar/CharacterTab/HBoxContainer/VBoxContainer/IntContainer"]
+[node name="IntPointsLabel" type="Label" parent="MenuContainer/TabBar/CharacterTab/HBoxContainer/StatsBoxContainer/IntContainer"]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 theme_override_fonts/font = ExtResource("1_1och7")
@@ -1570,7 +1566,7 @@ text = "10"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="IntButton" type="Button" parent="MenuContainer/TabBar/CharacterTab/HBoxContainer/VBoxContainer/IntContainer"]
+[node name="IntButton" type="Button" parent="MenuContainer/TabBar/CharacterTab/HBoxContainer/StatsBoxContainer/IntContainer"]
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 theme_override_fonts/font = ExtResource("1_1och7")
@@ -1579,29 +1575,28 @@ text = "+"
 script = ExtResource("14_at50w")
 current_stat = "inteligence"
 
-[node name="LckContainer" type="HBoxContainer" parent="MenuContainer/TabBar/CharacterTab/HBoxContainer/VBoxContainer"]
+[node name="LckContainer" type="HBoxContainer" parent="MenuContainer/TabBar/CharacterTab/HBoxContainer/StatsBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 3
+theme_override_constants/separation = 12
 alignment = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="MenuContainer/TabBar/CharacterTab/HBoxContainer/VBoxContainer/LckContainer"]
+[node name="Icon" type="TextureRect" parent="MenuContainer/TabBar/CharacterTab/HBoxContainer/StatsBoxContainer/LckContainer"]
+custom_minimum_size = Vector2(30, 0)
 layout_mode = 2
-size_flags_horizontal = 0
-
-[node name="Sprite2D" type="Sprite2D" parent="MenuContainer/TabBar/CharacterTab/HBoxContainer/VBoxContainer/LckContainer/MarginContainer"]
-position = Vector2(-24.888916, 23.979996)
-scale = Vector2(2, 2)
 texture = SubResource("AtlasTexture_6wqnn")
+stretch_mode = 5
 
-[node name="LuckLabel" type="Label" parent="MenuContainer/TabBar/CharacterTab/HBoxContainer/VBoxContainer/LckContainer"]
+[node name="LuckLabel" type="Label" parent="MenuContainer/TabBar/CharacterTab/HBoxContainer/StatsBoxContainer/LckContainer"]
 custom_minimum_size = Vector2(200, 50)
 layout_mode = 2
+size_flags_horizontal = 3
 theme_override_fonts/font = ExtResource("1_1och7")
 text = "Luck"
 vertical_alignment = 1
 
-[node name="LckPointsLabel" type="Label" parent="MenuContainer/TabBar/CharacterTab/HBoxContainer/VBoxContainer/LckContainer"]
+[node name="LckPointsLabel" type="Label" parent="MenuContainer/TabBar/CharacterTab/HBoxContainer/StatsBoxContainer/LckContainer"]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 theme_override_fonts/font = ExtResource("1_1och7")
@@ -1609,7 +1604,7 @@ text = "10"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="LckButton" type="Button" parent="MenuContainer/TabBar/CharacterTab/HBoxContainer/VBoxContainer/LckContainer"]
+[node name="LckButton" type="Button" parent="MenuContainer/TabBar/CharacterTab/HBoxContainer/StatsBoxContainer/LckContainer"]
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 theme_override_fonts/font = ExtResource("1_1och7")
@@ -1618,81 +1613,83 @@ text = "+"
 script = ExtResource("14_at50w")
 current_stat = "luck"
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="MenuContainer/TabBar/CharacterTab/HBoxContainer"]
+[node name="CharBoxContainer" type="VBoxContainer" parent="MenuContainer/TabBar/CharacterTab/HBoxContainer"]
 custom_minimum_size = Vector2(450, 0)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MenuContainer/TabBar/CharacterTab/HBoxContainer/VBoxContainer2"]
+[node name="HBoxContainer" type="HBoxContainer" parent="MenuContainer/TabBar/CharacterTab/HBoxContainer/CharBoxContainer"]
 layout_mode = 2
 alignment = 1
 
-[node name="LevelContainer" type="HBoxContainer" parent="MenuContainer/TabBar/CharacterTab/HBoxContainer/VBoxContainer2/HBoxContainer"]
+[node name="LevelContainer" type="HBoxContainer" parent="MenuContainer/TabBar/CharacterTab/HBoxContainer/CharBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 0
 alignment = 1
 
-[node name="Label" type="Label" parent="MenuContainer/TabBar/CharacterTab/HBoxContainer/VBoxContainer2/HBoxContainer/LevelContainer"]
+[node name="Label" type="Label" parent="MenuContainer/TabBar/CharacterTab/HBoxContainer/CharBoxContainer/HBoxContainer/LevelContainer"]
 layout_mode = 2
 size_flags_horizontal = 0
 text = "Level"
-label_settings = SubResource("LabelSettings_rl3mt")
+label_settings = SubResource("LabelSettings_qoioq")
 
-[node name="MenuLevelLabel" type="Label" parent="MenuContainer/TabBar/CharacterTab/HBoxContainer/VBoxContainer2/HBoxContainer/LevelContainer"]
+[node name="MenuLevelLabel" type="Label" parent="MenuContainer/TabBar/CharacterTab/HBoxContainer/CharBoxContainer/HBoxContainer/LevelContainer"]
 layout_mode = 2
 size_flags_horizontal = 0
 theme_override_fonts/font = ExtResource("1_1och7")
 text = "1"
+label_settings = SubResource("LabelSettings_qoioq")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="ExpContainer" type="HBoxContainer" parent="MenuContainer/TabBar/CharacterTab/HBoxContainer/VBoxContainer2/HBoxContainer"]
+[node name="ExpContainer" type="HBoxContainer" parent="MenuContainer/TabBar/CharacterTab/HBoxContainer/CharBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 0
 alignment = 1
 
-[node name="Label" type="Label" parent="MenuContainer/TabBar/CharacterTab/HBoxContainer/VBoxContainer2/HBoxContainer/ExpContainer"]
+[node name="Label" type="Label" parent="MenuContainer/TabBar/CharacterTab/HBoxContainer/CharBoxContainer/HBoxContainer/ExpContainer"]
 layout_mode = 2
 size_flags_horizontal = 8
 text = "EXP:"
-label_settings = SubResource("LabelSettings_rl3mt")
+label_settings = SubResource("LabelSettings_qoioq")
 
-[node name="MenuExpLabel" type="Label" parent="MenuContainer/TabBar/CharacterTab/HBoxContainer/VBoxContainer2/HBoxContainer/ExpContainer"]
+[node name="MenuExpLabel" type="Label" parent="MenuContainer/TabBar/CharacterTab/HBoxContainer/CharBoxContainer/HBoxContainer/ExpContainer"]
 layout_mode = 2
 size_flags_horizontal = 8
 theme_override_fonts/font = ExtResource("1_1och7")
 text = "0"
+label_settings = SubResource("LabelSettings_qoioq")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Label2" type="Label" parent="MenuContainer/TabBar/CharacterTab/HBoxContainer/VBoxContainer2/HBoxContainer/ExpContainer"]
+[node name="Label2" type="Label" parent="MenuContainer/TabBar/CharacterTab/HBoxContainer/CharBoxContainer/HBoxContainer/ExpContainer"]
 layout_mode = 2
 size_flags_horizontal = 8
 text = "/"
-label_settings = SubResource("LabelSettings_sbjkf")
+label_settings = SubResource("LabelSettings_qoioq")
 
-[node name="MenuExpNeededLabel" type="Label" parent="MenuContainer/TabBar/CharacterTab/HBoxContainer/VBoxContainer2/HBoxContainer/ExpContainer"]
+[node name="MenuExpNeededLabel" type="Label" parent="MenuContainer/TabBar/CharacterTab/HBoxContainer/CharBoxContainer/HBoxContainer/ExpContainer"]
 layout_mode = 2
 size_flags_horizontal = 8
 theme_override_fonts/font = ExtResource("1_1och7")
 text = "100"
+label_settings = SubResource("LabelSettings_qoioq")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="TextureRect" type="TextureRect" parent="MenuContainer/TabBar/CharacterTab/HBoxContainer/VBoxContainer2"]
+[node name="TextureRect" type="TextureRect" parent="MenuContainer/TabBar/CharacterTab/HBoxContainer/CharBoxContainer"]
+custom_minimum_size = Vector2(0, 400)
 layout_mode = 2
 texture = SubResource("AtlasTexture_osmkb")
-expand_mode = 4
 stretch_mode = 5
 flip_h = true
 
 [node name="WorldMapTab" type="MarginContainer" parent="MenuContainer/TabBar"]
-visible = false
 layout_mode = 1
 anchors_preset = -1
 anchor_left = -0.029000001
@@ -1710,23 +1707,20 @@ mouse_filter = 0
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
+theme_override_constants/separation = 12
 alignment = 1
 
-[node name="MarginContainer" type="MarginContainer" parent="MenuContainer/TabBar/WorldMapTab/HBoxContainer"]
-custom_minimum_size = Vector2(550, 0)
+[node name="Sprite2D" type="TextureRect" parent="MenuContainer/TabBar/WorldMapTab/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 0
-size_flags_vertical = 4
-
-[node name="Sprite2D" type="Sprite2D" parent="MenuContainer/TabBar/WorldMapTab/HBoxContainer/MarginContainer"]
-position = Vector2(269, 0)
-scale = Vector2(0.5, 0.5)
 texture = ExtResource("10_enm6t")
+expand_mode = 3
+stretch_mode = 6
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MenuContainer/TabBar/WorldMapTab/HBoxContainer"]
+custom_minimum_size = Vector2(0, 400)
 layout_mode = 2
 size_flags_horizontal = 8
-alignment = 1
 
 [node name="Level" type="Button" parent="MenuContainer/TabBar/WorldMapTab/HBoxContainer/VBoxContainer"]
 custom_minimum_size = Vector2(200, 50)
@@ -1735,10 +1729,10 @@ size_flags_horizontal = 0
 size_flags_vertical = 0
 mouse_default_cursor_shape = 2
 theme_override_fonts/font = ExtResource("1_1och7")
-text = "Sandbox"
+text = "Test"
 alignment = 0
 script = ExtResource("20_vjp13")
-location = "Sanbox"
+button_location = "Sandbox"
 
 [node name="Level2" type="Button" parent="MenuContainer/TabBar/WorldMapTab/HBoxContainer/VBoxContainer"]
 custom_minimum_size = Vector2(200, 50)
@@ -1747,65 +1741,10 @@ size_flags_horizontal = 0
 size_flags_vertical = 4
 mouse_default_cursor_shape = 2
 theme_override_fonts/font = ExtResource("1_1och7")
-text = "Snow"
-alignment = 0
-script = ExtResource("20_vjp13")
-location = "Snow"
-
-[node name="Level3" type="Button" parent="MenuContainer/TabBar/WorldMapTab/HBoxContainer/VBoxContainer"]
-custom_minimum_size = Vector2(200, 50)
-layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 0
-mouse_default_cursor_shape = 2
-theme_override_fonts/font = ExtResource("1_1och7")
-disabled = true
-text = "Dunes"
-alignment = 0
-
-[node name="Level4" type="Button" parent="MenuContainer/TabBar/WorldMapTab/HBoxContainer/VBoxContainer"]
-custom_minimum_size = Vector2(200, 50)
-layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 0
-mouse_default_cursor_shape = 2
-theme_override_fonts/font = ExtResource("1_1och7")
-disabled = true
-text = "Beach"
-alignment = 0
-
-[node name="Level5" type="Button" parent="MenuContainer/TabBar/WorldMapTab/HBoxContainer/VBoxContainer"]
-custom_minimum_size = Vector2(200, 50)
-layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 0
-mouse_default_cursor_shape = 2
-theme_override_fonts/font = ExtResource("1_1och7")
-disabled = true
-text = "Main City"
-alignment = 0
-
-[node name="Level6" type="Button" parent="MenuContainer/TabBar/WorldMapTab/HBoxContainer/VBoxContainer"]
-custom_minimum_size = Vector2(200, 50)
-layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 0
-mouse_default_cursor_shape = 2
-theme_override_fonts/font = ExtResource("1_1och7")
-disabled = true
-text = "Forest"
-alignment = 0
-
-[node name="Level7" type="Button" parent="MenuContainer/TabBar/WorldMapTab/HBoxContainer/VBoxContainer"]
-custom_minimum_size = Vector2(200, 50)
-layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 0
-mouse_default_cursor_shape = 2
-theme_override_fonts/font = ExtResource("1_1och7")
-disabled = true
 text = "Test"
 alignment = 0
+script = ExtResource("20_vjp13")
+button_location = "Snow"
 
 [node name="QuestsTab" type="MarginContainer" parent="MenuContainer/TabBar"]
 visible = false

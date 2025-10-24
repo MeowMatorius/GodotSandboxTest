@@ -3,12 +3,12 @@ extends Button
 @export var exp_value_amount: int = 0
 
 @export_category("Collectibles")
-@export_enum("none", "coin", "key") var collectible_type: String
-@export var collectible_value_amount = 0
+@export_enum("none", "coin", "key") var collectible_type: String = "none"
+@export var collectible_value_amount: int = 0
 
 @export_category("Effects")
 @export_enum("none", "heal", "damage") var effect_type: String = "none"
-@export var effect_value_amount = 0
+@export var effect_value_amount: int = 0
 
 
 func _ready() -> void:
