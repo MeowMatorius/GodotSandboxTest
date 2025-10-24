@@ -586,4 +586,3 @@ stream = ExtResource("5_kee72")
 bus = &"SFX"
 
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
-[connection signal="timeout" from="Experimental/Timer" to="." method="_on_timer_timeout"]

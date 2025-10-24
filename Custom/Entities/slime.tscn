@@ -1,7 +1,7 @@
 [gd_scene load_steps=10 format=3 uid="uid://bb2goadjdsl1s"]
 
 [ext_resource type="Texture2D" uid="uid://c1cne2xv4g3hn" path="res://Assets/Sprites/Brackeys Assets/slime_green.png" id="1_jokqx"]
-[ext_resource type="Script" uid="uid://clqebiegub8s3" path="res://Custom/AI/slime.gd" id="1_swwnm"]
+[ext_resource type="Script" uid="uid://clqebiegub8s3" path="res://Custom/Entities/slime.gd" id="1_swwnm"]
 [ext_resource type="PackedScene" uid="uid://c751lyvd8vfm5" path="res://Custom/Objects/damage_zone.tscn" id="3_aiwxb"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_swwnm"]

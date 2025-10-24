@@ -3,7 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://bwy31n6ldcsyk" path="res://Assets/Sprites/Brackeys Assets/world_tileset.png" id="1_f4pg2"]
 [ext_resource type="AudioStream" uid="uid://ddwmtelngh4g2" path="res://Assets/Music/Bilewater.mp3" id="2_62b6n"]
 [ext_resource type="PackedScene" uid="uid://b2m1ta1u1rsr3" path="res://Custom/Objects/killzone.tscn" id="3_rs4xw"]
-[ext_resource type="PackedScene" uid="uid://bb2goadjdsl1s" path="res://Custom/AI/slime.tscn" id="4_lk57d"]
+[ext_resource type="PackedScene" uid="uid://bb2goadjdsl1s" path="res://Custom/Entities/slime.tscn" id="4_lk57d"]
 [ext_resource type="PackedScene" uid="uid://cb1hf4bp8blke" path="res://Custom/Objects/coin.tscn" id="5_2hkqn"]
 [ext_resource type="PackedScene" uid="uid://gtnj8rueipvx" path="res://Custom/Objects/key.tscn" id="6_34erp"]
 [ext_resource type="PackedScene" uid="uid://bj3gfaxg6jdwl" path="res://Custom/Objects/chest.tscn" id="7_k2bse"]

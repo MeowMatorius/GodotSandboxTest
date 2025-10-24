@@ -17,8 +17,8 @@ config/icon="res://Assets/Sprites/GodotIcon.svg"
 
 [autoload]
 
-PlayerUI="*res://Custom/GUI/player_ui.tscn"
-PauseMenu="*res://Custom/GUI/pause_menu.tscn"
+PlayerUI="*res://Custom/Menus/player_ui.tscn"
+PauseMenu="*res://Custom/Menus/pause_menu.tscn"
 InventoryManager="*res://Custom/Managers/inventory_manager.gd"
 StatsManager="*res://Custom/Managers/stats_manager.gd"
 HealthManager="*res://Custom/Managers/health_manager.gd"
@@ -33,6 +33,20 @@ window/stretch/aspect="expand"
 
 version_control/plugin_name="GitPlugin"
 version_control/autoload_on_startup=true
+
+[file_customization]
+
+folder_colors={
+"res://Addons/": "gray",
+"res://Assets/": "green",
+"res://Custom/": "blue",
+"res://Custom/Entities/": "orange",
+"res://Custom/Managers/": "blue",
+"res://Custom/Menus/": "blue",
+"res://Custom/Objects/": "yellow",
+"res://Custom/Player/": "green",
+"res://Levels/": "purple"
+}
 
 [gui]
 
