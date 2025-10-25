@@ -34,20 +34,6 @@ window/stretch/aspect="expand"
 version_control/plugin_name="GitPlugin"
 version_control/autoload_on_startup=true
 
-[file_customization]
-
-folder_colors={
-"res://Addons/": "gray",
-"res://Assets/": "green",
-"res://Custom/": "blue",
-"res://Custom/Entities/": "orange",
-"res://Custom/Managers/": "blue",
-"res://Custom/Menus/": "blue",
-"res://Custom/Objects/": "yellow",
-"res://Custom/Player/": "green",
-"res://Levels/": "purple"
-}
-
 [gui]
 
 theme/default_font_multichannel_signed_distance_field=true
@@ -105,6 +91,10 @@ pause={
 "events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":4194305,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
 ]
 }
+glide={
+"deadzone": 0.2,
+"events": []
+}
 
 [layer_names]
 
@@ -113,8 +103,8 @@ pause={
 2d_render/layer_3="front"
 2d_render/layer_4="character"
 2d_render/layer_5="interactible"
-2d_physics/layer_1="World"
-2d_physics/layer_2="Interaction"
+2d_physics/layer_1="world"
+2d_physics/layer_2="interaction"
 
 [rendering]
 

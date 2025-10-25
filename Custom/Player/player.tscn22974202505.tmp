@@ -228,8 +228,13 @@ collision_layer = 2
 script = ExtResource("1_cvnsp")
 player_speed = 170.0
 dash_speed = 650.0
-max_jumps_count = 2
+start_movement_speed = null
+stop_movement_speed = null
+jump_velocity = null
+double_jump_velocity = null
+max_jumps_count = null
 dash_delay = 0.3
+attack_delay = null
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_0gysh")
@@ -245,7 +250,6 @@ offset = Vector2(0, -5)
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(4, 4)
 process_callback = 0
-limit_bottom = 80
 limit_smoothed = true
 position_smoothing_enabled = true
 position_smoothing_speed = 10.0

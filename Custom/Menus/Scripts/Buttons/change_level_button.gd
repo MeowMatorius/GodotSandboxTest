@@ -14,8 +14,8 @@ func _ready() -> void:
 func change_level():
 	if GameManager.current_location != button_location:
 		GameManager.current_location = button_location
-		GameManager.change_scene(button_location)
 		button_control()
+		GameManager.change_scene(button_location)
 
 
 func button_control():
