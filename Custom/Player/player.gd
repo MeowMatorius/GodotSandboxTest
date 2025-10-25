@@ -10,9 +10,10 @@ signal on_attack
 
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 var direction: float
-@export var player_speed: float = 300.0
-@export var dash_speed: float = 1500.0
-@export var start_movement_speed: float = 0.3 
+@export var player_speed: float = 170.0
+@export var dash_speed: float = 500.0
+@export var combat_speed: float = 10.0
+@export var start_movement_speed: float = 0.5
 @export var stop_movement_speed: float = 0.1
 
 @export_category("Jump and Gravity")
@@ -24,7 +25,7 @@ var is_gliding: bool = false
 @export var max_jumps_count: int = 1
 
 @export_category("Delays")
-@export var dash_delay: float = 0.5
+@export var dash_delay: float = 0.2
 @export var attack_delay: float = 0.2
 
 
@@ -131,7 +132,7 @@ func handle_attack() -> void:
 		player_animations.play("attack")
 		on_attack.emit()
 		
-		velocity.x = 0
+		velocity.x = lerp(velocity.x, direction * combat_speed, start_movement_speed)
 		
 		await get_tree().create_timer(attack_delay).timeout
 		current_state = State.IDLE
