@@ -1,103 +1,140 @@
 extends CharacterBody2D
 
-@export var SPEED: float = 120.0
-@export var boost: float = 2.0
-@export var JUMP_VELOCITY: float = -300.0
-@export var DOUBLE_JUMP_VELOCITY: float = -100.0
-@export var count_jump: int = 1
-var dash: bool = false
-var jump: bool = false
-var dash_is_processing: bool = false
-var attack = false
+enum State {IDLE, RUNNING, JUMPING, DASHING, ATTACKING}
+var current_state: State = State.IDLE
 
-var direction
+@onready var player_animations: AnimatedSprite2D = $AnimatedSprite2D
 
-@onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
+
+var direction: float
+@export var player_speed: float = 300.0
+@export var dash_speed: float = 1500.0
+@export var start_movement_speed: float = 0.3 
+@export var stop_movement_speed: float = 0.1
+
+@export_category("Jump and Gravity")
+var gravity: float
+var jumps_count: int = 0
+var is_gliding: bool = false
+@export var jump_velocity: float = -300.0
+@export var double_jump_velocity: float = -200.0
+@export var max_jumps_count: int = 1
+
+@export_category("Delays")
+@export var dash_delay: float = 0.5
+@export var attack_delay: float = 0.2
+
+
+func _ready() -> void:
+	gravity = ProjectSettings.get_setting("physics/2d/default_gravity") 
 
 
 func _physics_process(delta: float) -> void:
-	# Добавляем гравитацию
-	if not is_on_floor():
-		velocity += get_gravity() * delta
-
-	# Управление Прыжком
-	if Input.is_action_just_pressed("jump") and is_on_floor() and dash == false and attack == false:
-		velocity.y = JUMP_VELOCITY
-		count_jump = 1
-		jump = true
-		
-	if Input.is_action_just_pressed("jump") and not is_on_floor() and count_jump == 1 and dash == false and  attack == false:
-		count_jump = 0
-		velocity.y = JUMP_VELOCITY - DOUBLE_JUMP_VELOCITY
-		jump = true
-		
-	if Input.is_action_just_pressed("attack") and dash == false and jump == false:
-		attack = true
-		animated_sprite.play("attack")
-
-	#if Input.is_action_just_pressed("attack") and is_on_floor() and dash == false:
-		#
-		
-	# Получение кнопок движения и управление ускорением/замедлением
-	direction = Input.get_axis("move_left", "move_right")
-	#if Input.is_action_just_pressed("dash") and is_on_floor():
-		#dash = true
-			#
-		##timer.start()
-	#elif direction and dash == false:
-		#velocity.x = direction * SPEED
-	#else:
-		#velocity.x = move_toward(velocity.x, 0, SPEED)
-		
-	# Рывок
-	#if Input.is_action_just_pressed("dash") and is_on_floor():
-		#velocity.x = direction * SPEED * boost
-		#dash = true
-		#timer.start()
-		
-
-	move_and_slide()
-
-
-		
-# Поворот спрайта
-	if dash == false:
-		if direction > 0:
-			animated_sprite.flip_h = false
-		elif direction < 0:
-			animated_sprite.flip_h = true
+	handle_horizontal_movement(delta)
 	
-	# Анимации игрока
+	apply_gravity(delta) # На все статусы применяется гравитация (Если velocity.y не перезаписывается)
+	
+	match current_state:
+		State.IDLE, State.RUNNING:
+			handle_run_and_idle_state()
+			handle_jumping()
+			handle_dash()
+			handle_attack()
+		State.JUMPING:
+			handle_jumping()
+			handle_run_and_idle_state()
+			handle_dash()
+			handle_attack()
+		State.DASHING:
+			pass
+		State.ATTACKING:
+			handle_attack()
+	
+	sprite_turn() # Поворот спрайта
+	move_and_slide() # Встроенная функция коллизии
+
+
+func handle_horizontal_movement(_delta: float) -> void:
+	if current_state == State.DASHING or current_state == State.ATTACKING:
+		return
+	
+	direction = Input.get_axis("move_left", "move_right")
+	if direction != 0:
+		velocity.x = lerp(velocity.x, direction * player_speed, start_movement_speed)
+	else:
+		velocity.x = move_toward(velocity.x, 0, player_speed * stop_movement_speed)
+
+
+func apply_gravity(delta: float) -> void:
+	if not is_on_floor():
+		if current_state != State.DASHING and !is_gliding:
+			velocity.y += gravity * delta
+		else: # Особые условия гравитации
+			velocity.y = gravity * 2 * delta
+
+
+func handle_run_and_idle_state() -> void:
+	if direction != 0:
+		player_animations.play("run")
+		current_state = State.RUNNING
+	else:
+		player_animations.play("idle")
+		current_state = State.IDLE
+
+
+func handle_jumping() -> void:
 	if is_on_floor():
-		
-		if direction == 0 and dash == false and attack == false:
-			animated_sprite.play("idle2")
-			velocity.x = move_toward(velocity.x, 0, SPEED)
-		elif Input.is_action_just_pressed("dash") and direction != 0:
-			animated_sprite.play("dash3")
-			velocity.x = direction * SPEED * boost
-			dash = true
-		elif dash == false and attack == false and direction:
-			animated_sprite.play("run2")
-			velocity.x = direction * SPEED
-		
-		
-	elif dash == false and jump == true and direction and attack == false:
-		animated_sprite.play("jump2")
-		velocity.x = direction * SPEED
+		jumps_count = 0
+	
+	if Input.is_action_just_pressed("jump"):
+		if is_on_floor():
+			jumps_count += 1
+			velocity.y = jump_velocity
+			current_state = State.JUMPING
+			player_animations.play("jump")
+		elif jumps_count < max_jumps_count:
+			jumps_count += 1
+			velocity.y = double_jump_velocity
+			current_state = State.JUMPING
+			player_animations.play("jump")
+		else: 
+			velocity.y = 0
+			is_gliding = true
+	
+	if Input.is_action_just_released("jump") or is_on_floor():
+		is_gliding = false
 
 
-#func _on_timer_timeout() -> void:
-	#dash = false
+	
+	if not is_on_floor() and current_state != State.DASHING and current_state != State.ATTACKING:
+		player_animations.play("jump")
 
 
-func _on_animated_sprite_2d_animation_finished() -> void:
-	if (animated_sprite.animation == "dash3"):
-		dash = false
+func handle_dash() -> void:
+	if Input.is_action_just_pressed("dash") and current_state != State.DASHING and direction != 0:
+		current_state = State.DASHING
+		player_animations.play("dash")
+		velocity.x = lerp(velocity.x, direction * dash_speed, start_movement_speed)
+		velocity.y = 0
 		
-	if (animated_sprite.animation == "jump2"):
-		jump = false
+		await get_tree().create_timer(dash_delay).timeout
+		current_state = State.IDLE
+		move_toward(velocity.x, 0, dash_speed * stop_movement_speed)
+
+
+func handle_attack() -> void:
+	if Input.is_action_just_pressed("attack") and current_state != State.ATTACKING:
+		current_state = State.ATTACKING
+		player_animations.play("attack")
 		
-	if (animated_sprite.animation == "attack"):
-		attack = false
+		velocity.x = 0
 		
+		await get_tree().create_timer(attack_delay).timeout
+		current_state = State.IDLE
+
+
+func sprite_turn() -> void:
+	if direction > 0:
+		player_animations.flip_h = false
+	elif direction < 0:
+		player_animations.flip_h = true

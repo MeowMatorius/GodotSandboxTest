@@ -51,24 +51,51 @@ func _init() -> void:
 	var increased_margin : float = base_spacing + extra_spacing * 0.75
 	var popup_margin : float = maxf(base_margin * 2.4, 4.0 * scale)
 
+	# Colors
+
 	dark_theme = base_color.get_luminance() < 0.5
 	var dark_theme_icon_and_font : bool = dark_theme
 
 	if icon_and_font_color != 0: # ColorMode.AUTO_COLOR
 		dark_theme_icon_and_font = icon_and_font_color == 2 # ColorMode.LIGHT
 
-	var mono_color : Color = Color.WHITE if dark_theme else Color.BLACK
-	var mono_color_inv : Color = Color.BLACK if dark_theme else Color.WHITE
-	var mono_color_icon_and_font : Color = Color.WHITE if dark_theme_icon_and_font else Color.BLACK
-
-	var extra_border_color_1 : Color = Color(1, 1, 1, 0.4) if dark_theme else Color(0, 0, 0, 0.4)
-	var extra_border_color_2 : Color = Color(1, 1, 1, 0.2) if dark_theme else Color(0, 0, 0, 0.2)
+	var color_mono : Color = Color.WHITE if dark_theme else Color.BLACK
+	var color_mono_inv : Color = Color.BLACK if dark_theme else Color.WHITE
+	var color_mono_icon_and_font : Color = Color.WHITE if dark_theme_icon_and_font else Color.BLACK
 
 	# Ensure minimum contrast with the light theme. The default
 	# contrast makes it hard to see the UI elements
 	if not dark_theme and contrast < 0 and contrast > -0.4:
 		contrast = -0.4
+	
+	# Surface colors
+	var color_surface_lowest : Color = _get_base_color(-1.3 if dark_theme else -2.2, 0.9)
+	var color_surface_lower : Color = _get_base_color(-0.95 if dark_theme else -1.8, 0.9)
+	var color_surface_low : Color = _get_base_color(-0.6 if dark_theme else -0.9)  
+	var color_surface_base : Color = _get_base_color(-0.2)
+	var color_surface_high : Color = _get_base_color(0.2, 0.8)
+	var color_surface_higher : Color = _get_base_color(0.35, 0.8)
+	var color_surface_highest : Color = _get_base_color(0.55, 0.6)
 
+	# Font and icon colors
+	var color_font_and_icon_normal : Color = color_mono_icon_and_font * Color(1, 1, 1, 0.7)
+	var color_font_and_icon_secondary : Color = color_mono_icon_and_font * Color(1, 1, 1, 0.45)
+	var color_font_and_icon_highlighted : Color = color_mono_icon_and_font
+	var color_font_and_icon_dimmed : Color = color_mono_icon_and_font * Color(1, 1, 1, 0.35 if dark_theme_icon_and_font else 0.5)
+	
+	# Button colors
+	var color_button_normal : Color = _get_base_color(0.35, 0.85)
+	var color_button_hover : Color = _get_base_color(0.55, 0.75)
+	var color_button_pressed : Color = _get_base_color(0.75, 0.75)
+	var color_button_disabled : Color = _get_base_color(0.2, 0.75)
+	var color_button_border : Color = _get_base_color(0.45, 0.75)
+	var color_button_border_hover : Color = _get_base_color(0.65, 0.75)
+	var color_button_border_pressed : Color = _get_base_color(0.85, 0.75)
+
+	# Extra border colors
+	var color_extra_border : Color = color_mono * Color(1, 1, 1, 0.4)
+	var color_extra_border_dimmed : Color = color_mono * Color(1, 1, 1, 0.2)
+	
 	# Main stylebox that most styleboxes duplicate
 	var base_sb : StyleBoxFlat = StyleBoxFlat.new()
 	base_sb.bg_color = base_color
@@ -79,45 +106,45 @@ func _init() -> void:
 	# than transparent ones, however this is currently only noticeable on the Close
 	# button of editor settings, and it probably shouldn't even exist
 	var button_sb : StyleBoxFlat = base_sb.duplicate()
-	button_sb.bg_color = _get_base_color(0.3, 0.8)
-	button_sb.shadow_color = Color(0, 0, 0, 0.005) if dark_theme else Color(1, 1, 1, 0.005)
+	button_sb.bg_color = color_button_normal
+	button_sb.shadow_color = color_mono_inv * Color(1, 1, 1, 0.005)
 	button_sb.shadow_size = int(ceilf(8 * scale))
 	button_sb.shadow_offset = Vector2(0, 4) * scale
 	if draw_extra_borders:
-		_set_border(button_sb, extra_border_color_1, 1)
+		_set_border(button_sb, color_extra_border, 1)
 	else:
-		_set_border(button_sb, _get_base_color(0.425, 0.7), 1)
+		_set_border(button_sb, color_button_border, 1)
 	_set_margin(button_sb, base_margin * 2, base_margin * 1.5, base_margin * 2, base_margin * 1.5)
 
 	var button_hover_sb : StyleBoxFlat = button_sb.duplicate()
-	button_hover_sb.bg_color = _get_base_color(0.5, 0.7)
+	button_hover_sb.bg_color = color_button_hover
 	if draw_extra_borders:
-		_set_border(button_hover_sb, extra_border_color_1, 1)
+		_set_border(button_hover_sb, color_extra_border, 1)
 	else:
-		_set_border(button_hover_sb, _get_base_color(0.625, 0.7), 1)
+		_set_border(button_hover_sb, color_button_border_hover, 1)
 
 	var button_pressed_sb : StyleBoxFlat = button_sb.duplicate()
-	button_pressed_sb.bg_color = _get_base_color(0.7, 0.7)
+	button_pressed_sb.bg_color = color_button_pressed
 	if draw_extra_borders:
-		_set_border(button_pressed_sb, extra_border_color_1, 1)
+		_set_border(button_pressed_sb, color_extra_border, 1)
 	else:
-		_set_border(button_pressed_sb, _get_base_color(0.825, 0.7), 1)
+		_set_border(button_pressed_sb, color_button_border_pressed, 1)
 
 	var button_disabled_sb : StyleBoxFlat = button_sb.duplicate()
 	button_disabled_sb.set_border_width_all(0)
-	button_disabled_sb.bg_color = _get_base_color(0.2, 0.7)
+	button_disabled_sb.bg_color = color_button_disabled
 	if draw_extra_borders:
-		_set_border(button_disabled_sb, extra_border_color_2 * Color(1, 1, 1, 0.5), 1)
+		_set_border(button_disabled_sb, color_extra_border_dimmed * Color(1, 1, 1, 0.5), 1)
 
 	var flat_button_hover_sb : StyleBoxFlat = base_sb.duplicate()
 	# This affects buttons in Tree so top and bottom margins should be kept low
 	_set_margin(flat_button_hover_sb, base_margin * 1.5, base_margin * 0.9, base_margin * 1.5, base_margin * 0.9)
-	flat_button_hover_sb.bg_color = _get_base_color(0.3, 0.7)
+	flat_button_hover_sb.bg_color = color_button_normal
 	if draw_extra_borders:
-		_set_border(flat_button_hover_sb, extra_border_color_1, 1)
+		_set_border(flat_button_hover_sb, color_extra_border, 1)
 
 	var flat_button_pressed_sb : StyleBoxFlat = flat_button_hover_sb.duplicate()
-	flat_button_pressed_sb.bg_color = _get_base_color(0.5, 0.7)
+	flat_button_pressed_sb.bg_color = color_button_hover
 
 	var flat_button_normal_sb : StyleBoxFlat = flat_button_hover_sb.duplicate()
 	flat_button_normal_sb.draw_center = false
@@ -135,15 +162,15 @@ func _init() -> void:
 	# Animation editor
 
 	set_color('focus_color', 'AnimationBezierTrackEdit', Color.TRANSPARENT)
-	set_color('h_line_color', 'AnimationBezierTrackEdit', mono_color * Color(1, 1, 1, 0.12))
-	set_color('track_focus_color', 'AnimationBezierTrackEdit', mono_color * Color(1, 1, 1, 0.1))
+	set_color('h_line_color', 'AnimationBezierTrackEdit', color_mono * Color(1, 1, 1, 0.12))
+	set_color('track_focus_color', 'AnimationBezierTrackEdit', color_mono * Color(1, 1, 1, 0.1))
 	set_color('v_line_color', 'AnimationBezierTrackEdit', Color.TRANSPARENT)
 
-	set_color('font_primary_color', 'AnimationTimelineEdit', mono_color_icon_and_font * Color(1, 1, 1, 0.7))
-	set_color('font_secondary_color', 'AnimationTimelineEdit', mono_color_icon_and_font * Color(1, 1, 1, 0.4))
+	set_color('font_primary_color', 'AnimationTimelineEdit', color_font_and_icon_normal)
+	set_color('font_secondary_color', 'AnimationTimelineEdit', color_font_and_icon_dimmed)
 	set_color('h_line_color', 'AnimationTimelineEdit', Color.TRANSPARENT)
-	set_color('v_line_primary_color', 'AnimationTimelineEdit', mono_color * Color(1, 1, 1, 0.4))
-	set_color('v_line_secondary_color', 'AnimationTimelineEdit', mono_color * Color(1, 1, 1, 0.08))
+	set_color('v_line_primary_color', 'AnimationTimelineEdit', color_mono * Color(1, 1, 1, 0.4))
+	set_color('v_line_secondary_color', 'AnimationTimelineEdit', color_mono * Color(1, 1, 1, 0.08))
 
 	set_constant('text_primary_margin', 'AnimationTimelineEdit', int(base_margin * 0.75 * scale))
 	set_constant('text_secondary_margin', 'AnimationTimelineEdit', int(base_margin * 0.5 * scale))
@@ -153,13 +180,13 @@ func _init() -> void:
 	set_constant('v_line_secondary_width', 'AnimationTimelineEdit', int(ceilf(scale)))
 
 	var sb : StyleBoxFlat = base_sb.duplicate()
-	sb.bg_color = _get_base_color(0.55, 0.7)
+	sb.bg_color = color_surface_highest
 	if draw_extra_borders:
-		_set_border(sb, extra_border_color_1, 1)
+		_set_border(sb, color_extra_border, 1)
 	set_stylebox('time_available', 'AnimationTimelineEdit', sb)
 
 	sb = base_sb.duplicate()
-	sb.bg_color = _get_base_color(0.2, 0.8)
+	sb.bg_color = color_surface_high
 	set_stylebox('time_unavailable', 'AnimationTimelineEdit', sb)
 
 	set_color('h_line_color', 'AnimationTrackEdit', Color.TRANSPARENT)
@@ -167,25 +194,25 @@ func _init() -> void:
 
 	sb = base_sb.duplicate()
 	sb.draw_center = false
-	_set_border(sb, _get_base_color(0.3, 0.6), 2)
+	_set_border(sb, color_surface_high, 2)
 	_set_margin(sb, base_margin * 1.5, base_margin, base_margin * 1.5, base_margin)
 	set_stylebox('focus', 'AnimationTrackEdit', sb)
 
 	sb = base_sb.duplicate()
-	sb.bg_color = _get_base_color(0.2, 0.9)
+	sb.bg_color = color_surface_high
 	set_stylebox('hover', 'AnimationTrackEdit', sb)
 
 	sb = base_sb.duplicate()
-	sb.bg_color = _get_base_color(-0.2)
+	sb.bg_color = color_surface_base
 	set_stylebox('odd', 'AnimationTrackEdit', sb)
 
-	set_color('bg_color', 'AnimationTrackEditGroup', _get_base_color(-0.2))
+	set_color('bg_color', 'AnimationTrackEditGroup', color_surface_base)
 	set_color('h_line_color', 'AnimationTrackEditGroup', Color.TRANSPARENT)
 	set_color('v_line_color', 'AnimationTrackEditGroup', Color.TRANSPARENT)
 	set_constant('h_separation', 'AnimationTrackEditGroup', int(base_margin * 2 * scale))
 
 	sb = base_sb.duplicate()
-	sb.bg_color = _get_base_color(-0.6)
+	sb.bg_color = color_surface_low
 	_set_margin(sb, base_margin * 4, base_margin, 0, base_margin)
 	set_stylebox('header', 'AnimationTrackEditGroup', sb)
 
@@ -208,23 +235,23 @@ func _init() -> void:
 	# Audio Bus
 
 	sb = base_sb.duplicate()
-	sb.bg_color = _get_base_color(0.2, 0.7)
+	sb.bg_color = color_surface_high
 	set_stylebox('normal', 'EditorAudioBus', sb)
 	set_stylebox('focus', 'EditorAudioBus', sb)
 	sb = base_sb.duplicate()
-	sb.bg_color = _get_base_color(0.35, 0.7)
+	sb.bg_color = color_surface_higher
 	set_stylebox('master', 'EditorAudioBus', sb)
 
 	# Button
 
-	set_color('font_color', 'Button', mono_color_icon_and_font * Color(1, 1, 1, 0.7))
-	set_color('font_disabled_color', 'Button', mono_color_icon_and_font * Color(1, 1, 1, 0.3))
-	set_color('font_focus_color', 'Button', mono_color_icon_and_font)
-	set_color('font_hover_color', 'Button', mono_color_icon_and_font)
-	set_color('font_hover_pressed_color', 'Button', mono_color_icon_and_font)
-	set_color('font_pressed_color', 'Button', mono_color_icon_and_font)
-	set_color('icon_disabled_color', 'Button', mono_color_icon_and_font * Color(1, 1, 1, 0.3))
-	set_color('icon_normal_color', 'Button', mono_color_icon_and_font * Color(1, 1, 1, 0.7))
+	set_color('font_color', 'Button', color_font_and_icon_normal)
+	set_color('font_disabled_color', 'Button', color_font_and_icon_dimmed)
+	set_color('font_focus_color', 'Button', color_font_and_icon_highlighted)
+	set_color('font_hover_color', 'Button', color_font_and_icon_highlighted)
+	set_color('font_hover_pressed_color', 'Button', color_font_and_icon_highlighted)
+	set_color('font_pressed_color', 'Button', color_font_and_icon_highlighted)
+	set_color('icon_disabled_color', 'Button', color_font_and_icon_dimmed)
+	set_color('icon_normal_color', 'Button', color_font_and_icon_normal)
 	set_constant('outline_size', 'Button', 0)
 	set_stylebox('disabled', 'Button', button_disabled_sb)
 	set_stylebox('disabled_mirrored', 'Button', button_disabled_sb)
@@ -240,8 +267,8 @@ func _init() -> void:
 
 	# Checkbox
 
-	set_color('font_hover_pressed_color', 'CheckBox', mono_color_icon_and_font)
-	set_color('font_pressed_color', 'CheckBox', mono_color_icon_and_font * Color(1, 1, 1, 0.7))
+	set_color('font_hover_pressed_color', 'CheckBox', color_font_and_icon_highlighted)
+	set_color('font_pressed_color', 'CheckBox', color_font_and_icon_normal)
 
 	sb = base_sb.duplicate()
 	sb.draw_center = false
@@ -251,24 +278,24 @@ func _init() -> void:
 
 	# CheckButton
 
-	set_color('font_focus_color', 'CheckButton', mono_color_icon_and_font * Color(1, 1, 1, 0.7))
-	set_color('font_hover_pressed_color', 'CheckButton', mono_color_icon_and_font)
-	set_color('font_pressed_color', 'CheckButton', mono_color_icon_and_font * Color(1, 1, 1, 0.7))
+	set_color('font_focus_color', 'CheckButton', color_font_and_icon_normal)
+	set_color('font_hover_pressed_color', 'CheckButton', color_font_and_icon_highlighted)
+	set_color('font_pressed_color', 'CheckButton', color_font_and_icon_normal)
 
 	# Editor
 
-	set_color('background', 'Editor', _get_base_color(-0.6))
-	set_color('box_selection_fill_color', 'Editor', mono_color * Color(1, 1, 1, 0.12))
-	set_color('box_selection_stroke_color', 'Editor', mono_color * Color(1, 1, 1, 0.4))
+	set_color('background', 'Editor', color_surface_low)
+	set_color('box_selection_fill_color', 'Editor', color_mono * Color(1, 1, 1, 0.12))
+	set_color('box_selection_stroke_color', 'Editor', color_mono * Color(1, 1, 1, 0.4))
 	# Ruler in 2D view:
-	set_color('dark_color_2', 'Editor', Color(0, 0, 0, 0.3) if dark_theme else Color(1, 1, 1, 0.3))
+	set_color('dark_color_2', 'Editor', color_mono_inv * Color(1, 1, 1, 0.3))
 	# Shortcut tree cell background:
-	set_color('dark_color_3', 'Editor', _get_base_color(-0.6))
+	set_color('dark_color_3', 'Editor', color_surface_lower)
 
 	set_color('forward_plus_color', 'Editor', Color(0.54902, 0.752941, 0.392157))
 	set_color('gl_compatibility_color', 'Editor', Color(0.447059, 0.698039, 0.890196))
 	set_color('mobile_color', 'Editor', Color(0.862745, 0.482353, 0.584314))
-	set_color('property_color_w', 'Editor', mono_color_icon_and_font * Color(1, 1, 1, 0.8))
+	set_color('property_color_w', 'Editor', color_font_and_icon_normal)
 	set_color('property_color_x', 'Editor', Color('#E16277') if dark_theme_icon_and_font else Color('#670A18'))
 	set_color('property_color_y', 'Editor', Color('#C3EF65') if dark_theme_icon_and_font else Color('#455E10'))
 	set_color('property_color_z', 'Editor', Color('#6AABF6') if dark_theme_icon_and_font else Color('#143862'))
@@ -287,17 +314,17 @@ func _init() -> void:
 	sb.corner_radius_bottom_right = int(corner_radius * scale)
 	sb.corner_radius_bottom_left = int(corner_radius * scale)
 	if draw_extra_borders:
-		_set_border(sb, extra_border_color_2, 1)
+		_set_border(sb, color_extra_border_dimmed, 1)
 	set_stylebox('normal', 'EditorHelpBitContent', sb)
 
 	sb = base_sb.duplicate()
-	sb.bg_color = _get_base_color(-0.55 if dark_theme else -0.9) # Same as secondary tree
+	sb.bg_color = color_surface_low
 	_set_margin(sb, base_margin * 2, base_margin, base_margin * 2, base_margin)
 	sb.set_corner_radius_all(0)
 	sb.corner_radius_top_right = int(corner_radius * scale)
 	sb.corner_radius_top_left = int(corner_radius * scale)
 	if draw_extra_borders:
-		_set_border(sb, extra_border_color_2, 1)
+		_set_border(sb, color_extra_border_dimmed, 1)
 	set_stylebox('normal', 'EditorHelpBitTitle', sb)
 
 	# EditorInspector
@@ -307,10 +334,10 @@ func _init() -> void:
 	set_stylebox('panel', 'EditorInspector', empty_sb)
 	set_constant('v_separation', 'EditorInspector', int(base_margin * 0.5 * scale))
 	sb = base_sb.duplicate()
-	sb.bg_color = _get_base_color(0.2, 0.8)
+	sb.bg_color = color_surface_high
 	_set_margin(sb, 0, base_margin * 1.2, 0, base_margin * 1.2)
 	if draw_extra_borders:
-		_set_border(sb, extra_border_color_2, 1)
+		_set_border(sb, color_extra_border_dimmed, 1)
 	set_stylebox('bg', 'EditorInspectorCategory', sb)
 	set_constant('h_separation', 'EditorInspectorSection', int(base_margin * scale))
 
@@ -324,7 +351,7 @@ func _init() -> void:
 
 	# EditorProperty
 
-	set_color('property_color', 'EditorProperty', mono_color_icon_and_font * Color(1, 1, 1, 0.6))
+	set_color('property_color', 'EditorProperty', color_font_and_icon_normal)
 	set_color('warning_color', 'EditorProperty', get_color('warning_color', 'Editor'))
 	set_stylebox('bg', 'EditorProperty', base_empty_sb)
 
@@ -333,27 +360,35 @@ func _init() -> void:
 	# bindings editor relies on it for property removal
 	sb = base_sb.duplicate()
 	# Transparent background to make sure it blends with subresource editors
-	sb.bg_color = mono_color * Color(1, 1, 1, 0.03)
+	sb.bg_color = color_mono * Color(1, 1, 1, 0.03)
 	set_stylebox('bg_selected', 'EditorProperty', sb)
 
 	sb = base_sb.duplicate()
-	sb.bg_color = _get_base_color(-0.8) # Same as LineEdit normal
+	sb.bg_color = color_surface_lower
 	sb.set_content_margin_all(base_margin * scale)
 	set_stylebox('child_bg', 'EditorProperty', sb)
 
 	# EditorSpinSlider
 
 	sb = base_sb.duplicate()
-	sb.bg_color = _get_base_color(-0.8)
+	sb.bg_color = color_surface_lower
 	sb.set_content_margin_all(base_margin * scale)
 	set_stylebox('label_bg', 'EditorSpinSlider', sb)
+
+	# EditorNode
+
+	sb = base_sb.duplicate()
+	sb.set_content_margin_all(0)
+	sb.set_corner_radius_all(0)
+	sb.bg_color = color_surface_lowest
+	set_stylebox('Background', 'EditorStyles', sb)
 
 	# Viewport
 
 	sb = base_sb.duplicate()
 	sb.draw_center = false
 	sb.set_corner_radius_all(0)
-	_set_border(sb, mono_color * Color(1, 1, 1, 0.07), 2, false)
+	_set_border(sb, color_mono * Color(1, 1, 1, 0.07), 2, false)
 	set_stylebox('FocusViewport', 'EditorStyles', sb)
 
 	sb = base_sb.duplicate()
@@ -364,17 +399,15 @@ func _init() -> void:
 	# Contextual Toolbar
 
 	sb = base_sb.duplicate()
-	sb.bg_color = _get_base_color(0.25)
+	sb.bg_color = color_surface_higher
 	sb.set_content_margin_all(0)
 	set_stylebox('ContextualToolbar', 'EditorStyles', sb)
 
 	# LaunchPad
 
 	sb = base_sb.duplicate()
-	sb.bg_color = _get_base_color(-0.5)
-	_set_margin(sb, base_margin * 1.5, base_margin, base_margin * 1.5, base_margin)
-	sb.set_expand_margin_all(scale)
-	sb.set_border_width_all(0)
+	sb.bg_color = accent_color * Color(1, 1, 1, 0.2)
+	_set_border(sb, accent_color * Color(1, 1, 1, 0.8), 2)
 	set_stylebox('LaunchPadMovieMode', 'EditorStyles', sb)
 
 	sb = sb.duplicate()
@@ -383,20 +416,25 @@ func _init() -> void:
 	set_stylebox('LaunchPadNormal', 'EditorStyles', sb)
 
 	sb = base_sb.duplicate()
-	sb.bg_color = _get_base_color(0.5)
+	sb.bg_color = accent_color * Color(1, 1, 1, 0.8)
 	sb.set_content_margin_all(0)
 	set_stylebox('MovieWriterButtonPressed', 'EditorStyles', sb)
 
-	# Godot 4.5:
-	set_color('icon_normal_color', 'RunBarButtonMovieMakerDisabled', mono_color_icon_and_font * Color(1, 1, 1, 0.7))
-	set_color('icon_pressed_color', 'RunBarButtonMovieMakerDisabled', mono_color_icon_and_font)
-	set_color('icon_hover_color', 'RunBarButtonMovieMakerDisabled', mono_color_icon_and_font)
-	set_color('icon_hover_pressed_color', 'RunBarButtonMovieMakerDisabled', mono_color_icon_and_font)
+	sb = base_sb.duplicate()
+	sb.bg_color = color_mono * Color(1, 1, 1, 0.1)
+	sb.set_content_margin_all(0)
+	set_stylebox('hover', 'RunBarButton', sb)
 
-	set_color('icon_normal_color', 'RunBarButtonMovieMakerEnabled', mono_color_icon_and_font * Color(1, 1, 1, 0.7))
-	set_color('icon_pressed_color', 'RunBarButtonMovieMakerEnabled', mono_color_icon_and_font)
-	set_color('icon_hover_color', 'RunBarButtonMovieMakerEnabled', mono_color_icon_and_font)
-	set_color('icon_hover_pressed_color', 'RunBarButtonMovieMakerEnabled', mono_color_icon_and_font)
+	# Godot 4.5:
+	set_color('icon_normal_color', 'RunBarButtonMovieMakerDisabled', color_font_and_icon_normal)
+	set_color('icon_pressed_color', 'RunBarButtonMovieMakerDisabled', color_font_and_icon_highlighted)
+	set_color('icon_hover_color', 'RunBarButtonMovieMakerDisabled', color_font_and_icon_highlighted)
+	set_color('icon_hover_pressed_color', 'RunBarButtonMovieMakerDisabled', color_font_and_icon_highlighted)
+
+	set_color('icon_normal_color', 'RunBarButtonMovieMakerEnabled', color_font_and_icon_normal)
+	set_color('icon_pressed_color', 'RunBarButtonMovieMakerEnabled', color_font_and_icon_highlighted)
+	set_color('icon_hover_color', 'RunBarButtonMovieMakerEnabled', color_font_and_icon_highlighted)
+	set_color('icon_hover_pressed_color', 'RunBarButtonMovieMakerEnabled', color_font_and_icon_highlighted)
 
 	# Godot 4.4 and earlier:
 	set_color('movie_writer_icon_hover', 'EditorStyles', Color(1, 1, 1, 0.8))
@@ -407,20 +445,20 @@ func _init() -> void:
 	# EditorValidationPanel
 
 	sb = base_sb.duplicate()
-	sb.bg_color = _get_base_color(-0.5)
+	sb.bg_color = color_surface_low
 	_set_margin(sb, base_margin, base_margin * 0.5, base_margin, base_margin * 0.5)
 	set_stylebox('panel', 'EditorValidationPanel', sb)
 
 	# FlatButton
 
-	set_color('font_color', 'FlatButton', mono_color_icon_and_font * Color(1, 1, 1, 0.7))
-	set_color('font_disabled_color', 'FlatButton', mono_color_icon_and_font * Color(1, 1, 1, 0.3))
-	set_color('font_focus_color', 'FlatButton', mono_color_icon_and_font)
-	set_color('font_hover_color', 'FlatButton', mono_color_icon_and_font)
-	set_color('font_hover_pressed_color', 'FlatButton', mono_color_icon_and_font)
-	set_color('font_pressed_color', 'FlatButton', mono_color_icon_and_font)
-	set_color('icon_disabled_color', 'FlatButton', mono_color_icon_and_font * Color(1, 1, 1, 0.3))
-	set_color('icon_normal_color', 'FlatButton', mono_color_icon_and_font * Color(1, 1, 1, 0.7))
+	set_color('font_color', 'FlatButton', color_font_and_icon_normal)
+	set_color('font_disabled_color', 'FlatButton', color_font_and_icon_dimmed)
+	set_color('font_focus_color', 'FlatButton', color_font_and_icon_highlighted)
+	set_color('font_hover_color', 'FlatButton', color_font_and_icon_highlighted)
+	set_color('font_hover_pressed_color', 'FlatButton', color_font_and_icon_highlighted)
+	set_color('font_pressed_color', 'FlatButton', color_font_and_icon_highlighted)
+	set_color('icon_disabled_color', 'FlatButton', color_font_and_icon_dimmed)
+	set_color('icon_normal_color', 'FlatButton', color_font_and_icon_normal)
 
 	set_stylebox('disabled', 'FlatButton', base_empty_wide_sb)
 	set_stylebox('disabled_mirrored', 'FlatButton', base_empty_wide_sb)
@@ -435,19 +473,19 @@ func _init() -> void:
 
 	# FlatMenuButton
 
-	set_color('font_color', 'FlatMenuButton', mono_color_icon_and_font * Color(1, 1, 1, 0.7))
-	set_color('font_disabled_color', 'FlatMenuButton', mono_color_icon_and_font * Color(1, 1, 1, 0.3))
-	set_color('font_focus_color', 'FlatMenuButton', mono_color_icon_and_font)
-	set_color('font_hover_color', 'FlatMenuButton', mono_color_icon_and_font)
-	set_color('font_hover_pressed_color', 'FlatMenuButton', mono_color_icon_and_font)
-	set_color('font_pressed_color', 'FlatMenuButton', mono_color_icon_and_font)
+	set_color('font_color', 'FlatMenuButton', color_font_and_icon_normal)
+	set_color('font_disabled_color', 'FlatMenuButton', color_font_and_icon_dimmed)
+	set_color('font_focus_color', 'FlatMenuButton', color_font_and_icon_highlighted)
+	set_color('font_hover_color', 'FlatMenuButton', color_font_and_icon_highlighted)
+	set_color('font_hover_pressed_color', 'FlatMenuButton', color_font_and_icon_highlighted)
+	set_color('font_pressed_color', 'FlatMenuButton', color_font_and_icon_highlighted)
 
-	set_color('icon_normal_color', 'FlatMenuButton', mono_color_icon_and_font * Color(1, 1, 1, 0.7))
-	set_color('icon_disabled_color', 'FlatMenuButton', mono_color_icon_and_font * Color(1, 1, 1, 0.3))
-	set_color('icon_focus_color', 'FlatMenuButton', mono_color_icon_and_font)
-	set_color('icon_hover_color', 'FlatMenuButton', mono_color_icon_and_font)
-	set_color('icon_hover_pressed_color', 'FlatMenuButton', mono_color_icon_and_font)
-	set_color('icon_pressed_color', 'FlatMenuButton', mono_color_icon_and_font)
+	set_color('icon_normal_color', 'FlatMenuButton', color_font_and_icon_normal)
+	set_color('icon_disabled_color', 'FlatMenuButton', color_font_and_icon_dimmed)
+	set_color('icon_focus_color', 'FlatMenuButton', color_font_and_icon_highlighted)
+	set_color('icon_hover_color', 'FlatMenuButton', color_font_and_icon_highlighted)
+	set_color('icon_hover_pressed_color', 'FlatMenuButton', color_font_and_icon_highlighted)
+	set_color('icon_pressed_color', 'FlatMenuButton', color_font_and_icon_highlighted)
 
 	set_stylebox('disabled', 'FlatMenuButton', base_empty_wide_sb)
 	set_stylebox('disabled_mirrored', 'FlatMenuButton', base_empty_wide_sb)
@@ -465,7 +503,7 @@ func _init() -> void:
 
 	sb = base_sb.duplicate()
 	sb.draw_center = false
-	_set_border(sb, mono_color * Color(1, 1, 1, 0.3), 1)
+	_set_border(sb, color_mono * Color(1, 1, 1, 0.3), 1)
 
 	set_stylebox('sample_focus', 'ColorPicker', sb)
 	set_stylebox('picker_focus_rectangle', 'ColorPicker', sb)
@@ -480,7 +518,7 @@ func _init() -> void:
 
 	sb = base_sb.duplicate()
 	sb.draw_center = false
-	_set_border(sb, mono_color * Color(1, 1, 1, 0.07), 2)
+	_set_border(sb, color_mono * Color(1, 1, 1, 0.07), 2)
 	set_stylebox('panel_focus', 'GraphEdit', sb)
 
 	# GraphStateMachine
@@ -520,7 +558,7 @@ func _init() -> void:
 	set_constant('v_separation', 'ItemList', int(base_margin * 1.5 * scale))
 
 	sb = base_sb.duplicate()
-	sb.bg_color = mono_color * Color(1, 1, 1, 0.04)
+	sb.bg_color = color_mono * Color(1, 1, 1, 0.04)
 	set_stylebox('cursor', 'ItemList', sb)
 	set_stylebox('cursor_unfocused', 'ItemList', sb)
 	set_stylebox('focus', 'ItemList', base_empty_sb)
@@ -537,7 +575,7 @@ func _init() -> void:
 
 	# Label
 
-	set_color('font_color', 'Label', mono_color_icon_and_font * Color(1, 1, 1, 0.7))
+	set_color('font_color', 'Label', color_font_and_icon_normal)
 
 	empty_sb = base_empty_sb.duplicate()
 	# Keeping vertical margin low otherwise quick open looks bad
@@ -546,18 +584,18 @@ func _init() -> void:
 
 	# LineEdit and TextEdit
 
-	set_color('font_placeholder_color', 'LineEdit', mono_color_icon_and_font * Color(1, 1, 1, 0.4))
+	set_color('font_placeholder_color', 'LineEdit', color_font_and_icon_dimmed)
 
 	sb = base_sb.duplicate()
-	sb.bg_color = _get_base_color(-1.3 if dark_theme else -2.2)
+	sb.bg_color = color_surface_lowest
 	if draw_extra_borders:
-		_set_border(sb, extra_border_color_1, 1)
+		_set_border(sb, color_extra_border, 1)
 	_set_margin(sb, base_margin * 2, base_margin * 0.75, base_margin * 2, base_margin * 0.75)
 	set_stylebox('focus', 'LineEdit', sb)
 	set_stylebox('focus', 'TextEdit', sb)
 
 	sb = sb.duplicate()
-	sb.bg_color = _get_base_color(-0.9 if dark_theme else -1.8)
+	sb.bg_color = color_surface_lower
 	set_stylebox('normal', 'LineEdit', sb)
 	set_stylebox('normal', 'TextEdit', sb)
 
@@ -587,19 +625,19 @@ func _init() -> void:
 
 	# MenuButton
 
-	set_color('font_color', 'MenuButton', mono_color_icon_and_font * Color(1, 1, 1, 0.7))
-	set_color('font_disabled_color', 'MenuButton', mono_color_icon_and_font * Color(1, 1, 1, 0.3))
-	set_color('font_focus_color', 'MenuButton', mono_color_icon_and_font)
-	set_color('font_hover_color', 'MenuButton', mono_color_icon_and_font)
-	set_color('font_hover_pressed_color', 'MenuButton', mono_color_icon_and_font)
-	set_color('font_pressed_color', 'MenuButton', mono_color_icon_and_font)
+	set_color('font_color', 'MenuButton', color_font_and_icon_normal)
+	set_color('font_disabled_color', 'MenuButton', color_font_and_icon_dimmed)
+	set_color('font_focus_color', 'MenuButton', color_font_and_icon_highlighted)
+	set_color('font_hover_color', 'MenuButton', color_font_and_icon_highlighted)
+	set_color('font_hover_pressed_color', 'MenuButton', color_font_and_icon_highlighted)
+	set_color('font_pressed_color', 'MenuButton', color_font_and_icon_highlighted)
 
-	set_color('icon_normal_color', 'MenuButton', mono_color_icon_and_font * Color(1, 1, 1, 0.7))
-	set_color('icon_disabled_color', 'MenuButton', mono_color_icon_and_font * Color(1, 1, 1, 0.3))
-	set_color('icon_focus_color', 'MenuButton', mono_color_icon_and_font)
-	set_color('icon_hover_color', 'MenuButton', mono_color_icon_and_font)
-	set_color('icon_hover_pressed_color', 'MenuButton', mono_color_icon_and_font)
-	set_color('icon_pressed_color', 'MenuButton', mono_color_icon_and_font)
+	set_color('icon_normal_color', 'MenuButton', color_font_and_icon_normal)
+	set_color('icon_disabled_color', 'MenuButton', color_font_and_icon_dimmed)
+	set_color('icon_focus_color', 'MenuButton', color_font_and_icon_highlighted)
+	set_color('icon_hover_color', 'MenuButton', color_font_and_icon_highlighted)
+	set_color('icon_hover_pressed_color', 'MenuButton', color_font_and_icon_highlighted)
+	set_color('icon_pressed_color', 'MenuButton', color_font_and_icon_highlighted)
 
 	set_stylebox('disabled', 'MenuButton', base_empty_wide_sb)
 	set_stylebox('disabled_mirrored', 'MenuButton', base_empty_wide_sb)
@@ -617,14 +655,14 @@ func _init() -> void:
 
 	set_constant('arrow_margin', 'OptionButton', int(base_margin * 2 * scale))
 
-	set_color('font_color', 'OptionButton', mono_color_icon_and_font * Color(1, 1, 1, 0.7))
-	set_color('font_disabled_color', 'OptionButton', mono_color_icon_and_font * Color(1, 1, 1, 0.3))
-	set_color('font_focus_color', 'OptionButton', mono_color_icon_and_font)
-	set_color('font_hover_color', 'OptionButton', mono_color_icon_and_font)
-	set_color('font_hover_pressed_color', 'OptionButton', mono_color_icon_and_font)
-	set_color('font_pressed_color', 'OptionButton', mono_color_icon_and_font)
-	set_color('icon_disabled_color', 'OptionButton', mono_color_icon_and_font * Color(1, 1, 1, 0.3))
-	set_color('icon_normal_color', 'OptionButton', mono_color_icon_and_font * Color(1, 1, 1, 0.7))
+	set_color('font_color', 'OptionButton', color_font_and_icon_normal)
+	set_color('font_disabled_color', 'OptionButton', color_font_and_icon_dimmed)
+	set_color('font_focus_color', 'OptionButton', color_font_and_icon_highlighted)
+	set_color('font_hover_color', 'OptionButton', color_font_and_icon_highlighted)
+	set_color('font_hover_pressed_color', 'OptionButton', color_font_and_icon_highlighted)
+	set_color('font_pressed_color', 'OptionButton', color_font_and_icon_highlighted)
+	set_color('icon_disabled_color', 'OptionButton', color_font_and_icon_dimmed)
+	set_color('icon_normal_color', 'OptionButton', color_font_and_icon_normal)
 
 	set_stylebox('disabled', 'OptionButton', button_disabled_sb)
 	set_stylebox('disabled_mirrored', 'OptionButton', button_disabled_sb)
@@ -647,15 +685,15 @@ func _init() -> void:
 	set_stylebox('hover', 'PopupMenu', flat_button_hover_sb)
 
 	sb = base_sb.duplicate()
-	sb.bg_color = _get_base_color(-0.8, 0.9)
+	sb.bg_color = color_surface_lower
 	sb.set_content_margin_all(int(popup_margin * scale))
 	sb.set_corner_radius_all(0)
 	if draw_extra_borders:
-		_set_border(sb, extra_border_color_2, 1)
+		_set_border(sb, color_extra_border_dimmed, 1)
 	set_stylebox('panel', 'PopupMenu', sb)
 
 	var line_sb : StyleBoxLine = StyleBoxLine.new()
-	line_sb.color = Color(0, 0, 0, 0.2)
+	line_sb.color = Color(0, 0, 0, 0.2 if dark_theme else 0.1)
 	line_sb.grow_begin = base_margin * -1.5 * scale
 	line_sb.grow_end = base_margin * -1.5 * scale
 	line_sb.thickness = int(ceilf(scale * 2))
@@ -666,21 +704,21 @@ func _init() -> void:
 	set_stylebox('panel', 'PanelContainer', base_empty_wide_sb)
 
 	sb = base_sb.duplicate()
-	sb.bg_color = _get_base_color(-0.8, 0.9)
+	sb.bg_color = color_surface_lower
 	sb.shadow_color = Color(0, 0, 0, 0.3)
 	sb.shadow_size = int(base_margin * 0.75 * scale)
 	sb.set_content_margin_all(int(popup_margin * scale))
 	sb.set_corner_radius_all(0)
 	if draw_extra_borders:
-		_set_border(sb, extra_border_color_2, 1)
+		_set_border(sb, color_extra_border_dimmed, 1)
 	set_stylebox('panel', 'PopupPanel', sb)
 
 	sb = base_sb.duplicate()
-	sb.bg_color = _get_base_color(-0.8, 0.9)
+	sb.bg_color = color_surface_lower
 	sb.set_content_margin_all(0)
 	sb.set_corner_radius_all(0)
 	if draw_extra_borders:
-		_set_border(sb, extra_border_color_2, 1)
+		_set_border(sb, color_extra_border_dimmed, 1)
 	set_stylebox('panel', 'TooltipPanel', sb)
 
 	sb = base_sb.duplicate()
@@ -690,7 +728,7 @@ func _init() -> void:
 	set_stylebox('panel', 'AcceptDialog', sb)
 
 	sb = sb.duplicate()
-	sb.bg_color = _get_base_color(-1.4)
+	sb.bg_color = color_surface_lowest
 	set_stylebox('panel', 'EditorSettingsDialog', sb)
 	set_stylebox('panel', 'ProjectSettingsEditor', sb)
 	set_stylebox('panel', 'ProjectExportDialog', sb)
@@ -701,24 +739,24 @@ func _init() -> void:
 	# ProgressBar
 
 	sb = base_sb.duplicate()
-	sb.bg_color = _get_base_color(-1.3, 0.9)
+	sb.bg_color = color_surface_lowest
 	sb.expand_margin_top = base_margin * 0.5 * scale
 	sb.expand_margin_bottom = base_margin * 0.5 * scale
 	sb.set_content_margin_all(base_margin * scale)
 	if draw_extra_borders:
-		_set_border(sb, extra_border_color_2, 1)
+		_set_border(sb, color_extra_border_dimmed, 1)
 	set_stylebox('background', 'ProgressBar', sb)
 
 	sb = sb.duplicate()
-	sb.bg_color = _get_base_color(0.4, 0.8)
+	sb.bg_color = color_button_normal
 	if draw_extra_borders:
-		_set_border(sb, extra_border_color_1, 1)
+		_set_border(sb, color_extra_border, 1)
 	set_stylebox('fill', 'ProgressBar', sb)
 
 	# RichTextLabel
 
 	sb = base_sb.duplicate()
-	sb.bg_color = _get_base_color(-0.5)
+	sb.bg_color = color_surface_low
 	sb.set_content_margin_all(base_margin * 2 * scale)
 	set_stylebox('normal', 'RichTextLabel', sb)
 
@@ -731,14 +769,14 @@ func _init() -> void:
 
 	sb = base_sb.duplicate()
 	sb.bg_color = _get_base_color(0.5, 0.6)
-	_set_border(sb, _get_base_color() * Color(1, 1, 1, 0), 3)
+	_set_border(sb, base_color * Color(1, 1, 1, 0), 3)
 
 	set_stylebox('grabber', 'HScrollBar', sb)
 	set_stylebox('grabber', 'VScrollBar', sb)
 
 	sb = base_sb.duplicate()
 	sb.bg_color = _get_base_color(1.4, 0.5)
-	_set_border(sb, _get_base_color() * Color(1, 1, 1, 0), 2.5)
+	_set_border(sb, base_color * Color(1, 1, 1, 0), 2.5)
 
 	set_stylebox('grabber_highlight', 'HScrollBar', sb)
 	set_stylebox('grabber_highlight', 'VScrollBar', sb)
@@ -766,34 +804,57 @@ func _init() -> void:
 
 	# TabContainer
 
+	set_color('font_selected_color', 'TabBar', color_font_and_icon_normal)
+	set_color('font_selected_color', 'TabContainer', color_font_and_icon_normal)
+	set_color('font_hovered_color', 'TabBar', color_font_and_icon_highlighted)
+	set_color('font_hovered_color', 'TabContainer', color_font_and_icon_highlighted)
+	set_color('font_unselected_color', 'TabBar', color_font_and_icon_secondary)
+	set_color('font_unselected_color', 'TabContainer', color_font_and_icon_secondary)
+	set_color('font_disabled_color', 'TabBar', color_font_and_icon_dimmed * Color(1, 1, 1, 0.55))
+	set_color('font_disabled_color', 'TabContainer', color_font_and_icon_dimmed * Color(1, 1, 1, 0.55))
+
+	set_color('icon_selected_color', 'TabBar', color_font_and_icon_normal)
+	set_color('icon_selected_color', 'TabContainer', color_font_and_icon_normal)
+	set_color('icon_hovered_color', 'TabBar', color_font_and_icon_highlighted)
+	set_color('icon_hovered_color', 'TabContainer', color_font_and_icon_highlighted)
+	set_color('icon_unselected_color', 'TabBar', color_font_and_icon_secondary)
+	set_color('icon_unselected_color', 'TabContainer', color_font_and_icon_secondary)
+	set_color('icon_disabled_color', 'TabBar', color_font_and_icon_dimmed * Color(1, 1, 1, 0.55))
+	set_color('icon_disabled_color', 'TabContainer', color_font_and_icon_dimmed * Color(1, 1, 1, 0.55))
+
 	sb = base_sb.duplicate()
-	_set_margin(sb, base_margin * 4, base_margin * 2.3, base_margin * 4, base_margin * 2.3)
+	_set_margin(sb, base_margin * 4, base_margin * 2.1, base_margin * 4, base_margin * 2.1)
 	sb.set_corner_radius_all(0)
 	sb.corner_radius_top_left = int(corner_radius * scale)
 	sb.corner_radius_top_right = int(corner_radius * scale)
 	set_stylebox('tab_selected', 'TabBar', sb)
 	set_stylebox('tab_selected', 'TabContainer', sb)
+	set_stylebox('ThemeEditorPreviewFG', 'EditorStyles', sb)
 
 	sb = sb.duplicate()
-	sb.bg_color = _get_base_color(-0.35)
+	sb.bg_color = color_surface_base
 	set_stylebox('tab_selected', 'TabContainerOdd', sb)
 
-	sb = sb.duplicate()
-	sb.bg_color = base_color
-	sb.border_color = accent_color
-	set_stylebox('tab_focus', 'TabBar', sb)
-	set_stylebox('tab_focus', 'TabContainer', sb)
+	set_stylebox('tab_focus', 'TabBar', base_empty_sb)
+	set_stylebox('tab_focus', 'TabContainer', base_empty_sb)
+	set_stylebox('tab_focus', 'TabContainerOdd', base_empty_sb)
 
 	sb = sb.duplicate()
-	sb.bg_color = Color.TRANSPARENT
+	sb.bg_color = color_surface_lowest
 	sb.set_border_width_all(0)
 	set_stylebox('tab_unselected', 'TabBar', sb)
 	set_stylebox('tab_unselected', 'TabContainer', sb)
+	set_stylebox('tab_unselected', 'TabContainerOdd', sb)
+	set_stylebox('ThemeEditorPreviewBG', 'EditorStyles', sb)
+	set_stylebox('tab_disabled', 'TabBar', sb)
+	set_stylebox('tab_disabled', 'TabContainer', sb)
+	set_stylebox('tab_disabled', 'TabContainerOdd', sb)
 
 	sb = sb.duplicate()
-	sb.bg_color = _get_base_color(-0.4)
+	sb.bg_color = color_surface_base * Color(1, 1, 1, 0.8)
 	set_stylebox('tab_hovered', 'TabBar', sb)
 	set_stylebox('tab_hovered', 'TabContainer', sb)
+	set_stylebox('tab_hovered', 'TabContainerOdd', sb)
 
 	sb = base_sb.duplicate()
 	sb.set_content_margin_all(increased_margin * 1.5 * scale)
@@ -802,16 +863,24 @@ func _init() -> void:
 	sb.corner_radius_bottom_left = int(corner_radius * scale)
 	set_stylebox('panel', 'TabContainer', sb)
 
-	sb = empty_sb.duplicate()
-	_set_margin(sb, 0, 0, base_margin * 2, 0)
+	sb = sb.duplicate()
+	sb.bg_color = color_surface_base
+	set_stylebox('panel', 'TabContainerOdd', sb)
+
+	sb = base_sb.duplicate()
+	sb.bg_color = color_surface_lowest
+	sb.corner_radius_bottom_left = 0
+	sb.corner_radius_bottom_right = 0
+	_set_margin(sb, 0, base_margin * 0.25, base_margin, 0)
 	set_stylebox('tabbar_background', 'TabContainer', sb)
+	set_stylebox('tabbar_background', 'TabContainerOdd', sb)
 
 	# Tree
 
-	set_color('drop_position_color', 'Tree', mono_color * Color(1, 1, 1, 0.4))
-	set_color('font_color', 'Tree', mono_color_icon_and_font * Color(1, 1, 1, 0.7))
+	set_color('drop_position_color', 'Tree', color_font_and_icon_dimmed)
+	set_color('font_color', 'Tree', color_font_and_icon_normal)
 	set_color('guide_color', 'Tree', Color.TRANSPARENT)
-	set_color('parent_hl_line_color', 'Tree', mono_color * Color(1, 1, 1, relationship_line_opacity))
+	set_color('parent_hl_line_color', 'Tree', color_mono * Color(1, 1, 1, relationship_line_opacity))
 	set_constant('children_hl_line_width', 'Tree', 0)
 	set_constant('draw_guides', 'Tree', 0)
 	set_constant('draw_relationship_lines', 'Tree', 1)
@@ -836,7 +905,7 @@ func _init() -> void:
 	set_stylebox('focus', 'Tree', base_empty_sb)
 
 	sb = base_sb.duplicate()
-	sb.bg_color = _get_base_color(-1.2 if dark_theme else -1.8)
+	sb.bg_color = color_surface_lowest
 
 	# Using a transparent border to separate rounded column titles
 	sb.border_width_left = int(ceilf(scale))
@@ -849,7 +918,7 @@ func _init() -> void:
 
 	sb = flat_button_hover_sb.duplicate()
 	sb.set_content_margin_all(0)
-	sb.bg_color = _get_base_color(0.2, 0.7)
+	sb.bg_color = color_button_disabled
 	set_stylebox('button_hover', 'Tree', sb)
 	set_stylebox('hover', 'Tree', sb)
 	set_stylebox('hovered_dimmed', 'Tree', sb)
@@ -859,16 +928,18 @@ func _init() -> void:
 	set_stylebox('selected_focus', 'Tree', sb)
 
 	sb = sb.duplicate()
-	sb.bg_color = _get_base_color(0.3, 0.7)
+	sb.bg_color = color_button_normal
 	set_stylebox('hovered_selected', 'Tree', sb)
 	set_stylebox('hovered_selected_focus', 'Tree', sb)
 
-	set_stylebox('button_pressed', 'Tree', flat_button_pressed_sb)
-	set_stylebox('custom_button_pressed', 'Tree', flat_button_pressed_sb)
+	sb = flat_button_pressed_sb.duplicate()
+	_set_margin(sb, base_margin, 0, base_margin, 0)
+	set_stylebox('button_pressed', 'Tree', sb)
+	set_stylebox('custom_button_pressed', 'Tree', sb)
 
 	# Cursor is drawn on top of the item so it needs to be transparent
 	sb = base_sb.duplicate()
-	sb.bg_color = mono_color * Color(1, 1, 1, 0.04)
+	sb.bg_color = color_mono * Color(1, 1, 1, 0.04)
 	set_stylebox('cursor', 'Tree', sb)
 	set_stylebox('cursor_unfocused', 'Tree', sb)
 
@@ -891,7 +962,7 @@ func _init() -> void:
 	# Sliders
 
 	sb = base_sb.duplicate()
-	sb.bg_color = mono_color_inv * Color(1, 1, 1, 0.35)
+	sb.bg_color = color_mono_inv * Color(1, 1, 1, 0.35)
 	_set_margin(sb, 0, 2, 0, 2)
 	set_stylebox('slider', 'HSlider', sb)
 	sb = sb.duplicate()
@@ -901,9 +972,9 @@ func _init() -> void:
 	# Sidebars
 
 	sb = base_sb.duplicate()
-	sb.bg_color = _get_base_color(-0.55 if dark_theme else -0.9)
+	sb.bg_color = color_surface_low
 	if draw_extra_borders:
-		_set_border(sb, extra_border_color_2, 1)
+		_set_border(sb, color_extra_border_dimmed, 1)
 	set_stylebox('panel', 'TreeSecondary', sb)
 	set_stylebox('panel', 'ItemListSecondary', sb)
 	# Use sidebar stylebox for EditorDebuggerInspector in StackTrace
@@ -914,8 +985,15 @@ func _init() -> void:
 	# ProjectManager
 
 	sb = base_sb.duplicate()
-	sb.bg_color = _get_base_color(-0.7 if dark_theme else -0.9)
+	sb.bg_color = color_surface_low
 	set_stylebox('project_list', 'ProjectManager', sb)
+
+	# Asset Library
+
+	sb = base_sb.duplicate()
+	sb.set_content_margin_all(base_margin * 2 * scale)
+	sb.bg_color = color_surface_low
+	set_stylebox('panel', 'AssetLib', sb)
 
 	# HACKS
 	# This section is for workarounds for unthemable UI
@@ -936,7 +1014,7 @@ func _init() -> void:
 			var quick_settings_dialog : AcceptDialog = root.find_children('', 'QuickSettingsDialog', true, false)[0]
 			var quick_settings_dialog_list_panel : PanelContainer = quick_settings_dialog.find_children('', 'PanelContainer', true, false)[0]
 			var panel_sb_quick_settings : StyleBoxFlat = base_sb.duplicate()
-			panel_sb_quick_settings.bg_color = _get_base_color(-0.7 if dark_theme else -0.9)
+			panel_sb_quick_settings.bg_color = color_surface_low
 			quick_settings_dialog_list_panel.add_theme_stylebox_override('panel', panel_sb_quick_settings)
 			var _error_quick_settings : int = quick_settings_dialog.theme_changed.connect(func() -> void:
 				# Reapply the stylebox override on theme change
@@ -991,24 +1069,6 @@ func _init() -> void:
 			var game_view_toolbar_margin_container : Control = game_view.find_children('', 'MarginContainer', true, false)[0]
 			game_view_toolbar_margin_container.add_theme_constant_override('margin_top', int(base_margin * 0.5 * scale))
 			game_view_toolbar_margin_container.add_theme_constant_override('margin_bottom', int(base_margin * 0.5 * scale))
-		
-		# ThemeTypeEditor TabContainer
-
-		# Tabs of ThemeTypeEditor need to be custom because of lighter background of
-		# the bottom panel
-
-		var theme_type_editor : Control = EditorInterface.get_base_control().find_children('', 'ThemeTypeEditor', true, false)[0]
-		var theme_type_editor_tab_container : TabContainer = theme_type_editor.find_children('', 'TabContainer', true, false)[0]
-
-		var theme_type_editor_tab_container_sb : StyleBoxFlat = base_sb.duplicate()
-		theme_type_editor_tab_container_sb.bg_color = _get_base_color(-1.1)
-		theme_type_editor_tab_container_sb.set_content_margin_all(0)
-		theme_type_editor_tab_container_sb.content_margin_top = int(base_margin * scale)
-		theme_type_editor_tab_container_sb.corner_radius_bottom_left = 0
-		theme_type_editor_tab_container_sb.corner_radius_bottom_right = 0
-	
-		theme_type_editor_tab_container.add_theme_stylebox_override('tabbar_background', theme_type_editor_tab_container_sb)
-
 	).call_deferred()
 
 # Lighten base color in dark theme, darken in light theme, clamp

@@ -319,4 +319,7 @@ position = Vector2(440, -32)
 position = Vector2(-184, -16)
 
 [node name="Player" parent="." instance=ExtResource("10_1rr3k")]
-position = Vector2(0, -8)
+position = Vector2(0, -4)
+dash_speed = 500.0
+start_movement_speed = 0.5
+dash_delay = 0.2

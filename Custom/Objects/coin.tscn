@@ -105,7 +105,6 @@ animation = &"idle"
 autoplay = "idle"
 
 [node name="Collectible" parent="." instance=ExtResource("2_p15bu")]
-collectible_type = "coin"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Collectible"]
 shape = SubResource("CircleShape2D_p15bu")
