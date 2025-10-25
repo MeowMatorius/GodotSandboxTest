@@ -1,8 +1,9 @@
-[gd_scene load_steps=10 format=3 uid="uid://bb2goadjdsl1s"]
+[gd_scene load_steps=14 format=3 uid="uid://bb2goadjdsl1s"]
 
 [ext_resource type="Texture2D" uid="uid://c1cne2xv4g3hn" path="res://Assets/Sprites/Brackeys Assets/slime_green.png" id="1_jokqx"]
 [ext_resource type="Script" uid="uid://clqebiegub8s3" path="res://Custom/Entities/slime.gd" id="1_swwnm"]
 [ext_resource type="PackedScene" uid="uid://c751lyvd8vfm5" path="res://Custom/Objects/damage_zone.tscn" id="3_aiwxb"]
+[ext_resource type="PackedScene" uid="uid://dsa82v6hxfo0x" path="res://Custom/Objects/hitbox.tscn" id="3_ovx4y"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_swwnm"]
 atlas = ExtResource("1_jokqx")
@@ -40,12 +41,32 @@ animations = [{
 "speed": 10.0
 }]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5i6ss"]
+size = Vector2(26, 14)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_paq7w"]
 size = Vector2(10, 12)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ovx4y"]
+bg_color = Color(0.25, 0.25, 0.25, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5i6ss"]
+bg_color = Color(0.9827499, 4.740879e-06, 5.7756904e-07, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0, 0, 0, 1)
 
 [node name="slime" type="Node2D"]
 position = Vector2(0, -11)
 script = ExtResource("1_swwnm")
+SPEED = 30
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, 11)
@@ -62,8 +83,30 @@ target_position = Vector2(-8, 0)
 position = Vector2(0, 5)
 target_position = Vector2(8, 0)
 
+[node name="hitbox" parent="." node_paths=PackedStringArray("health_bar") instance=ExtResource("3_ovx4y")]
+health_bar = NodePath("../HealthBar")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hitbox"]
+position = Vector2(0, 4)
+shape = SubResource("RectangleShape2D_5i6ss")
+
 [node name="DamageZone" parent="." instance=ExtResource("3_aiwxb")]
+damage_amount = 10
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DamageZone"]
 position = Vector2(0, 5)
 shape = SubResource("RectangleShape2D_paq7w")
+
+[node name="HealthBar" type="ProgressBar" parent="."]
+offset_left = -6.0
+offset_top = -8.0
+offset_right = 6.0
+offset_bottom = -4.0
+scale = Vector2(1, 0.6)
+theme_override_styles/background = SubResource("StyleBoxFlat_ovx4y")
+theme_override_styles/fill = SubResource("StyleBoxFlat_5i6ss")
+step = 1.0
+value = 100.0
+show_percentage = false
+
+[connection signal="body_exited" from="hitbox" to="hitbox" method="_on_body_exited"]

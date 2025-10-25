@@ -9,13 +9,20 @@ signal on_heal
 
 
 func take_damage(damage_amount):
-	on_take_damage.emit()
 	health_bar.value -= damage_amount
+	on_take_damage.emit()
+	
+	
+func take_damage_test(health_bar_1, damage_amount):
+	var health_bar_2: ProgressBar = health_bar_1
+	health_bar_2.value -= damage_amount
+	on_take_damage.emit()
 
 
 func death():
 	health_bar.value = 100
 	PauseMenu.exit_pause_menu()
+	
 	get_tree().current_scene.queue_free()
 	get_tree().call_deferred("reload_current_scene")
 	

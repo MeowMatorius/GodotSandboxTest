@@ -12,6 +12,8 @@ var attack = false
 
 var direction
 
+signal on_attack
+
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 
 
@@ -31,8 +33,9 @@ func _physics_process(delta: float) -> void:
 		velocity.y = JUMP_VELOCITY - DOUBLE_JUMP_VELOCITY
 		jump = true
 		
-	if Input.is_action_just_pressed("attack") and dash == false and jump == false:
+	if Input.is_action_just_pressed("attack"):
 		attack = true
+		on_attack.emit()
 		animated_sprite.play("attack")
 
 	#if Input.is_action_just_pressed("attack") and is_on_floor() and dash == false:

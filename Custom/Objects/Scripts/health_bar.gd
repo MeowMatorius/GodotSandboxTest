@@ -10,11 +10,5 @@ func _ready() -> void:
 
 # Функция которая отрабатывает при получении сигнала
 func jopa():
-	print("jopa")
-
-func _process(_delta: float) -> void:
-	#if Input.is_action_just_pressed("attack"):
-		#HealthManager.take_damage(damage_amount)
-		
 	if HealthManager.health_bar.value <= 0:
 		HealthManager.death()

@@ -1,4 +1,4 @@
-[gd_scene load_steps=76 format=3 uid="uid://drkpxgvgqe5c2"]
+[gd_scene load_steps=74 format=3 uid="uid://drkpxgvgqe5c2"]
 
 [ext_resource type="Script" uid="uid://cdoeoefum4ojh" path="res://Custom/Player/player.gd" id="1_cvnsp"]
 [ext_resource type="Texture2D" uid="uid://dkwvwiml7ya5n" path="res://Assets/Sprites/Brackeys Assets/knight.png" id="2_6t5aa"]
@@ -8,14 +8,6 @@
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_0gysh"]
 radius = 6.0
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_xuaoq"]
-atlas = ExtResource("2_vgqql")
-region = Rect2(0, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_wohnl"]
-atlas = ExtResource("2_vgqql")
-region = Rect2(32, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_36dho"]
 atlas = ExtResource("2_vgqql")
@@ -276,22 +268,16 @@ region = Rect2(224, 96, 32, 32)
 [sub_resource type="SpriteFrames" id="SpriteFrames_p1odr"]
 animations = [{
 "frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_xuaoq")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_wohnl")
-}, {
-"duration": 1.0,
+"duration": 0.7,
 "texture": SubResource("AtlasTexture_36dho")
 }, {
-"duration": 1.0,
+"duration": 0.7,
 "texture": SubResource("AtlasTexture_yh6i2")
 }, {
-"duration": 1.0,
+"duration": 0.7,
 "texture": SubResource("AtlasTexture_nv4vc")
 }, {
-"duration": 1.0,
+"duration": 0.7,
 "texture": SubResource("AtlasTexture_36dho")
 }],
 "loop": false,
@@ -551,8 +537,10 @@ shape = SubResource("CircleShape2D_0gysh")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_p1odr")
-animation = &"dash3"
+animation = &"attack"
 autoplay = "idle2"
+frame = 3
+frame_progress = 1.0
 offset = Vector2(0, -5)
 
 [node name="Camera2D" type="Camera2D" parent="."]

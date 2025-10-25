@@ -1,6 +1,6 @@
 extends Area2D
 
-var damage_amount: int = 40
+@export var damage_amount: int = 40
 
 
 func _on_body_entered(_body: Node2D) -> void:
