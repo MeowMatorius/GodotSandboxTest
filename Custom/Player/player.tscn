@@ -226,10 +226,8 @@ fill_to = Vector2(0.8, 0.8)
 z_index = 5
 collision_layer = 2
 script = ExtResource("1_cvnsp")
-player_speed = 170.0
-dash_speed = 650.0
-max_jumps_count = 2
-dash_delay = 0.3
+dash_duration = 0.2
+combat_speed = 1.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_0gysh")
@@ -265,7 +263,3 @@ shadow_filter = 1
 shadow_filter_smooth = 4.0
 shadow_item_cull_mask = 3
 texture = SubResource("GradientTexture2D_6t5aa")
-
-[node name="Timer" type="Timer" parent="."]
-wait_time = 0.7
-one_shot = true

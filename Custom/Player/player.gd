@@ -7,14 +7,25 @@ var current_state: State = State.IDLE
 
 
 signal on_attack
+signal on_dash
 
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 var direction: float
 @export var player_speed: float = 170.0
-@export var dash_speed: float = 500.0
-@export var combat_speed: float = 10.0
 @export var start_movement_speed: float = 0.5
 @export var stop_movement_speed: float = 0.1
+
+@export_category("Dash and Attack")
+var can_dash: bool = true
+var can_attack: bool = true
+var attack_timer: bool = false
+var dash_timer: bool = false
+@export var dash_speed: float = 400.0
+@export var dash_duration: float = 0.3
+@export var dash_cooldown: float = 1
+@export var combat_speed: float = 10.0
+@export var attack_duration: float = 0.2
+@export var attack_cooldown: float = 0.2
 
 @export_category("Jump and Gravity")
 var gravity: float
@@ -22,15 +33,14 @@ var jumps_count: int = 0
 var is_gliding: bool = false
 @export var jump_velocity: float = -300.0
 @export var double_jump_velocity: float = -200.0
-@export var max_jumps_count: int = 1
+@export var max_jumps_count: int = 2
 
-@export_category("Delays")
-@export var dash_delay: float = 0.2
-@export var attack_delay: float = 0.2
 
 
 func _ready() -> void:
 	gravity = ProjectSettings.get_setting("physics/2d/default_gravity") 
+	on_dash.connect(dash_cooldown_timer)
+	on_attack.connect(attack_cooldown_timer)
 
 
 func _physics_process(delta: float) -> void:
@@ -115,27 +125,44 @@ func handle_jumping() -> void:
 
 
 func handle_dash() -> void:
-	if Input.is_action_just_pressed("dash") and current_state != State.DASHING and direction != 0:
-		current_state = State.DASHING
-		player_animations.play("dash")
-		velocity.x = lerp(velocity.x, direction * dash_speed, start_movement_speed)
-		velocity.y = 0
-		
-		await get_tree().create_timer(dash_delay).timeout
-		current_state = State.IDLE
-		move_toward(velocity.x, 0, dash_speed * stop_movement_speed)
+	if Input.is_action_just_pressed("dash"):
+		if current_state != State.DASHING and can_dash == true:
+			current_state = State.DASHING
+			player_animations.play("dash")
+			can_dash = false
+			on_dash.emit()
+			
+			velocity.x = lerp(velocity.x, direction * dash_speed, start_movement_speed)
+			velocity.y = 0
+			await get_tree().create_timer(dash_duration).timeout
+			current_state = State.IDLE
+func dash_cooldown_timer() -> void:
+	if !dash_timer:
+		dash_timer = true
+		await get_tree().create_timer(dash_cooldown).timeout
+		can_dash = true
+		dash_timer = false
 
 
 func handle_attack() -> void:
-	if Input.is_action_just_pressed("attack") and current_state != State.ATTACKING:
-		current_state = State.ATTACKING
-		player_animations.play("attack")
-		on_attack.emit()
-		
-		velocity.x = lerp(velocity.x, direction * combat_speed, start_movement_speed)
-		
-		await get_tree().create_timer(attack_delay).timeout
-		current_state = State.IDLE
+	if Input.is_action_just_pressed("attack"):
+		if current_state != State.ATTACKING and can_attack == true:
+			current_state = State.ATTACKING
+			player_animations.play("attack")
+			can_attack = false
+			on_attack.emit()
+			
+			velocity.x = lerp(velocity.x, direction * combat_speed, start_movement_speed)
+			velocity.y = 0
+			
+			await get_tree().create_timer(attack_duration).timeout
+			current_state = State.IDLE
+func attack_cooldown_timer() -> void:
+	if !attack_timer:
+		attack_timer = true
+		await get_tree().create_timer(attack_cooldown).timeout
+		can_attack = true
+		attack_timer = false
 
 
 func sprite_turn() -> void:
