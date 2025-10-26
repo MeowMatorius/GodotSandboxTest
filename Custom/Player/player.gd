@@ -6,8 +6,8 @@ var current_state: State = State.IDLE
 @onready var player_animations: AnimatedSprite2D = $AnimatedSprite2D
 @onready var dash_colldown_bar: TextureProgressBar = $DashCooldownBar
 
-@onready var attack_cooldown_timer = $Timers/AttackCooldownTimer
-@onready var dash_cooldown_timer = $Timers/DashCooldownTimer
+@onready var attack_cooldown_timer: Timer = $Timers/AttackCooldownTimer
+@onready var dash_cooldown_timer: Timer = $Timers/DashCooldownTimer
 
 signal on_attack
 signal on_dash
@@ -136,10 +136,10 @@ func handle_dash() -> void:
 		
 		velocity.x = lerp(velocity.x, direction * dash_speed, start_movement_speed)
 		velocity.y = 0
-		
+
 		await get_tree().create_timer(dash_duration).timeout
 		current_state = State.IDLE
-		
+
 		dash_cooldown_timer.start(dash_cooldown)
 		dash_colldown_bar.show()
 
