@@ -4,7 +4,10 @@ enum State {IDLE, RUNNING, JUMPING, DASHING, ATTACKING}
 var current_state: State = State.IDLE
 
 @onready var player_animations: AnimatedSprite2D = $AnimatedSprite2D
-@onready var dash_colldown_bar: TextureProgressBar = $DashColldownBar
+@onready var dash_colldown_bar: TextureProgressBar = $DashCooldownBar
+
+@onready var attack_cooldown_timer = $Timers/AttackCooldownTimer
+@onready var dash_cooldown_timer = $Timers/DashCooldownTimer
 
 signal on_attack
 signal on_dash
@@ -15,15 +18,10 @@ var direction: float
 @export var stop_movement_speed: float = 0.1
 
 @export_category("Dash and Attack")
-var can_dash: bool = true
-var can_attack: bool = true
-var attack_timer: bool = false
-var dash_timer: bool = false
 @export var dash_speed: float = 400.0
 @export var dash_duration: float = 0.3
 @export var dash_cooldown: float = 1
 @export var combat_speed: float = 10.0
-@export var attack_duration: float = 0.2
 @export var attack_cooldown: float = 0.2
 
 @export_category("Jump and Gravity")
@@ -34,25 +32,22 @@ var is_gliding: bool = false
 @export var double_jump_velocity: float = -200.0
 @export var max_jumps_count: int = 2
 
-var _dash_timer
 
 func _ready() -> void:
 	gravity = ProjectSettings.get_setting("physics/2d/default_gravity") 
 	
-	on_dash.connect(dash_cooldown_timer)
-	on_attack.connect(attack_cooldown_timer)
+	attack_cooldown_timer.timeout.connect(_on_dash_cooldown_timer_timeout)
+	attack_cooldown_timer.timeout.connect(_on_attack_cooldown_timer_timeout)
 	
+	dash_colldown_bar.hide()
 	dash_colldown_bar.max_value = dash_cooldown
 
 
 func _physics_process(delta: float) -> void:
 
-	if _dash_timer != null:
-		dash_colldown_bar.show()
-		dash_colldown_bar.value = _dash_timer.time_left
-	else: 
-		dash_colldown_bar.hide()
-		dash_colldown_bar.value = dash_cooldown
+	if !dash_cooldown_timer.is_stopped():
+		dash_colldown_bar.value = dash_cooldown_timer.time_left
+	else: dash_colldown_bar.hide()
 	
 	
 	handle_horizontal_movement(delta)
@@ -129,53 +124,45 @@ func handle_jumping() -> void:
 	if Input.is_action_just_released("jump") or is_on_floor():
 		is_gliding = false
 
-
-	
 	if not is_on_floor() and current_state != State.DASHING and current_state != State.ATTACKING:
 		player_animations.play("jump")
 
 
 func handle_dash() -> void:
-	if Input.is_action_just_pressed("dash"):
-		if current_state != State.DASHING and can_dash == true:
-			current_state = State.DASHING
-			player_animations.play("dash")
-			can_dash = false
-			on_dash.emit()
-			
-			velocity.x = lerp(velocity.x, direction * dash_speed, start_movement_speed)
-			velocity.y = 0
-			await get_tree().create_timer(dash_duration).timeout
-			current_state = State.IDLE
-func dash_cooldown_timer() -> void:
-	if !dash_timer:
-		dash_timer = true
-		_dash_timer = get_tree().create_timer(dash_cooldown)
-		await _dash_timer.timeout
-		_dash_timer = null
-		can_dash = true
-		dash_timer = false
+	if Input.is_action_just_pressed("dash") and current_state != State.DASHING and dash_cooldown_timer.is_stopped():
+		current_state = State.DASHING
+		player_animations.play("dash")
+		on_dash.emit()
+		
+		velocity.x = lerp(velocity.x, direction * dash_speed, start_movement_speed)
+		velocity.y = 0
+		
+		await get_tree().create_timer(dash_duration).timeout
+		current_state = State.IDLE
+		
+		dash_cooldown_timer.start(dash_cooldown)
+		dash_colldown_bar.show()
+
+func _on_dash_cooldown_timer_timeout() -> void:
+	pass
 
 
 func handle_attack() -> void:
-	if Input.is_action_just_pressed("attack"):
-		if current_state != State.ATTACKING and can_attack == true:
-			current_state = State.ATTACKING
-			player_animations.play("attack")
-			can_attack = false
-			on_attack.emit()
+	if Input.is_action_just_pressed("attack") and current_state != State.ATTACKING and attack_cooldown_timer.is_stopped():
 			
-			velocity.x = lerp(velocity.x, direction * combat_speed, start_movement_speed)
-			velocity.y = 0
-			
-			await get_tree().create_timer(attack_duration).timeout
-			current_state = State.IDLE
-func attack_cooldown_timer() -> void:
-	if !attack_timer:
-		attack_timer = true
-		await get_tree().create_timer(attack_cooldown).timeout
-		can_attack = true
-		attack_timer = false
+		current_state = State.ATTACKING
+		player_animations.play("attack")
+		on_attack.emit()
+		
+		velocity.x = lerp(velocity.x, direction * combat_speed, start_movement_speed)
+		velocity.y = 0
+		
+		await player_animations.animation_finished
+		current_state = State.IDLE
+		attack_cooldown_timer.start(attack_cooldown)
+
+func _on_attack_cooldown_timer_timeout() -> void:
+	pass # Можно прописать доп логику по окончанию таймера
 
 
 func sprite_turn() -> void:
