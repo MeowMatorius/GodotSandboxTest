@@ -4,10 +4,11 @@ enum State {IDLE, RUNNING, JUMPING, DASHING, ATTACKING}
 var current_state: State = State.IDLE
 
 @onready var player_animations: AnimatedSprite2D = $AnimatedSprite2D
-@onready var dash_colldown_bar: TextureProgressBar = $DashCooldownBar
 
-@onready var attack_cooldown_timer: Timer = $Timers/AttackCooldownTimer
-@onready var dash_cooldown_timer: Timer = $Timers/DashCooldownTimer
+@onready var dash_cooldown_timer: Timer = $StateComponents/DashCooldownTimer
+@onready var attack_cooldown_timer: Timer = $StateComponents/AttackCooldownTimer
+@onready var dash_cooldown_bar: TextureProgressBar = $StateComponents/DashCooldownBar
+
 
 signal on_attack
 signal on_dash
@@ -39,15 +40,15 @@ func _ready() -> void:
 	attack_cooldown_timer.timeout.connect(_on_dash_cooldown_timer_timeout)
 	attack_cooldown_timer.timeout.connect(_on_attack_cooldown_timer_timeout)
 	
-	dash_colldown_bar.hide()
-	dash_colldown_bar.max_value = dash_cooldown
+	dash_cooldown_bar.hide()
+	dash_cooldown_bar.max_value = dash_cooldown
 
 
 func _physics_process(delta: float) -> void:
 
 	if !dash_cooldown_timer.is_stopped():
-		dash_colldown_bar.value = dash_cooldown_timer.time_left
-	else: dash_colldown_bar.hide()
+		dash_cooldown_bar.value = dash_cooldown_timer.time_left
+	else: dash_cooldown_bar.hide()
 	
 	
 	handle_horizontal_movement(delta)
@@ -141,7 +142,7 @@ func handle_dash() -> void:
 		current_state = State.IDLE
 
 		dash_cooldown_timer.start(dash_cooldown)
-		dash_colldown_bar.show()
+		dash_cooldown_bar.show()
 
 func _on_dash_cooldown_timer_timeout() -> void:
 	pass
