@@ -1,9 +1,10 @@
-[gd_scene load_steps=34 format=3 uid="uid://drkpxgvgqe5c2"]
+[gd_scene load_steps=36 format=3 uid="uid://drkpxgvgqe5c2"]
 
 [ext_resource type="Script" uid="uid://cdoeoefum4ojh" path="res://Custom/Player/player.gd" id="1_cvnsp"]
 [ext_resource type="Texture2D" uid="uid://ds3vdjqlui4we" path="res://Assets/Sprites/KnightWW.png" id="2_vgqql"]
 [ext_resource type="PackedScene" uid="uid://b7gknuiv3tuko" path="res://Custom/Objects/InteractionComponents/interacting_component.tscn" id="3_6t5aa"]
 [ext_resource type="AudioStream" uid="uid://cruvegi6epdwr" path="res://Assets/Sounds/Default/coin.wav" id="5_kee72"]
+[ext_resource type="Texture2D" uid="uid://b3oqoir0f5vwp" path="res://Assets/Sprites/Kenney Assets/Pixel Adventure UI/ui_thin_tilemap.png" id="5_wa6i4"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_0gysh"]
 radius = 6.0
@@ -222,6 +223,10 @@ fill = 1
 fill_from = Vector2(0.5, 0.5)
 fill_to = Vector2(0.8, 0.8)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_a37cm"]
+atlas = ExtResource("5_wa6i4")
+region = Rect2(160, 48, 16, 16)
+
 [node name="Player" type="CharacterBody2D"]
 z_index = 5
 collision_layer = 2
@@ -263,3 +268,25 @@ shadow_filter = 1
 shadow_filter_smooth = 4.0
 shadow_item_cull_mask = 3
 texture = SubResource("GradientTexture2D_6t5aa")
+
+[node name="DashColldownBar" type="TextureProgressBar" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 4.0
+offset_top = -21.0
+offset_right = 36.815
+offset_bottom = 11.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.5, 0.5)
+size_flags_horizontal = 6
+size_flags_vertical = 6
+step = 0.1
+fill_mode = 4
+texture_under = SubResource("AtlasTexture_a37cm")
+texture_progress = SubResource("AtlasTexture_a37cm")
+tint_under = Color(1, 1, 1, 0.18431373)
+tint_progress = Color(4.692748e-06, 0.67227536, 9.62615e-07, 1)

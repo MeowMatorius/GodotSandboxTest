@@ -4,12 +4,11 @@ enum State {IDLE, RUNNING, JUMPING, DASHING, ATTACKING}
 var current_state: State = State.IDLE
 
 @onready var player_animations: AnimatedSprite2D = $AnimatedSprite2D
-
+@onready var dash_colldown_bar: TextureProgressBar = $DashColldownBar
 
 signal on_attack
 signal on_dash
 
-@onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 var direction: float
 @export var player_speed: float = 170.0
 @export var start_movement_speed: float = 0.5
@@ -35,18 +34,30 @@ var is_gliding: bool = false
 @export var double_jump_velocity: float = -200.0
 @export var max_jumps_count: int = 2
 
-
+var _dash_timer
 
 func _ready() -> void:
 	gravity = ProjectSettings.get_setting("physics/2d/default_gravity") 
+	
 	on_dash.connect(dash_cooldown_timer)
 	on_attack.connect(attack_cooldown_timer)
+	
+	dash_colldown_bar.max_value = dash_cooldown
 
 
 func _physics_process(delta: float) -> void:
-	handle_horizontal_movement(delta)
+
+	if _dash_timer != null:
+		dash_colldown_bar.show()
+		dash_colldown_bar.value = _dash_timer.time_left
+	else: 
+		dash_colldown_bar.hide()
+		dash_colldown_bar.value = dash_cooldown
 	
+	
+	handle_horizontal_movement(delta)
 	apply_gravity(delta) # На все статусы применяется гравитация (Если velocity.y не перезаписывается)
+	
 	
 	match current_state:
 		State.IDLE, State.RUNNING:
@@ -139,7 +150,9 @@ func handle_dash() -> void:
 func dash_cooldown_timer() -> void:
 	if !dash_timer:
 		dash_timer = true
-		await get_tree().create_timer(dash_cooldown).timeout
+		_dash_timer = get_tree().create_timer(dash_cooldown)
+		await _dash_timer.timeout
+		_dash_timer = null
 		can_dash = true
 		dash_timer = false
 
