@@ -129,7 +129,7 @@ func handle_dash() -> void:
 func handle_attack() -> void:
 	if Input.is_action_just_pressed("attack") and current_state != State.ATTACKING:
 		current_state = State.ATTACKING
-		player_animations.play("attack")
+		player_animations.play("attack2")
 		on_attack.emit()
 		
 		velocity.x = lerp(velocity.x, direction * combat_speed, start_movement_speed)

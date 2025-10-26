@@ -1,8 +1,9 @@
-[gd_scene load_steps=34 format=3 uid="uid://drkpxgvgqe5c2"]
+[gd_scene load_steps=38 format=3 uid="uid://drkpxgvgqe5c2"]
 
 [ext_resource type="Script" uid="uid://cdoeoefum4ojh" path="res://Custom/Player/player.gd" id="1_cvnsp"]
 [ext_resource type="Texture2D" uid="uid://ds3vdjqlui4we" path="res://Assets/Sprites/KnightWW.png" id="2_vgqql"]
 [ext_resource type="PackedScene" uid="uid://b7gknuiv3tuko" path="res://Custom/Objects/InteractionComponents/interacting_component.tscn" id="3_6t5aa"]
+[ext_resource type="Texture2D" uid="uid://cpjklhv6172d7" path="res://Assets/Sprites/attack2.png" id="3_wa6i4"]
 [ext_resource type="AudioStream" uid="uid://cruvegi6epdwr" path="res://Assets/Sounds/Default/coin.wav" id="5_kee72"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_0gysh"]
@@ -19,6 +20,18 @@ region = Rect2(96, 32, 32, 32)
 [sub_resource type="AtlasTexture" id="AtlasTexture_nv4vc"]
 atlas = ExtResource("2_vgqql")
 region = Rect2(128, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a37cm"]
+atlas = ExtResource("3_wa6i4")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_txbrg"]
+atlas = ExtResource("3_wa6i4")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u14m0"]
+atlas = ExtResource("3_wa6i4")
+region = Rect2(128, 0, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_3vlem"]
 atlas = ExtResource("2_vgqql")
@@ -125,6 +138,20 @@ animations = [{
 "speed": 10.0
 }, {
 "frames": [{
+"duration": 0.5,
+"texture": SubResource("AtlasTexture_a37cm")
+}, {
+"duration": 0.5,
+"texture": SubResource("AtlasTexture_txbrg")
+}, {
+"duration": 0.5,
+"texture": SubResource("AtlasTexture_u14m0")
+}],
+"loop": false,
+"name": &"attack2",
+"speed": 10.0
+}, {
+"frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_3vlem")
 }],
@@ -226,7 +253,6 @@ fill_to = Vector2(0.8, 0.8)
 z_index = 5
 collision_layer = 2
 script = ExtResource("1_cvnsp")
-player_speed = 170.0
 dash_speed = 650.0
 max_jumps_count = 2
 dash_delay = 0.3
@@ -236,10 +262,8 @@ shape = SubResource("CircleShape2D_0gysh")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_p1odr")
-animation = &"attack"
+animation = &"attack2"
 autoplay = "idle"
-frame = 2
-frame_progress = 1.0
 offset = Vector2(0, -5)
 
 [node name="Camera2D" type="Camera2D" parent="."]
