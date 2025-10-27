@@ -1,9 +1,17 @@
 extends CharacterBody2D
 
-enum State {IDLE, RUNNING, JUMPING, DASHING, ATTACKING}
+enum State {
+	IDLE,
+	RUNNING, 
+	JUMPING, 
+	DASHING, 
+	ATTACKING,
+	}
 var current_state: State = State.IDLE
 
 @onready var player_animations: AnimatedSprite2D = $AnimatedSprite2D
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
+
 
 @onready var dash_cooldown_timer: Timer = $StateComponents/DashCooldownTimer
 @onready var attack_cooldown_timer: Timer = $StateComponents/AttackCooldownTimer
@@ -23,7 +31,7 @@ var direction: float
 @export var dash_duration: float = 0.3
 @export var dash_cooldown: float = 1
 @export var combat_speed: float = 10.0
-@export var attack_cooldown: float = 0.2
+@export var attack_cooldown: float = 0.1
 
 @export_category("Jump and Gravity")
 var gravity: float
@@ -134,6 +142,7 @@ func handle_dash() -> void:
 		current_state = State.DASHING
 		player_animations.play("dash")
 		on_dash.emit()
+		is_gliding = false
 		
 		velocity.x = lerp(velocity.x, direction * dash_speed, start_movement_speed)
 		velocity.y = 0
@@ -154,9 +163,10 @@ func handle_attack() -> void:
 		current_state = State.ATTACKING
 		player_animations.play("attack")
 		on_attack.emit()
-		
-		velocity.x = lerp(velocity.x, direction * combat_speed, start_movement_speed)
-		velocity.y = 0
+		is_gliding = false
+
+		velocity.x = 0
+		#velocity.y = 0
 		
 		await player_animations.animation_finished
 		current_state = State.IDLE
