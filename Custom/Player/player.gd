@@ -9,8 +9,8 @@ enum State {
 	}
 var current_state: State = State.IDLE
 
-@onready var player_animations: AnimatedSprite2D = $AnimatedSprite2D
-@onready var animation_player: AnimationPlayer = $Animations/AnimationPlayer
+@onready var player_animations: AnimationPlayer = $Animations/AnimationPlayer
+@onready var player_animations_sheet: Sprite2D = $Animations/PlayerAnimationsSheet
 
 
 @onready var dash_cooldown_timer: Timer = $StateComponents/DashCooldownTimer
@@ -37,7 +37,7 @@ var direction: float
 var gravity: float
 var jumps_count: int = 0
 var is_gliding: bool = false
-@export var jump_velocity: float = -300.0
+@export var jump_velocity: float = -250.0
 @export var double_jump_velocity: float = -200.0
 @export var max_jumps_count: int = 2
 
@@ -123,7 +123,7 @@ func handle_jumping() -> void:
 			player_animations.play("jump")
 		elif jumps_count < max_jumps_count:
 			jumps_count += 1
-			velocity.y = double_jump_velocity
+			velocity.y = jump_velocity / 1.5
 			current_state = State.JUMPING
 			player_animations.play("jump")
 		else: 
@@ -165,7 +165,7 @@ func handle_attack() -> void:
 		if rand_attack == 0:
 			player_animations.play("knife_attack")
 		elif rand_attack == 1:
-			player_animations.play("sword_attack")
+			player_animations.play("greatsword_attack")
 		elif rand_attack == 2:
 			player_animations.play("spear_attack")
 		
@@ -185,6 +185,6 @@ func _on_attack_cooldown_timer_timeout() -> void:
 
 func sprite_turn() -> void:
 	if direction > 0:
-		player_animations.flip_h = false
+		player_animations_sheet.flip_h = false
 	elif direction < 0:
-		player_animations.flip_h = true
+		player_animations_sheet.flip_h = true
