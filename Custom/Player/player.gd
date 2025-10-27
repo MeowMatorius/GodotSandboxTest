@@ -10,7 +10,7 @@ enum State {
 var current_state: State = State.IDLE
 
 @onready var player_animations: AnimatedSprite2D = $AnimatedSprite2D
-@onready var animation_player: AnimationPlayer = $AnimationPlayer
+@onready var animation_player: AnimationPlayer = $Animations/AnimationPlayer
 
 
 @onready var dash_cooldown_timer: Timer = $StateComponents/DashCooldownTimer
@@ -28,10 +28,10 @@ var direction: float
 
 @export_category("Dash and Attack")
 @export var dash_speed: float = 400.0
-@export var dash_duration: float = 0.3
+@export var dash_duration: float = 0.2
 @export var dash_cooldown: float = 1
 @export var combat_speed: float = 10.0
-@export var attack_cooldown: float = 0.1
+@export var attack_cooldown: float = 0.0
 
 @export_category("Jump and Gravity")
 var gravity: float
@@ -159,9 +159,16 @@ func _on_dash_cooldown_timer_timeout() -> void:
 
 func handle_attack() -> void:
 	if Input.is_action_just_pressed("attack") and current_state != State.ATTACKING and attack_cooldown_timer.is_stopped():
-			
+		var rand_attack: int = randi_range(0,2)
 		current_state = State.ATTACKING
-		player_animations.play("attack")
+		
+		if rand_attack == 0:
+			player_animations.play("knife_attack")
+		elif rand_attack == 1:
+			player_animations.play("sword_attack")
+		elif rand_attack == 2:
+			player_animations.play("spear_attack")
+		
 		on_attack.emit()
 		is_gliding = false
 
